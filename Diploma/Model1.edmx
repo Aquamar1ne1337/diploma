@@ -1,0 +1,657 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище DiplomadbModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Задание">
+          <Key>
+            <PropertyRef Name="id_задания" />
+          </Key>
+          <Property Name="id_задания" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_клиента" Type="int" Nullable="false" />
+          <Property Name="Название" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Описание" Type="varchar(max)" Nullable="false" />
+          <Property Name="Дата_создания" Type="datetime" Nullable="false" />
+          <Property Name="Крайний_срок" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Заметка">
+          <Key>
+            <PropertyRef Name="id_заметки" />
+          </Key>
+          <Property Name="id_заметки" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_распределения" Type="int" Nullable="false" />
+          <Property Name="Содержание" Type="varchar(max)" />
+          <Property Name="Дата_добавления" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Клиент">
+          <Key>
+            <PropertyRef Name="id_клиента" />
+          </Key>
+          <Property Name="id_клиента" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Имя" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Электронная_почта" Type="varchar(max)" Nullable="false" />
+          <Property Name="Дата_регистрации" Type="date" Nullable="false" />
+          <Property Name="Телефон" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Город" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Пользователь">
+          <Key>
+            <PropertyRef Name="id_пользователя" />
+          </Key>
+          <Property Name="id_пользователя" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_типа" Type="int" Nullable="false" />
+          <Property Name="Логин" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Пароль" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Распределение">
+          <Key>
+            <PropertyRef Name="id_распределения" />
+          </Key>
+          <Property Name="id_распределения" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_пользователя" Type="int" Nullable="false" />
+          <Property Name="id_задания" Type="int" Nullable="false" />
+          <Property Name="Дата_распределения" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Статус">
+          <Key>
+            <PropertyRef Name="id_статуса" />
+          </Key>
+          <Property Name="id_статуса" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_задания" Type="int" Nullable="false" />
+          <Property Name="Состояние" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Тип">
+          <Key>
+            <PropertyRef Name="id_типа" />
+          </Key>
+          <Property Name="id_типа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="cs_fkclient">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Задание" Type="Self.Задание" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="id_клиента" />
+            </Principal>
+            <Dependent Role="Задание">
+              <PropertyRef Name="id_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fkdistribution">
+          <End Role="Распределение" Type="Self.Распределение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Заметка" Type="Self.Заметка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Распределение">
+              <PropertyRef Name="id_распределения" />
+            </Principal>
+            <Dependent Role="Заметка">
+              <PropertyRef Name="id_распределения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fktask">
+          <End Role="Задание" Type="Self.Задание" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Статус" Type="Self.Статус" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задание">
+              <PropertyRef Name="id_задания" />
+            </Principal>
+            <Dependent Role="Статус">
+              <PropertyRef Name="id_задания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fktasksecond">
+          <End Role="Задание" Type="Self.Задание" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Распределение" Type="Self.Распределение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задание">
+              <PropertyRef Name="id_задания" />
+            </Principal>
+            <Dependent Role="Распределение">
+              <PropertyRef Name="id_задания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fktype">
+          <End Role="Тип" Type="Self.Тип" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип">
+              <PropertyRef Name="id_типа" />
+            </Principal>
+            <Dependent Role="Пользователь">
+              <PropertyRef Name="id_типа" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fkuser">
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Распределение" Type="Self.Распределение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="id_пользователя" />
+            </Principal>
+            <Dependent Role="Распределение">
+              <PropertyRef Name="id_пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ClientAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="town" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="ClientUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="date" Type="date" Mode="In" />
+          <Parameter Name="phone" Type="varchar" Mode="In" />
+          <Parameter Name="town" Type="varchar" Mode="In" />
+          <Parameter Name="id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="SignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="login" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Хранилище DiplomadbModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Задание" EntityType="Self.Задание" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Заметка" EntityType="Self.Заметка" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Клиент" EntityType="Self.Клиент" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Пользователь" EntityType="Self.Пользователь" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Распределение" EntityType="Self.Распределение" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Статус" EntityType="Self.Статус" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тип" EntityType="Self.Тип" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="cs_fkclient" Association="Self.cs_fkclient">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Задание" EntitySet="Задание" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fkdistribution" Association="Self.cs_fkdistribution">
+            <End Role="Распределение" EntitySet="Распределение" />
+            <End Role="Заметка" EntitySet="Заметка" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fktask" Association="Self.cs_fktask">
+            <End Role="Задание" EntitySet="Задание" />
+            <End Role="Статус" EntitySet="Статус" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fktasksecond" Association="Self.cs_fktasksecond">
+            <End Role="Задание" EntitySet="Задание" />
+            <End Role="Распределение" EntitySet="Распределение" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fktype" Association="Self.cs_fktype">
+            <End Role="Тип" EntitySet="Тип" />
+            <End Role="Пользователь" EntitySet="Пользователь" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fkuser" Association="Self.cs_fkuser">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Распределение" EntitySet="Распределение" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DiplomadbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Задание">
+          <Key>
+            <PropertyRef Name="id_задания" />
+          </Key>
+          <Property Name="id_задания" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_клиента" Type="Int32" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Дата_создания" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Крайний_срок" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Клиент" Relationship="Self.cs_fkclient" FromRole="Задание" ToRole="Клиент" />
+          <NavigationProperty Name="Статус" Relationship="Self.cs_fktask" FromRole="Задание" ToRole="Статус" />
+          <NavigationProperty Name="Распределение" Relationship="Self.cs_fktasksecond" FromRole="Задание" ToRole="Распределение" />
+        </EntityType>
+        <EntityType Name="Заметка">
+          <Key>
+            <PropertyRef Name="id_заметки" />
+          </Key>
+          <Property Name="id_заметки" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_распределения" Type="Int32" Nullable="false" />
+          <Property Name="Содержание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Дата_добавления" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Распределение" Relationship="Self.cs_fkdistribution" FromRole="Заметка" ToRole="Распределение" />
+        </EntityType>
+        <EntityType Name="Клиент">
+          <Key>
+            <PropertyRef Name="id_клиента" />
+          </Key>
+          <Property Name="id_клиента" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Имя" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Электронная_почта" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Дата_регистрации" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Телефон" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Город" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Задание" Relationship="Self.cs_fkclient" FromRole="Клиент" ToRole="Задание" />
+        </EntityType>
+        <EntityType Name="Пользователь">
+          <Key>
+            <PropertyRef Name="id_пользователя" />
+          </Key>
+          <Property Name="id_пользователя" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_типа" Type="Int32" Nullable="false" />
+          <Property Name="Логин" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Тип" Relationship="Self.cs_fktype" FromRole="Пользователь" ToRole="Тип" />
+          <NavigationProperty Name="Распределение" Relationship="Self.cs_fkuser" FromRole="Пользователь" ToRole="Распределение" />
+        </EntityType>
+        <EntityType Name="Распределение">
+          <Key>
+            <PropertyRef Name="id_распределения" />
+          </Key>
+          <Property Name="id_распределения" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_пользователя" Type="Int32" Nullable="false" />
+          <Property Name="id_задания" Type="Int32" Nullable="false" />
+          <Property Name="Дата_распределения" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Задание" Relationship="Self.cs_fktasksecond" FromRole="Распределение" ToRole="Задание" />
+          <NavigationProperty Name="Заметка" Relationship="Self.cs_fkdistribution" FromRole="Распределение" ToRole="Заметка" />
+          <NavigationProperty Name="Пользователь" Relationship="Self.cs_fkuser" FromRole="Распределение" ToRole="Пользователь" />
+        </EntityType>
+        <EntityType Name="Статус">
+          <Key>
+            <PropertyRef Name="id_статуса" />
+          </Key>
+          <Property Name="id_статуса" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_задания" Type="Int32" Nullable="false" />
+          <Property Name="Состояние" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Задание" Relationship="Self.cs_fktask" FromRole="Статус" ToRole="Задание" />
+        </EntityType>
+        <EntityType Name="Тип">
+          <Key>
+            <PropertyRef Name="id_типа" />
+          </Key>
+          <Property Name="id_типа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Пользователь" Relationship="Self.cs_fktype" FromRole="Тип" ToRole="Пользователь" />
+        </EntityType>
+        <Association Name="cs_fkclient">
+          <End Role="Клиент" Type="Self.Клиент" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Задание" Type="Self.Задание" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Клиент">
+              <PropertyRef Name="id_клиента" />
+            </Principal>
+            <Dependent Role="Задание">
+              <PropertyRef Name="id_клиента" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fktask">
+          <End Role="Задание" Type="Self.Задание" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Статус" Type="Self.Статус" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задание">
+              <PropertyRef Name="id_задания" />
+            </Principal>
+            <Dependent Role="Статус">
+              <PropertyRef Name="id_задания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fktasksecond">
+          <End Role="Задание" Type="Self.Задание" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Распределение" Type="Self.Распределение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Задание">
+              <PropertyRef Name="id_задания" />
+            </Principal>
+            <Dependent Role="Распределение">
+              <PropertyRef Name="id_задания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fkdistribution">
+          <End Role="Распределение" Type="Self.Распределение" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Заметка" Type="Self.Заметка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Распределение">
+              <PropertyRef Name="id_распределения" />
+            </Principal>
+            <Dependent Role="Заметка">
+              <PropertyRef Name="id_распределения" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fktype">
+          <End Role="Тип" Type="Self.Тип" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип">
+              <PropertyRef Name="id_типа" />
+            </Principal>
+            <Dependent Role="Пользователь">
+              <PropertyRef Name="id_типа" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fkuser">
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Распределение" Type="Self.Распределение" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="id_пользователя" />
+            </Principal>
+            <Dependent Role="Распределение">
+              <PropertyRef Name="id_пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DiplomadbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Задание" EntityType="Self.Задание" />
+          <EntitySet Name="Заметка" EntityType="Self.Заметка" />
+          <EntitySet Name="Клиент" EntityType="Self.Клиент" />
+          <EntitySet Name="Пользователь" EntityType="Self.Пользователь" />
+          <EntitySet Name="Распределение" EntityType="Self.Распределение" />
+          <EntitySet Name="Статус" EntityType="Self.Статус" />
+          <EntitySet Name="Тип" EntityType="Self.Тип" />
+          <AssociationSet Name="cs_fkclient" Association="Self.cs_fkclient">
+            <End Role="Клиент" EntitySet="Клиент" />
+            <End Role="Задание" EntitySet="Задание" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fktask" Association="Self.cs_fktask">
+            <End Role="Задание" EntitySet="Задание" />
+            <End Role="Статус" EntitySet="Статус" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fktasksecond" Association="Self.cs_fktasksecond">
+            <End Role="Задание" EntitySet="Задание" />
+            <End Role="Распределение" EntitySet="Распределение" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fkdistribution" Association="Self.cs_fkdistribution">
+            <End Role="Распределение" EntitySet="Распределение" />
+            <End Role="Заметка" EntitySet="Заметка" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fktype" Association="Self.cs_fktype">
+            <End Role="Тип" EntitySet="Тип" />
+            <End Role="Пользователь" EntitySet="Пользователь" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fkuser" Association="Self.cs_fkuser">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Распределение" EntitySet="Распределение" />
+          </AssociationSet>
+          <FunctionImport Name="ClientAdd">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="town" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ClientUpdate">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="date" Mode="In" Type="DateTime" />
+            <Parameter Name="phone" Mode="In" Type="String" />
+            <Parameter Name="town" Mode="In" Type="String" />
+            <Parameter Name="id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SignUp">
+            <Parameter Name="login" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(DiplomadbModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(DiplomadbModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище DiplomadbModelContainer" CdmEntityContainer="DiplomadbEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DiplomadbModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Задание">
+            <EntityTypeMapping TypeName="DiplomadbModel.Задание">
+              <MappingFragment StoreEntitySet="Задание">
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="id_клиента" ColumnName="id_клиента" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+                <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Заметка">
+            <EntityTypeMapping TypeName="DiplomadbModel.Заметка">
+              <MappingFragment StoreEntitySet="Заметка">
+                <ScalarProperty Name="id_заметки" ColumnName="id_заметки" />
+                <ScalarProperty Name="id_распределения" ColumnName="id_распределения" />
+                <ScalarProperty Name="Содержание" ColumnName="Содержание" />
+                <ScalarProperty Name="Дата_добавления" ColumnName="Дата_добавления" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Клиент">
+            <EntityTypeMapping TypeName="DiplomadbModel.Клиент">
+              <MappingFragment StoreEntitySet="Клиент">
+                <ScalarProperty Name="id_клиента" ColumnName="id_клиента" />
+                <ScalarProperty Name="Имя" ColumnName="Имя" />
+                <ScalarProperty Name="Электронная_почта" ColumnName="Электронная_почта" />
+                <ScalarProperty Name="Дата_регистрации" ColumnName="Дата_регистрации" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Город" ColumnName="Город" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователь">
+            <EntityTypeMapping TypeName="DiplomadbModel.Пользователь">
+              <MappingFragment StoreEntitySet="Пользователь">
+                <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+                <ScalarProperty Name="id_типа" ColumnName="id_типа" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Распределение">
+            <EntityTypeMapping TypeName="DiplomadbModel.Распределение">
+              <MappingFragment StoreEntitySet="Распределение">
+                <ScalarProperty Name="id_распределения" ColumnName="id_распределения" />
+                <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="Дата_распределения" ColumnName="Дата_распределения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Статус">
+            <EntityTypeMapping TypeName="DiplomadbModel.Статус">
+              <MappingFragment StoreEntitySet="Статус">
+                <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="Состояние" ColumnName="Состояние" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тип">
+            <EntityTypeMapping TypeName="DiplomadbModel.Тип">
+              <MappingFragment StoreEntitySet="Тип">
+                <ScalarProperty Name="id_типа" ColumnName="id_типа" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
+          <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+          <FunctionImportMapping FunctionImportName="SignUp" FunctionName="Хранилище DiplomadbModel.SignUp" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DiplomadbModel.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище DiplomadbModel.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Хранилище DiplomadbModel.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Хранилище DiplomadbModel.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Хранилище DiplomadbModel.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DiplomadbModel.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DiplomadbModel.sp_upgraddiagrams" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
