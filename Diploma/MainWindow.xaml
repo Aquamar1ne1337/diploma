@@ -8,6 +8,15 @@
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard Duration="00:00:3" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation From="0" To="1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
     <Grid>
         <Grid Height="60" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueMidBrush}">
             <TextBlock Text="Diploma" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
@@ -27,71 +36,8 @@
                     <TextBlock Text="Amazing designs!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </TabItem>
                 <TabItem Header="Клиенты">
-                    <Grid>
-                        <ListView x:Name="LilView" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="600" ItemsSource="{Binding}" Margin="15,36,14.6,0" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel ItemWidth="300" ItemHeight="400">
-                                    </WrapPanel>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid HorizontalAlignment="Center" Width="250"  Height="350">
-                                        <Border
-  Background="{DynamicResource MaterialDesignBackground}">
-                                            <GroupBox
-
-    Header="Клиент номер: "
-    Style="{DynamicResource MaterialDesignGroupBox}"
-    Margin="16"
-    UseLayoutRounding="True"
-    SnapsToDevicePixels="True">
-                                                
-                                                <StackPanel>
-                                                    <TextBlock x:Name="nametb" Text="{Binding Имя}" />
-                                                    <TextBlock x:Name="emailtb" Text="{Binding Электронная_почта}" />
-                                                    <TextBlock x:Name="datatb" Text="{Binding Дата_регистрации, StringFormat=d MMMMM}" />
-                                                    <TextBlock x:Name="phonetb" Text="{Binding Телефон}" />
-                                                    <TextBlock x:Name="towntb" Text="{Binding Город}" />
-                                                </StackPanel>
-                                            </GroupBox>
-                                        </Border>
-                                        <TextBlock Margin="110,25,33.2,229.4" Width="100" Text="{Binding id_клиента}" Foreground="White"></TextBlock>
-                                        <Button x:Name="updatebtn" Click="updatebtn_Click"
-        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-        VerticalAlignment="Bottom"
-        HorizontalAlignment="Right"
-        Grid.Row="0"
-        Margin="0 0 80 5">
-                                            <materialDesign:PackIcon
-          Kind="FileEditOutline"
-          Height="22"
-          Width="22" />
-                                        </Button>
-                                        <Button x:Name="deletebtn" Click="deletebtn_Click"
-        Background="DarkRed"
-                BorderBrush="DarkRed"
-        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-        VerticalAlignment="Bottom"
-        HorizontalAlignment="Right"
-        Grid.Row="0"
-        Margin="0 0 28 5">
-                                            <materialDesign:PackIcon
-          Kind="DeleteForeverOutline"
-          Height="22"
-          Width="22" />
-                                        </Button>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                        <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black" Click="insertbtn_Click_1" Width="100" HorizontalAlignment="Right">
-                            Добавить
-                        </Button>
-                        <Button x:Name="updateallbtn" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black" Click="updateallbtn_Click" Width="100" HorizontalAlignment="Right" Margin="0,0,0,-50">
-                            Обновить
-                        </Button>
+                    <Grid x:Name="ClientGrid">
+                        
                     </Grid>
                 </TabItem>
             </dragablz:TabablzControl>

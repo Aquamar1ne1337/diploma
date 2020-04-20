@@ -39,6 +39,10 @@ C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\ru\EntityFramework.
 c:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\Notifications.Wpf.dll
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\InsertWindow.g.cs
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\InsertWindow.baml
-C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Diploma.csprojAssemblyReference.cache
 c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Window1.g.cs
 c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Window1.baml
+c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\ClientList.g.cs
+c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\InsertClientControl.g.cs
+c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\ClientList.baml
+c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\InsertClientControl.baml
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Diploma.csprojAssemblyReference.cache

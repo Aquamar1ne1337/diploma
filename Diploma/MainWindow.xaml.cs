@@ -21,58 +21,20 @@ namespace Diploma
     /// </summary>
     public partial class MainWindow : Window
     {
-        DiplomadbEntities _db = new DiplomadbEntities();
         public MainWindow()
         {
             InitializeComponent();
-            LilView.ItemsSource = _db.Клиент.ToList();
-            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(LilView.ItemsSource);
-            //view.Filter = UserFilter;
+            NewWindow(new ClientList());
         }
-        //private bool UserFilter(object item)
-        //{
-        //    return ((item as Клиент).Имя.IndexOf(todo.Text, StringComparison.OrdinalIgnoreCase) >= 0);
-        //}
-        private void Button_Click(object sender, RoutedEventArgs e)
+        
+        public void NewWindow(UIElement obj)
+        {
+            ClientGrid.Children.Clear();
+            ClientGrid.Children.Add(obj);
+        }
+    private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void deletebtn_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
-            if (button == null) return;
-
-            var client = button.DataContext as Клиент;
-            int ID = client.id_клиента;
-            
-            var deleteClient = _db.Клиент.Where(m => m.id_клиента == ID).Single();
-            _db.Клиент.Remove(deleteClient);
-            _db.SaveChanges();
-            LilView.ItemsSource = _db.Клиент.ToList();
-        }
-
-        private void insertbtn_Click_1(object sender, RoutedEventArgs e)
-        {
-            InsertWindow obj = new InsertWindow();
-            obj.ShowDialog();
-        }
-
-        private void updatebtn_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
-            if (button == null) return;
-
-            var client = button.DataContext as Клиент;
-            int ID = client.id_клиента;
-
-            InsertWindow obj = new InsertWindow(ID);
-            obj.ShowDialog();
-        }
-
-        private void updateallbtn_Click(object sender, RoutedEventArgs e)
-        {
-            LilView.ItemsSource = _db.Клиент.ToList();
         }
     }
 }

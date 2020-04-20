@@ -22,6 +22,7 @@ namespace Diploma
     public partial class UserControlLogin : UserControl
     {
         SecureClass regexobj = new SecureClass();
+
         public UserControlLogin()
         {
             InitializeComponent();

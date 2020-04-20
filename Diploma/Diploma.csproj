@@ -93,7 +93,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClientList.xaml.cs">
+      <DependentUpon>ClientList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CurrentUser.cs" />
+    <Compile Include="InsertClientControl.xaml.cs">
+      <DependentUpon>InsertClientControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InsertWindow.xaml.cs">
       <DependentUpon>InsertWindow.xaml</DependentUpon>
     </Compile>
@@ -153,6 +159,14 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Page Include="Authorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ClientList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InsertClientControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
