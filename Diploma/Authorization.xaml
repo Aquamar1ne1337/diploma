@@ -20,7 +20,7 @@
     <Grid>
         <materialDesign:Transitioner SelectedIndex="0" AutoApplyTransitionOrigins="True">
             <Grid>
-                <local:UserControlLogin/>
+                <local:UserControlLogin Margin="0,10,-0.4,-0.4"/>
             </Grid>
             <materialDesign:TransitionerSlide>
                 <materialDesign:TransitionerSlide.BackwardWipe>

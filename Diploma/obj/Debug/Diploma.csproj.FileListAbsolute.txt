@@ -45,4 +45,10 @@ c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\ClientList.g.cs
 c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\InsertClientControl.g.cs
 c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\ClientList.baml
 c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\InsertClientControl.baml
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\TaskControl.g.cs
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\TaskControl.baml
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\TaskList.g.cs
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\TaskList.baml
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Diploma.csprojAssemblyReference.cache
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\AdminControlPanel.g.cs
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\AdminControlPanel.baml

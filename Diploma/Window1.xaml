@@ -10,10 +10,10 @@
     <Grid>
         <!--<Border
   Background="{DynamicResource MaterialDesignBackground}">
-
+   
             <GroupBox
     Header="Клиент номер: "
-    Style="{DynamicResource MaterialDesignGroupBox}"
+    Style="{DynamicResource MaterialDesignCardGroupBox}"
     Margin="16"
     UseLayoutRounding="True"
     SnapsToDevicePixels="True">

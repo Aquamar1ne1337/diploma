@@ -58,21 +58,22 @@ namespace Diploma
                     {
                         if (user.Пароль == pass)
                         {
-                            if (user.id_типа == 1)
-                            {
-                                MessageBox.Show("Админ");
-                                Application.Current.Shutdown();
+                            //if (user.id_типа == 1)
+                            //{
+                            //    MessageBox.Show("Админ");
+                            //    Application.Current.Shutdown();
 
-                            }
-                            else
-                            {
+                            //}
+                            //else
+                            //{
                                 CurrentUser.Login = LoginTB.Text;
+                                CurrentUser.TypeID = user.id_типа;
                                 CurrentUser.Id = user.id_пользователя;
                                 MainWindow main = new MainWindow();
                                 main.Show();
                                 var myWindow = Window.GetWindow(this);
                                 myWindow.Close();
-                            }
+                            //}
                         }
                         else
                         {

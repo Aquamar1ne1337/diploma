@@ -17,7 +17,7 @@
         </EventTrigger>
     </UserControl.Triggers>
     <Grid>
-        <ListView x:Name="listw" Grid.Row="2" Margin="10" HorizontalAlignment="Center">
+        <ListView x:Name="listw" Grid.Row="2" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center">
             <ListViewItem>
                 <Grid Width="300">
                     <StackPanel>
@@ -63,10 +63,10 @@
             </ListViewItem>
             <ListViewItem>
                 <Grid Width="300">
-                    <StackPanel>
+                    <StackPanel Orientation="Vertical" >
                         <Button x:Name="Readybtn" Content="Готово" Width="100" Click="Readybtn_Click"></Button>
-                        <Button Margin="5"
-                     x:Name="Backbtn" Content="Назад" Width="100" Click="Backbtn_Click"></Button>
+                        <Button Margin="5,5,5,4.6"
+                     x:Name="Backbtn" Content="Назад" Width="100" Click="Backbtn_Click"/>
                     </StackPanel>
                 </Grid>
             </ListViewItem>

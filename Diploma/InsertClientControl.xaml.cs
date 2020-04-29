@@ -94,7 +94,7 @@ namespace Diploma
                         Message = "Клиент успешно добавлен!",
                         Type = NotificationType.Information
                     });
-                    ((MainWindow)Window.GetWindow(this)).NewWindow(new ClientList());
+                    ((MainWindow)Window.GetWindow(this)).NewClientWindow(new ClientList());
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace Diploma
                         Message = "Клиент успешно обновлен!",
                         Type = NotificationType.Information
                     });
-                    ((MainWindow)Window.GetWindow(this)).NewWindow(new ClientList());
+                    ((MainWindow)Window.GetWindow(this)).NewClientWindow(new ClientList());
                 }
             }
             catch {
@@ -128,7 +128,7 @@ namespace Diploma
 
         private void Backbtn_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Window.GetWindow(this)).NewWindow(new ClientList());
+            ((MainWindow)Window.GetWindow(this)).NewClientWindow(new ClientList());
         }
     }
 }

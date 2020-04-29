@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <materialDesign:ColorZone Grid.Row="0" Mode="Dark" VerticalAlignment="Stretch" 
-                                  HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch">
+                                  HorizontalAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,-26,0,0">
             <TextBlock Text="Вход" FontSize="50" Margin="80,67,80,51" VerticalAlignment="Center" Height="82"/>
         </materialDesign:ColorZone>
         <Button Style="{DynamicResource MaterialDesignFloatingActionButton}"

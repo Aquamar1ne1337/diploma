@@ -51,7 +51,7 @@
                 </Grid>
             </ListViewItem>
             <ListViewItem>
-                
+
                 <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right" Margin="20">
                     <Button Style="{DynamicResource MaterialDesignFlatButton}" Margin="5"
                     Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}"
@@ -62,5 +62,6 @@
                 </StackPanel>
             </ListViewItem>
         </ListView>
+        
     </Grid>
 </UserControl>

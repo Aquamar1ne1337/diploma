@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using Notifications.Wpf;
+using MaterialDesignThemes.Wpf;
 
 namespace Diploma
 {
@@ -26,6 +27,7 @@ namespace Diploma
         public UserControlRegistration()
         {
             InitializeComponent();
+           
         }
         private void SignUpChecking()
         {

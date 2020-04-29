@@ -213,6 +213,15 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="TaskAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="client" Type="int" Mode="In" />
+          <Parameter Name="name" Type="varchar" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+          <Parameter Name="deadline" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="UserTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="Хранилище DiplomadbModelContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Задание" EntityType="Self.Задание" Schema="dbo" store:Type="Tables" />
@@ -504,6 +513,15 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="TaskAdd">
+            <Parameter Name="client" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="description" Mode="In" Type="String" />
+            <Parameter Name="deadline" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="UserTaskList" ReturnType="Collection(DiplomadbModel.UserTaskList_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -515,6 +533,13 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="UserTaskList_Result">
+          <Property Type="Int32" Name="id_задания" Nullable="false" />
+          <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Описание" Nullable="false" />
+          <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -631,6 +656,18 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DiplomadbModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DiplomadbModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
+          <FunctionImportMapping FunctionImportName="UserTaskList" FunctionName="Хранилище DiplomadbModel.UserTaskList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.UserTaskList_Result">
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+                <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

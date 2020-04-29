@@ -32,8 +32,10 @@ CREATE TABLE Задание(
 	Описание varchar(max) NOT NULL,
 	Дата_создания datetime NOT NULL,
 	Крайний_срок datetime NOT NULL,
+	id_статуса int default 1,
 	constraint cs_pktask primary key(id_задания),
-	constraint cs_fkclient foreign key(id_клиента) references Клиент(id_клиента) on update cascade on delete cascade
+	constraint cs_fkclient foreign key(id_клиента) references Клиент(id_клиента) on update cascade on delete cascade,
+	constraint cs_fkstatus foreign key(id_статуса) references Статус(id_статуса) on update cascade on delete cascade
 	)
 	go
 
@@ -71,14 +73,13 @@ CREATE TABLE Задание(
 	
 CREATE TABLE Статус(
 	id_статуса int IDENTITY(1,1) NOT NULL,
-	id_задания int NOT NULL,
 	Состояние varchar(100) NOT NULL,
-	constraint cs_pkstatus primary key(id_статуса),
-	constraint cs_fktask foreign key(id_задания) references Задание(id_задания) on update cascade on delete cascade
+	constraint cs_pkstatus primary key(id_статуса)
 	)
 	go
 
-
+	drop table Статус
+	
 
 create procedure SignUp
 @login varchar(20),
@@ -113,3 +114,43 @@ begin
 	insert into Клиент(Имя, Электронная_почта, Дата_регистрации, Телефон, Город) values (@name, @email, @date, @phone, @town)
 end
 GO
+
+CREATE procedure TaskAdd
+@client int,
+@name varchar(100),
+@description varchar(max),
+@deadline datetime as
+	begin 
+		insert into Задание(Название, Описание, id_клиента, Дата_создания, Крайний_срок) values (@name, @description, @client, GETDATE(), @deadline)
+	end
+go
+
+
+execute TaskAdd 21,'AC1', 'Создание ролика для AC1', '2020-04-04'
+go
+
+execute TaskAdd 21,'BC1', 'Создание ролика для BC1', '2020-04-04'
+go
+
+
+create procedure UserTaskList
+@userid int as
+	begin
+		select Задание.id_задания, Название, Описание, Дата_создания, Крайний_срок
+		from Задание
+		join Распределение on Распределение.id_задания = Задание.id_задания
+		join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
+		where Пользователь.id_пользователя = @userid
+	end
+go
+
+
+create procedure TaskDistribution
+@taskid int, @userid int as
+	begin
+		insert into Распределение(id_задания, id_пользователя, Дата_распределения) values (@taskid, @userid, GETDATE())
+		update Задание
+		set id_статуса = 2 
+		where id_задания = @taskid
+	end
+	go

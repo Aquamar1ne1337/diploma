@@ -18,42 +18,85 @@
     </UserControl.Triggers>
     <Grid>
         <StackPanel>
-        <Menu IsMainMenu="True">
+            <materialDesign:ColorZone
+  Mode="PrimaryMid"
+  Padding="16" Height="64">
+                <DockPanel>
+                    <StackPanel
+      Orientation="Horizontal"
+      materialDesign:RippleAssist.IsCentered="True">
+                        <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}"  Click="insertbtn_Click_1" Width="100">
+                            Добавить
+                        </Button>
+                        <materialDesign:ColorZone
+        Mode="Standard"
+        Padding="8 4 8 4"
+        CornerRadius="2"
+        Panel.ZIndex="1"
+        Margin="16 0 0 0"
+        materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition
+              Width="Auto" />
+                                    <ColumnDefinition
+              Width="*" />
+                                    <ColumnDefinition
+              Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Button
+            Style="{DynamicResource MaterialDesignToolButton}" Margin="0,-4">
+                                    <materialDesign:PackIcon
+              Kind="Magnify"
+              Opacity=".56" />
+                                </Button>
+                                <TextBox x:Name="SearchTB"
+                                         TextChanged="SearchTB_TextChanged"                       
+            Grid.Column="1"
+            Margin="8 0 0 0"
+            materialDesign:HintAssist.Hint="Поиск"
+            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+            BorderThickness="0"
+            MinWidth="200"
+            VerticalAlignment="Center" />
+                            </Grid>
+                        </materialDesign:ColorZone>
+                        <Button
+        Style="{DynamicResource MaterialDesignToolForegroundButton}"
+        Margin="8 0 0 0"
+        Panel.ZIndex="0"/>
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <!--<materialDesign:Card Background="White" materialDesign:ShadowAssist.ShadowDepth="Depth1"
+    materialDesign:ShadowAssist.ShadowEdges="Bottom">
+                <StackPanel Orientation="Horizontal">
                 <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black" Click="insertbtn_Click_1" Width="100">
                     Добавить
                 </Button>
-                <!--<MenuItem Header="File">
-                <MenuItem Header="New">
-                    <MenuItem.Icon>
-                        <materialDesign:PackIcon
-                            Kind="Add" />
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>-->
-            
-        </Menu>
+                    <Separator></Separator>
+                <TextBox x:Name="SearchTB" Background="Transparent" Foreground="Black"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Поиск" Width="500" TextChanged="SearchTB_TextChanged" />
+                </StackPanel>
+            </materialDesign:Card>-->
         </StackPanel>
-       
-        <ListView x:Name="LilView" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="1080" ItemsSource="{Binding}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,48,0,-0.4">
+        <ListView x:Name="LilView" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="1080" ItemsSource="{Binding}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,64,0,-0.4">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel ItemWidth="300" ItemHeight="400" HorizontalAlignment="Center">
+                    <WrapPanel ItemWidth="240" ItemHeight="350" HorizontalAlignment="Center">
                     </WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid HorizontalAlignment="Center" Width="250"  Height="350">
+                    <Grid HorizontalAlignment="Center" Width="230"  Height="330" VerticalAlignment="Center">
                         <Border
-  Background="{DynamicResource MaterialDesignBackground}">
+                                Background="{DynamicResource MaterialDesignBackground}">
                             <GroupBox
-
-    Header="Клиент номер: "
-    Style="{DynamicResource MaterialDesignGroupBox}"
-    Margin="16"
-    UseLayoutRounding="True"
-    SnapsToDevicePixels="True">
-
+                                Header="Клиент номер: "
+                                Style="{DynamicResource MaterialDesignCardGroupBox}"
+                                Margin="15"
+                                UseLayoutRounding="True"
+                                SnapsToDevicePixels="True">
                                 <StackPanel>
                                     <TextBlock FontWeight="Bold">Имя:</TextBlock>
                                     <TextBlock x:Name="nametb" Text="{Binding Имя}"/>
@@ -72,33 +115,30 @@
                         <Button x:Name="updatebtn" Click="updatebtn_Click"
                                 Background="{StaticResource PrimaryHueMidBrush}"
                                 BorderBrush="{StaticResource PrimaryHueMidBrush}"
-        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-        VerticalAlignment="Bottom"
-        HorizontalAlignment="Right"
-        Grid.Row="0"
-        Margin="0 0 80 5">
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Grid.Row="0"
+                                Margin="0 0 80 5">
                             <materialDesign:PackIcon
-          Kind="FileEditOutline"
-          Height="22"
-          Width="22" />
+                                Kind="FileEditOutline"
+                                Height="22"
+                                Width="22" />
                         </Button>
                         <Button x:Name="deletebtn" Click="deletebtn_Click"
-        Background="DarkRed"
-                BorderBrush="DarkRed"
-        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
-        VerticalAlignment="Bottom"
-        HorizontalAlignment="Right"
-        Grid.Row="0"
-        Margin="0 0 28 5">
-                            <materialDesign:PackIcon
-          Kind="DeleteForeverOutline"
-          Height="22"
-          Width="22" />
+                                Background="DarkRed"
+                                BorderBrush="DarkRed"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Grid.Row="0"
+                                Margin="0 0 28 5">
+                            <materialDesign:PackIcon Kind="DeleteForeverOutline" Height="22" Width="22" />
                         </Button>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-      
+
     </Grid>
 </UserControl>

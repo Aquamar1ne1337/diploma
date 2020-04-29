@@ -23,6 +23,9 @@
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click">
                 <materialDesign:PackIcon Kind="Power"/>
             </Button>
+            <Button x:Name="AdminBT" HorizontalAlignment="Left" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Visibility="Hidden" Click="AdminBT_Click" >
+                <materialDesign:PackIcon Kind="AccountEditOutline"/>
+            </Button>
         </Grid>
         <Grid Margin="0 60 0 0" >
             <dragablz:TabablzControl>
@@ -33,11 +36,13 @@
                     <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </TabItem>
                 <TabItem Header="Задания">
-                    <TextBlock Text="Amazing designs!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid x:Name="TaskGrid">
+                        
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Клиенты">
                     <Grid x:Name="ClientGrid">
-                        
+
                     </Grid>
                 </TabItem>
             </dragablz:TabablzControl>

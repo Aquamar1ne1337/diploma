@@ -205,5 +205,35 @@ namespace Diploma
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
+    
+        public virtual int TaskAdd(Nullable<int> client, string name, string description, Nullable<System.DateTime> deadline)
+        {
+            var clientParameter = client.HasValue ?
+                new ObjectParameter("client", client) :
+                new ObjectParameter("client", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            var deadlineParameter = deadline.HasValue ?
+                new ObjectParameter("deadline", deadline) :
+                new ObjectParameter("deadline", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskAdd", clientParameter, nameParameter, descriptionParameter, deadlineParameter);
+        }
+    
+        public virtual ObjectResult<UserTaskList_Result> UserTaskList(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskList_Result>("UserTaskList", useridParameter);
+        }
     }
 }

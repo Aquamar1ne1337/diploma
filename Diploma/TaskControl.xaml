@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Diploma.TaskControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Diploma"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard Duration="00:00:3" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation From="0" To="1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Vertical" Margin="10,121,0,23.6" Width="522" Height="305">
+            <ComboBox x:Name="ClientCB" materialDesign:HintAssist.Hint="Клиент" Width="290" HorizontalAlignment="Left" Margin="10,0,0,0"></ComboBox>
+            <TextBox x:Name="NameTB" materialDesign:HintAssist.Hint="Название" Width="290" HorizontalAlignment="Left" Margin="10,10,0,0"></TextBox>
+            <DatePicker x:Name="DeadlineDP" materialDesign:HintAssist.Hint="Крайний срок" Width="290" HorizontalAlignment="Left" Margin="10,10,0,10"></DatePicker>
+            <TextBox HorizontalAlignment="Left"
+    Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+    Margin="10,0,0,0"
+    Height="100"
+                Width="490"
+    AcceptsReturn="True"
+    TextWrapping="Wrap"
+    VerticalScrollBarVisibility="Auto"
+    materialDesign:HintAssist.Hint="Описание"/>
+            <Button x:Name="DoneBT" Width="100" Content="Готово" HorizontalAlignment="Left" Margin="10,10,0,0" Click="DoneBT_Click"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

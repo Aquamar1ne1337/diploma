@@ -24,17 +24,35 @@ namespace Diploma
         public MainWindow()
         {
             InitializeComponent();
-            NewWindow(new ClientList());
+            NewClientWindow(new ClientList());
+            NewTaksWindow(new TaskList());
+            if (CurrentUser.TypeID == 1)
+            {
+                AdminBT.Visibility = Visibility.Visible;
+            }
         }
+
         
-        public void NewWindow(UIElement obj)
+        public void NewClientWindow(UIElement obj)
         {
             ClientGrid.Children.Clear();
             ClientGrid.Children.Add(obj);
         }
+
+        public void NewTaksWindow(UIElement obj)
+        {
+            TaskGrid.Children.Clear();
+            TaskGrid.Children.Add(obj);
+        }
     private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void AdminBT_Click(object sender, RoutedEventArgs e)
+        {
+            AdminControlPanel adminControl = new AdminControlPanel();
+            adminControl.Show();
         }
     }
 }
