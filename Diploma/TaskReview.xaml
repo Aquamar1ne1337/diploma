@@ -1,0 +1,158 @@
+﻿<UserControl x:Class="Diploma.TaskReview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Diploma"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="1080">
+    <UserControl.Triggers>
+        <EventTrigger RoutedEvent="Loaded">
+            <BeginStoryboard>
+                <Storyboard Duration="00:00:3" Storyboard.TargetProperty="Opacity">
+                    <DoubleAnimation From="0" To="1"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </UserControl.Triggers>
+    <Grid>
+        <ListView x:Name="listw" Grid.Row="2" Margin="50 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" ItemsSource="{Binding Задание}">
+            <ListViewItem>
+                <Grid Width="450">
+                    <StackPanel>
+                        <TextBox x:Name="Nametbx" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Название" Text="{Binding Название}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsEnabled="False"></TextBox>
+                    </StackPanel>
+                </Grid>
+            </ListViewItem>
+            <ListViewItem>
+                <Grid Width="450">
+                    <StackPanel>
+                        <TextBox x:Name="DescriptionTB" Background="Transparent" Foreground="Black"  Text="{Binding Описание}" 
+                         Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                                 IsEnabled="False"
+                            Margin="0,0,0,0"
+                            Height="100"
+                            Width="450"
+                            AcceptsReturn="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"
+                            materialDesign:HintAssist.Hint="Описание"/>
+                    </StackPanel>
+                </Grid>
+            </ListViewItem>
+            <ListViewItem>
+                <Grid Width="450">
+                    <StackPanel>
+                        <TextBox x:Name="CreationTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Дата создания" Text="{Binding Дата_создания, StringFormat = dd/MMM/yyyy}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsEnabled="False"></TextBox>
+                    </StackPanel>
+                </Grid>
+            </ListViewItem>
+            <ListViewItem>
+                <Grid Width="450">
+                    <StackPanel>
+                        <TextBox x:Name="DeadlineTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Крайний срок" Text="{Binding Крайний_срок, StringFormat = dd/MMM/yyyy}"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsEnabled="False"></TextBox>
+                    </StackPanel>
+                </Grid>
+            </ListViewItem>
+        </ListView>
+       
+
+        <Grid Height="300" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
+            <materialDesign:DialogHost Width="300" Height="300"
+  HorizontalAlignment="Center"
+  VerticalAlignment="Center" DialogClosing="DialogHost_DialogClosing">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Width="300" Height="100"
+      Margin="16">
+                        <TextBlock>
+      Новая заметка.
+                        </TextBlock>
+                        <TextBox
+        Margin="0 8 0 0"
+        HorizontalAlignment="Stretch"
+        x:Name="NoteTextBox" />
+                        <StackPanel
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+                            <Button
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsDefault="True"
+          Margin="0 8 8 0"
+          Command="materialDesign:DialogHost.CloseDialogCommand">
+                                <Button.CommandParameter>
+                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                        True
+                                    </system:Boolean>
+                                </Button.CommandParameter>
+                                ACCEPT
+                            </Button>
+                            <Button
+          Style="{StaticResource MaterialDesignFlatButton}"
+          IsCancel="True"
+          Margin="0 8 8 0"
+          Command="materialDesign:DialogHost.CloseDialogCommand">
+                                <Button.CommandParameter>
+                                    <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                                        False
+                                    </system:Boolean>
+                                </Button.CommandParameter>
+                                CANCEL
+                            </Button>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Border
+    BorderThickness="1"
+    BorderBrush="{DynamicResource PrimaryHueMidBrush}"
+    MinWidth="256"
+    MinHeight="256"
+    ClipToBounds="True">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition
+          Height="*" />
+                            <RowDefinition
+          Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ListBox
+        x:Name="NoteListBox" ItemsSource="{Binding}" ScrollViewer.HorizontalScrollBarVisibility="Auto" MouseDoubleClick="NoteListBox_MouseDoubleClick" SelectedValuePath="{Binding id_заметки}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Содержание}" Margin="10 0 0 0" HorizontalAlignment="Left" Width="Auto" VerticalAlignment="Center"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <materialDesign:ColorZone
+        Mode="PrimaryMid"
+        Grid.Row="1"
+        Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                            <TextBlock
+          Margin="16">
+        Заметки
+                            </TextBlock>
+                        </materialDesign:ColorZone>
+                        <Button
+        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}"
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Right"
+        Grid.Row="0"
+        Margin="0 0 28 -20">
+                            <materialDesign:PackIcon
+          Kind="Plus"
+          Height="22"
+          Width="22" />
+                        </Button>
+                    </Grid>
+                </Border>
+            </materialDesign:DialogHost>
+        </Grid>
+        <ComboBox x:Name="UserComboBox" materialDesign:HintAssist.Hint="Участники" Width="300" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,10,0"  Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+    </Grid>
+</UserControl>

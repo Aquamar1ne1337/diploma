@@ -14,10 +14,16 @@ namespace Diploma
     
     public partial class Статус
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Статус()
+        {
+            this.Задание = new HashSet<Задание>();
+        }
+    
         public int id_статуса { get; set; }
-        public int id_задания { get; set; }
         public string Состояние { get; set; }
     
-        public virtual Задание Задание { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Задание> Задание { get; set; }
     }
 }

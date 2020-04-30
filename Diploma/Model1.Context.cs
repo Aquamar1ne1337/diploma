@@ -31,6 +31,7 @@ namespace Diploma
         public virtual DbSet<Задание> Задание { get; set; }
         public virtual DbSet<Заметка> Заметка { get; set; }
         public virtual DbSet<Клиент> Клиент { get; set; }
+        public virtual DbSet<Подзадача> Подзадача { get; set; }
         public virtual DbSet<Пользователь> Пользователь { get; set; }
         public virtual DbSet<Распределение> Распределение { get; set; }
         public virtual DbSet<Статус> Статус { get; set; }
@@ -88,6 +89,28 @@ namespace Diploma
                 new ObjectParameter("id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClientUpdate", nameParameter, emailParameter, dateParameter, phoneParameter, townParameter, idParameter);
+        }
+    
+        public virtual int NoteAdd(Nullable<int> destributionid, string description)
+        {
+            var destributionidParameter = destributionid.HasValue ?
+                new ObjectParameter("destributionid", destributionid) :
+                new ObjectParameter("destributionid", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NoteAdd", destributionidParameter, descriptionParameter);
+        }
+    
+        public virtual ObjectResult<NoteList_Result> NoteList(Nullable<int> destribution)
+        {
+            var destributionParameter = destribution.HasValue ?
+                new ObjectParameter("destribution", destribution) :
+                new ObjectParameter("destribution", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NoteList_Result>("NoteList", destributionParameter);
         }
     
         public virtual int SignUp(string login, string password)
@@ -225,6 +248,28 @@ namespace Diploma
                 new ObjectParameter("deadline", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskAdd", clientParameter, nameParameter, descriptionParameter, deadlineParameter);
+        }
+    
+        public virtual int TaskDistribution(Nullable<int> taskid, Nullable<int> userid)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskDistribution", taskidParameter, useridParameter);
+        }
+    
+        public virtual ObjectResult<UsersInTask_Result> UsersInTask(Nullable<int> taskid)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UsersInTask_Result>("UsersInTask", taskidParameter);
         }
     
         public virtual ObjectResult<UserTaskList_Result> UserTaskList(Nullable<int> userid)

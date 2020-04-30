@@ -18,10 +18,10 @@
     </UserControl.Triggers>
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left" Orientation="Vertical" Margin="10,121,0,23.6" Width="522" Height="305">
-            <ComboBox x:Name="ClientCB" materialDesign:HintAssist.Hint="Клиент" Width="290" HorizontalAlignment="Left" Margin="10,0,0,0"></ComboBox>
+            <ComboBox x:Name="ClientCB" materialDesign:HintAssist.Hint="Клиент" Width="290" HorizontalAlignment="Left" Margin="10,0,0,0"  Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
             <TextBox x:Name="NameTB" materialDesign:HintAssist.Hint="Название" Width="290" HorizontalAlignment="Left" Margin="10,10,0,0"></TextBox>
             <DatePicker x:Name="DeadlineDP" materialDesign:HintAssist.Hint="Крайний срок" Width="290" HorizontalAlignment="Left" Margin="10,10,0,10"></DatePicker>
-            <TextBox HorizontalAlignment="Left"
+            <TextBox x:Name="descriptionTB" HorizontalAlignment="Left"
     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
     Margin="10,0,0,0"
     Height="100"
@@ -31,6 +31,7 @@
     VerticalScrollBarVisibility="Auto"
     materialDesign:HintAssist.Hint="Описание"/>
             <Button x:Name="DoneBT" Width="100" Content="Готово" HorizontalAlignment="Left" Margin="10,10,0,0" Click="DoneBT_Click"></Button>
+            <Button x:Name="BackBT" Width="100" Content="Назад" HorizontalAlignment="Left" Margin="10,10,0,0" Click="BackBT_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -21,6 +21,7 @@
           <ScalarProperty Name="Описание" ColumnName="Описание" />
           <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
           <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+          <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -43,6 +44,16 @@
           <ScalarProperty Name="Дата_регистрации" ColumnName="Дата_регистрации" />
           <ScalarProperty Name="Телефон" ColumnName="Телефон" />
           <ScalarProperty Name="Город" ColumnName="Город" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Подзадача">
+      <EntityTypeMapping TypeName="DiplomadbModel.Подзадача">
+        <MappingFragment StoreEntitySet="Подзадача">
+          <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
+          <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+          <ScalarProperty Name="Описание" ColumnName="Описание" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -70,7 +81,6 @@
       <EntityTypeMapping TypeName="DiplomadbModel.Статус">
         <MappingFragment StoreEntitySet="Статус">
           <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
-          <ScalarProperty Name="id_задания" ColumnName="id_задания" />
           <ScalarProperty Name="Состояние" ColumnName="Состояние" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -85,6 +95,16 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
     <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+    <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
+    <FunctionImportMapping FunctionImportName="NoteList" FunctionName="Хранилище DiplomadbModel.NoteList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DiplomadbModel.NoteList_Result">
+          <ScalarProperty Name="Содержание" ColumnName="Содержание" />
+          <ScalarProperty Name="id_заметки" ColumnName="id_заметки" />
+          <ScalarProperty Name="Дата_добавления" ColumnName="Дата_добавления" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="SignUp" FunctionName="Хранилище DiplomadbModel.SignUp" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DiplomadbModel.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище DiplomadbModel.sp_creatediagram" />
@@ -111,6 +131,15 @@
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DiplomadbModel.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DiplomadbModel.sp_upgraddiagrams" />
     <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
+    <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
+    <FunctionImportMapping FunctionImportName="UsersInTask" FunctionName="Хранилище DiplomadbModel.UsersInTask">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DiplomadbModel.UsersInTask_Result">
+          <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+          <ScalarProperty Name="Логин" ColumnName="Логин" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UserTaskList" FunctionName="Хранилище DiplomadbModel.UserTaskList">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DiplomadbModel.UserTaskList_Result">
@@ -119,6 +148,7 @@
           <ScalarProperty Name="Описание" ColumnName="Описание" />
           <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
           <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+          <ScalarProperty Name="id_распределения" ColumnName="id_распределения" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

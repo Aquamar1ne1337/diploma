@@ -34,7 +34,21 @@ namespace Diploma
 
         private void insertbtn_Click_1(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Window.GetWindow(this)).NewTaksWindow(new TaskControl());
+            ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskControl());
+        }
+
+        private void ReviewBT_Click(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button == null) return;
+
+            var task = button.DataContext as UserTaskList_Result;
+            int ID = task.id_задания;
+            int destributionId = task.id_распределения;
+
+            MessageBox.Show(destributionId.ToString());
+
+            ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(ID, destributionId));
         }
     }
 }

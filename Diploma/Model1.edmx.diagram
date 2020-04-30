@@ -4,17 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c1860130de7a49dca6cb56cae419e266" Name="Diagram1">
-        <EntityTypeShape EntityType="DiplomadbModel.sysdiagram" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Задание" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Заметка" Width="1.5" PointX="7.5" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Клиент" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Пользователь" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Распределение" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Статус" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DiplomadbModel.Тип" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+      <Diagram DiagramId="13ce568510df488492a1986878ee6089" Name="Diagram1">
+        <EntityTypeShape EntityType="DiplomadbModel.sysdiagram" Width="1.5" PointX="5.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Задание" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Заметка" Width="1.5" PointX="7.5" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Клиент" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Подзадача" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Пользователь" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Распределение" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Статус" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DiplomadbModel.Тип" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
         <AssociationConnector Association="DiplomadbModel.cs_fkclient" ManuallyRouted="false" />
-        <AssociationConnector Association="DiplomadbModel.cs_fktask" ManuallyRouted="false" />
+        <AssociationConnector Association="DiplomadbModel.cs_fkminitask" ManuallyRouted="false" />
+        <AssociationConnector Association="DiplomadbModel.cs_fkstatus" ManuallyRouted="false" />
         <AssociationConnector Association="DiplomadbModel.cs_fktasksecond" ManuallyRouted="false" />
         <AssociationConnector Association="DiplomadbModel.cs_fkdistribution" ManuallyRouted="false" />
         <AssociationConnector Association="DiplomadbModel.cs_fktype" ManuallyRouted="false" />

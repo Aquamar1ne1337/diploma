@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Герман\source\repos\Diploma\Diploma\App.xaml
-10-2110738567
+111679971073
 21750853300
-312030944743
+35130725679
 221313511139
-AdminControlPanel.xaml;Authorization.xaml;ClientList.xaml;InsertClientControl.xaml;MainWindow.xaml;TaskControl.xaml;TaskList.xaml;UserControlLogin.xaml;UserControlRegistration.xaml;Window1.xaml;
+AdminControlPanel.xaml;Authorization.xaml;ClientList.xaml;InsertClientControl.xaml;MainWindow.xaml;TaskControl.xaml;TaskList.xaml;TaskReview.xaml;UserControlLogin.xaml;UserControlRegistration.xaml;Window1.xaml;
 
-True
+False
 

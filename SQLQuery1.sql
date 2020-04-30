@@ -78,8 +78,15 @@ CREATE TABLE Статус(
 	)
 	go
 
-	drop table Статус
-	
+create table Подзадача(
+	id_подзадачи int identity(1,1) not null,
+	id_задания int not null,
+	Описание varchar(max) not null,
+	Статус varchar(30) not null,
+	constraint cs_pkminitask primary key(id_подзадачи),
+	constraint cs_fkminitask foreign key(id_задания) references Задание(id_задания) on update cascade on delete cascade
+	)
+	go
 
 create procedure SignUp
 @login varchar(20),
@@ -136,12 +143,41 @@ go
 create procedure UserTaskList
 @userid int as
 	begin
-		select Задание.id_задания, Название, Описание, Дата_создания, Крайний_срок
+		select Задание.id_задания, Название, Описание, Дата_создания, Крайний_срок, id_распределения
 		from Задание
 		join Распределение on Распределение.id_задания = Задание.id_задания
 		join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
 		where Пользователь.id_пользователя = @userid
 	end
+go
+
+create Procedure UsersInTask 
+@taskid int as
+begin
+	select Пользователь.id_пользователя, Логин, id_распределения
+	from Пользователь
+	join Распределение on Распределение.id_пользователя = Пользователь.id_пользователя
+	where id_задания = @taskid
+
+end
+go
+
+create procedure NoteAdd
+@destributionid int, 
+@description varchar(max) as
+begin
+	insert into Заметка(id_распределения, Дата_добавления, Содержание) values (@destributionid, GETDATE(), @description)
+end
+go
+
+create procedure NoteList
+@destribution int as
+begin
+	select Содержание, id_заметки, Дата_добавления
+	from Заметка
+	join Распределение on Распределение.id_распределения = Заметка.id_распределения
+	where Заметка.id_распределения = @destribution
+end
 go
 
 

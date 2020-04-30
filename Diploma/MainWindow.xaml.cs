@@ -25,7 +25,7 @@ namespace Diploma
         {
             InitializeComponent();
             NewClientWindow(new ClientList());
-            NewTaksWindow(new TaskList());
+            NewTaskWindow(new TaskList());
             if (CurrentUser.TypeID == 1)
             {
                 AdminBT.Visibility = Visibility.Visible;
@@ -39,7 +39,7 @@ namespace Diploma
             ClientGrid.Children.Add(obj);
         }
 
-        public void NewTaksWindow(UIElement obj)
+        public void NewTaskWindow(UIElement obj)
         {
             TaskGrid.Children.Clear();
             TaskGrid.Children.Add(obj);

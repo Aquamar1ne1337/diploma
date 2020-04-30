@@ -10,14 +10,15 @@
 namespace Diploma
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class UserTaskList_Result
+    public partial class Подзадача
     {
+        public int id_подзадачи { get; set; }
         public int id_задания { get; set; }
-        public string Название { get; set; }
         public string Описание { get; set; }
-        public System.DateTime Дата_создания { get; set; }
-        public System.DateTime Крайний_срок { get; set; }
-        public int id_распределения { get; set; }
+        public string Статус { get; set; }
+    
+        public virtual Задание Задание { get; set; }
     }
 }

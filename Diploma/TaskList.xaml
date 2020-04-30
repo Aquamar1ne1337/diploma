@@ -18,62 +18,54 @@
     </UserControl.Triggers>
     <Grid>
         <StackPanel>
-            <materialDesign:ColorZone
-  Mode="PrimaryMid"
-  Padding="16" Height="64">
+            <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Height="64">
                 <DockPanel>
-                    <StackPanel
-      Orientation="Horizontal"
-      materialDesign:RippleAssist.IsCentered="True">
+                    <StackPanel Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
                         <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}"  Click="insertbtn_Click_1" Width="100">
                             Добавить
                         </Button>
                         <materialDesign:ColorZone
-        Mode="Standard"
-        Padding="8 4 8 4"
-        CornerRadius="2"
-        Panel.ZIndex="1"
-        Margin="16 0 0 0"
-        materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                Mode="Standard"
+                                Padding="8 4 8 4"
+                                CornerRadius="2"
+                                Panel.ZIndex="1"
+                                Margin="16 0 0 0"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition
-              Width="Auto" />
-                                    <ColumnDefinition
-              Width="*" />
-                                    <ColumnDefinition
-              Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Button
-            Style="{DynamicResource MaterialDesignToolButton}" Margin="0,-4">
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" Margin="0,-4">
                                     <materialDesign:PackIcon
-              Kind="Magnify"
-              Opacity=".56" />
+                                      Kind="Magnify"
+                                      Opacity=".56" />
                                 </Button>
                                 <TextBox x:Name="SearchTB"
-                                         TextChanged="SearchTB_TextChanged"                       
-            Grid.Column="1"
-            Margin="8 0 0 0"
-            materialDesign:HintAssist.Hint="Поиск"
-            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-            BorderThickness="0"
-            MinWidth="200"
-            VerticalAlignment="Center" />
+                                            TextChanged="SearchTB_TextChanged"                       
+                                            Grid.Column="1"
+                                            Margin="8 0 0 0"
+                                            materialDesign:HintAssist.Hint="Поиск"
+                                            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                            BorderThickness="0"
+                                            MinWidth="200"
+                                            VerticalAlignment="Center" />
                             </Grid>
                         </materialDesign:ColorZone>
                         <Button
-        Style="{DynamicResource MaterialDesignToolForegroundButton}"
-        Margin="8 0 0 0"
-        Panel.ZIndex="0"/>
+                            Style="{DynamicResource MaterialDesignToolForegroundButton}"
+                            Margin="8 0 0 0"
+                            Panel.ZIndex="0"/>
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
         </StackPanel>
+
         <ListView x:Name="LilView" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="1080" ItemsSource="{Binding}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,64,-280,-0.4">
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel ItemWidth="220" ItemHeight="160" HorizontalAlignment="Center">
-                    </WrapPanel>
+                    <WrapPanel ItemWidth="220" ItemHeight="160" HorizontalAlignment="Center"></WrapPanel>
                 </ItemsPanelTemplate>
             </ListView.ItemsPanel>
             <ListView.ItemTemplate>
@@ -105,25 +97,16 @@
                                       VerticalAlignment="Center"
                                       HorizontalAlignment="Left"
                                       Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                      Text="{Binding Крайний_срок, StringFormat=d MMMMM}">
+                                      Text="{Binding Крайний_срок, StringFormat = dd/MMM/yyyy}">
                                 </TextBlock>
                                 <StackPanel
                                       Grid.Row="2"
                                       Orientation="Horizontal"
                                       Margin="16 0 16 8"
                                       HorizontalAlignment="Right">
-                                    <Button
-                                      HorizontalAlignment="Right"
-                                      Style="{StaticResource MaterialDesignToolForegroundButton}"
-                                      Width="30"
-                                      Padding="2 0 2 0"
-                                      materialDesign:RippleAssist.IsCentered="True">
-                                        <materialDesign:PackIcon Kind="Phone" />
-                                    </Button>
                                     <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
                                         <StackPanel>
-                                            <Button Content="More" />
-                                            <Button Content="Options" />
+                                            <Button x:Name="ReviewBT" Content="Обзор" Click="ReviewBT_Click"/>
                                         </StackPanel>
                                     </materialDesign:PopupBox>
                                 </StackPanel>

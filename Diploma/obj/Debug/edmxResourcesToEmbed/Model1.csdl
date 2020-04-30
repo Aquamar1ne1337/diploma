@@ -20,8 +20,10 @@
     <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Дата_создания" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Крайний_срок" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="id_статуса" Type="Int32" />
     <NavigationProperty Name="Клиент" Relationship="Self.cs_fkclient" FromRole="Задание" ToRole="Клиент" />
-    <NavigationProperty Name="Статус" Relationship="Self.cs_fktask" FromRole="Задание" ToRole="Статус" />
+    <NavigationProperty Name="Подзадача" Relationship="Self.cs_fkminitask" FromRole="Задание" ToRole="Подзадача" />
+    <NavigationProperty Name="Статус" Relationship="Self.cs_fkstatus" FromRole="Задание" ToRole="Статус" />
     <NavigationProperty Name="Распределение" Relationship="Self.cs_fktasksecond" FromRole="Задание" ToRole="Распределение" />
   </EntityType>
   <EntityType Name="Заметка">
@@ -45,6 +47,16 @@
     <Property Name="Телефон" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Город" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Задание" Relationship="Self.cs_fkclient" FromRole="Клиент" ToRole="Задание" />
+  </EntityType>
+  <EntityType Name="Подзадача">
+    <Key>
+      <PropertyRef Name="id_подзадачи" />
+    </Key>
+    <Property Name="id_подзадачи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_задания" Type="Int32" Nullable="false" />
+    <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Статус" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Задание" Relationship="Self.cs_fkminitask" FromRole="Подзадача" ToRole="Задание" />
   </EntityType>
   <EntityType Name="Пользователь">
     <Key>
@@ -74,9 +86,8 @@
       <PropertyRef Name="id_статуса" />
     </Key>
     <Property Name="id_статуса" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="id_задания" Type="Int32" Nullable="false" />
     <Property Name="Состояние" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Задание" Relationship="Self.cs_fktask" FromRole="Статус" ToRole="Задание" />
+    <NavigationProperty Name="Задание" Relationship="Self.cs_fkstatus" FromRole="Статус" ToRole="Задание" />
   </EntityType>
   <EntityType Name="Тип">
     <Key>
@@ -100,17 +111,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="cs_fktask">
+  <Association Name="cs_fkminitask">
     <End Role="Задание" Type="Self.Задание" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="Статус" Type="Self.Статус" Multiplicity="*" />
+    <End Role="Подзадача" Type="Self.Подзадача" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Задание">
         <PropertyRef Name="id_задания" />
       </Principal>
-      <Dependent Role="Статус">
+      <Dependent Role="Подзадача">
         <PropertyRef Name="id_задания" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cs_fkstatus">
+    <End Role="Статус" Type="Self.Статус" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Задание" Type="Self.Задание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Статус">
+        <PropertyRef Name="id_статуса" />
+      </Principal>
+      <Dependent Role="Задание">
+        <PropertyRef Name="id_статуса" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -175,6 +200,7 @@
     <EntitySet Name="Задание" EntityType="Self.Задание" />
     <EntitySet Name="Заметка" EntityType="Self.Заметка" />
     <EntitySet Name="Клиент" EntityType="Self.Клиент" />
+    <EntitySet Name="Подзадача" EntityType="Self.Подзадача" />
     <EntitySet Name="Пользователь" EntityType="Self.Пользователь" />
     <EntitySet Name="Распределение" EntityType="Self.Распределение" />
     <EntitySet Name="Статус" EntityType="Self.Статус" />
@@ -183,9 +209,13 @@
       <End Role="Клиент" EntitySet="Клиент" />
       <End Role="Задание" EntitySet="Задание" />
     </AssociationSet>
-    <AssociationSet Name="cs_fktask" Association="Self.cs_fktask">
+    <AssociationSet Name="cs_fkminitask" Association="Self.cs_fkminitask">
       <End Role="Задание" EntitySet="Задание" />
+      <End Role="Подзадача" EntitySet="Подзадача" />
+    </AssociationSet>
+    <AssociationSet Name="cs_fkstatus" Association="Self.cs_fkstatus">
       <End Role="Статус" EntitySet="Статус" />
+      <End Role="Задание" EntitySet="Задание" />
     </AssociationSet>
     <AssociationSet Name="cs_fktasksecond" Association="Self.cs_fktasksecond">
       <End Role="Задание" EntitySet="Задание" />
@@ -217,6 +247,13 @@
       <Parameter Name="phone" Mode="In" Type="String" />
       <Parameter Name="town" Mode="In" Type="String" />
       <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="NoteAdd">
+      <Parameter Name="destributionid" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="NoteList" ReturnType="Collection(DiplomadbModel.NoteList_Result)">
+      <Parameter Name="destribution" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SignUp">
       <Parameter Name="login" Mode="In" Type="String" />
@@ -258,10 +295,22 @@
       <Parameter Name="description" Mode="In" Type="String" />
       <Parameter Name="deadline" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="TaskDistribution">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsersInTask" ReturnType="Collection(DiplomadbModel.UsersInTask_Result)">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="UserTaskList" ReturnType="Collection(DiplomadbModel.UserTaskList_Result)">
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="NoteList_Result">
+    <Property Type="String" Name="Содержание" Nullable="true" />
+    <Property Type="Int32" Name="id_заметки" Nullable="false" />
+    <Property Type="DateTime" Name="Дата_добавления" Nullable="false" Precision="23" />
+  </ComplexType>
   <ComplexType Name="sp_helpdiagramdefinition_Result">
     <Property Type="Int32" Name="version" Nullable="true" />
     <Property Type="Binary" Name="definition" Nullable="true" />
@@ -273,11 +322,16 @@
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
   </ComplexType>
+  <ComplexType Name="UsersInTask_Result">
+    <Property Type="Int32" Name="id_пользователя" Nullable="false" />
+    <Property Type="String" Name="Логин" Nullable="false" MaxLength="30" />
+  </ComplexType>
   <ComplexType Name="UserTaskList_Result">
     <Property Type="Int32" Name="id_задания" Nullable="false" />
     <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
     <Property Type="String" Name="Описание" Nullable="false" />
     <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
     <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="id_распределения" Nullable="false" />
   </ComplexType>
 </Schema>

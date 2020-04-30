@@ -11,13 +11,10 @@ namespace Diploma
 {
     using System;
     
-    public partial class UserTaskList_Result
+    public partial class NoteList_Result
     {
-        public int id_задания { get; set; }
-        public string Название { get; set; }
-        public string Описание { get; set; }
-        public System.DateTime Дата_создания { get; set; }
-        public System.DateTime Крайний_срок { get; set; }
-        public int id_распределения { get; set; }
+        public string Содержание { get; set; }
+        public int id_заметки { get; set; }
+        public System.DateTime Дата_добавления { get; set; }
     }
 }

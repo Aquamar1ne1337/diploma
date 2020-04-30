@@ -17,7 +17,7 @@ namespace Diploma
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Задание()
         {
-            this.Статус = new HashSet<Статус>();
+            this.Подзадача = new HashSet<Подзадача>();
             this.Распределение = new HashSet<Распределение>();
         }
     
@@ -27,10 +27,12 @@ namespace Diploma
         public string Описание { get; set; }
         public System.DateTime Дата_создания { get; set; }
         public System.DateTime Крайний_срок { get; set; }
+        public Nullable<int> id_статуса { get; set; }
     
         public virtual Клиент Клиент { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Статус> Статус { get; set; }
+        public virtual ICollection<Подзадача> Подзадача { get; set; }
+        public virtual Статус Статус { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Распределение> Распределение { get; set; }
     }

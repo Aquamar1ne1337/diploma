@@ -11,13 +11,9 @@ namespace Diploma
 {
     using System;
     
-    public partial class UserTaskList_Result
+    public partial class UsersInTask_Result
     {
-        public int id_задания { get; set; }
-        public string Название { get; set; }
-        public string Описание { get; set; }
-        public System.DateTime Дата_создания { get; set; }
-        public System.DateTime Крайний_срок { get; set; }
-        public int id_распределения { get; set; }
+        public int id_пользователя { get; set; }
+        public string Логин { get; set; }
     }
 }

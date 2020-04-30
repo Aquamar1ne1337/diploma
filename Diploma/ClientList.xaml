@@ -18,47 +18,37 @@
     </UserControl.Triggers>
     <Grid>
         <StackPanel>
-            <materialDesign:ColorZone
-  Mode="PrimaryMid"
-  Padding="16" Height="64">
+            <materialDesign:ColorZone Mode="PrimaryMid" Padding="16" Height="64">
                 <DockPanel>
-                    <StackPanel
-      Orientation="Horizontal"
-      materialDesign:RippleAssist.IsCentered="True">
+                    <StackPanel Orientation="Horizontal" materialDesign:RippleAssist.IsCentered="True">
                         <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}"  Click="insertbtn_Click_1" Width="100">
                             Добавить
                         </Button>
                         <materialDesign:ColorZone
-        Mode="Standard"
-        Padding="8 4 8 4"
-        CornerRadius="2"
-        Panel.ZIndex="1"
-        Margin="16 0 0 0"
-        materialDesign:ShadowAssist.ShadowDepth="Depth1">
+                                Mode="Standard"
+                                Padding="8 4 8 4"
+                                CornerRadius="2"
+                                Panel.ZIndex="1"
+                                Margin="16 0 0 0"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth1">   
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition
-              Width="Auto" />
-                                    <ColumnDefinition
-              Width="*" />
-                                    <ColumnDefinition
-              Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
-                                <Button
-            Style="{DynamicResource MaterialDesignToolButton}" Margin="0,-4">
-                                    <materialDesign:PackIcon
-              Kind="Magnify"
-              Opacity=".56" />
+                                <Button Style="{DynamicResource MaterialDesignToolButton}" Margin="0,-4">
+                                    <materialDesign:PackIcon Kind="Magnify" Opacity=".56" />
                                 </Button>
                                 <TextBox x:Name="SearchTB"
-                                         TextChanged="SearchTB_TextChanged"                       
-            Grid.Column="1"
-            Margin="8 0 0 0"
-            materialDesign:HintAssist.Hint="Поиск"
-            materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
-            BorderThickness="0"
-            MinWidth="200"
-            VerticalAlignment="Center" />
+                                        TextChanged="SearchTB_TextChanged"                       
+                                        Grid.Column="1"
+                                        Margin="8 0 0 0"
+                                        materialDesign:HintAssist.Hint="Поиск"
+                                        materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                                        BorderThickness="0"
+                                        MinWidth="200"
+                                        VerticalAlignment="Center" />
                             </Grid>
                         </materialDesign:ColorZone>
                         <Button
@@ -111,7 +101,7 @@
                                 </StackPanel>
                             </GroupBox>
                         </Border>
-                        <TextBlock Margin="110,25,33.2,229.4" Width="100" Text="{Binding id_клиента}" Foreground="White"></TextBlock>
+                        <TextBlock Margin="115,24,20,245" Width="100" Text="{Binding id_клиента}" Foreground="White"></TextBlock>
                         <Button x:Name="updatebtn" Click="updatebtn_Click"
                                 Background="{StaticResource PrimaryHueMidBrush}"
                                 BorderBrush="{StaticResource PrimaryHueMidBrush}"

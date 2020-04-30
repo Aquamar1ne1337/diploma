@@ -20,6 +20,7 @@
     <Property Name="Описание" Type="varchar(max)" Nullable="false" />
     <Property Name="Дата_создания" Type="datetime" Nullable="false" />
     <Property Name="Крайний_срок" Type="datetime" Nullable="false" />
+    <Property Name="id_статуса" Type="int" />
   </EntityType>
   <EntityType Name="Заметка">
     <Key>
@@ -40,6 +41,15 @@
     <Property Name="Дата_регистрации" Type="date" Nullable="false" />
     <Property Name="Телефон" Type="varchar" MaxLength="20" Nullable="false" />
     <Property Name="Город" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Подзадача">
+    <Key>
+      <PropertyRef Name="id_подзадачи" />
+    </Key>
+    <Property Name="id_подзадачи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id_задания" Type="int" Nullable="false" />
+    <Property Name="Описание" Type="varchar(max)" Nullable="false" />
+    <Property Name="Статус" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
   <EntityType Name="Пользователь">
     <Key>
@@ -64,7 +74,6 @@
       <PropertyRef Name="id_статуса" />
     </Key>
     <Property Name="id_статуса" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_задания" Type="int" Nullable="false" />
     <Property Name="Состояние" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityType Name="Тип">
@@ -102,17 +111,31 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="cs_fktask">
+  <Association Name="cs_fkminitask">
     <End Role="Задание" Type="Self.Задание" Multiplicity="1">
       <OnDelete Action="Cascade" />
     </End>
-    <End Role="Статус" Type="Self.Статус" Multiplicity="*" />
+    <End Role="Подзадача" Type="Self.Подзадача" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Задание">
         <PropertyRef Name="id_задания" />
       </Principal>
-      <Dependent Role="Статус">
+      <Dependent Role="Подзадача">
         <PropertyRef Name="id_задания" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cs_fkstatus">
+    <End Role="Статус" Type="Self.Статус" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Задание" Type="Self.Задание" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Статус">
+        <PropertyRef Name="id_статуса" />
+      </Principal>
+      <Dependent Role="Задание">
+        <PropertyRef Name="id_статуса" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -174,6 +197,13 @@
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="NoteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="destributionid" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="NoteList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="destribution" Type="int" Mode="In" />
+  </Function>
   <Function Name="SignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="login" Type="varchar" Mode="In" />
     <Parameter Name="password" Type="varchar(max)" Mode="In" />
@@ -214,6 +244,13 @@
     <Parameter Name="description" Type="varchar(max)" Mode="In" />
     <Parameter Name="deadline" Type="datetime" Mode="In" />
   </Function>
+  <Function Name="TaskDistribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+    <Parameter Name="userid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="UsersInTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+  </Function>
   <Function Name="UserTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="userid" Type="int" Mode="In" />
   </Function>
@@ -222,6 +259,7 @@
     <EntitySet Name="Задание" EntityType="Self.Задание" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Заметка" EntityType="Self.Заметка" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Клиент" EntityType="Self.Клиент" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Подзадача" EntityType="Self.Подзадача" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Пользователь" EntityType="Self.Пользователь" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Распределение" EntityType="Self.Распределение" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Статус" EntityType="Self.Статус" Schema="dbo" store:Type="Tables" />
@@ -234,9 +272,13 @@
       <End Role="Распределение" EntitySet="Распределение" />
       <End Role="Заметка" EntitySet="Заметка" />
     </AssociationSet>
-    <AssociationSet Name="cs_fktask" Association="Self.cs_fktask">
+    <AssociationSet Name="cs_fkminitask" Association="Self.cs_fkminitask">
       <End Role="Задание" EntitySet="Задание" />
+      <End Role="Подзадача" EntitySet="Подзадача" />
+    </AssociationSet>
+    <AssociationSet Name="cs_fkstatus" Association="Self.cs_fkstatus">
       <End Role="Статус" EntitySet="Статус" />
+      <End Role="Задание" EntitySet="Задание" />
     </AssociationSet>
     <AssociationSet Name="cs_fktasksecond" Association="Self.cs_fktasksecond">
       <End Role="Задание" EntitySet="Задание" />
