@@ -54,7 +54,7 @@
           <Property Name="id_подзадачи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_задания" Type="int" Nullable="false" />
           <Property Name="Описание" Type="varchar(max)" Nullable="false" />
-          <Property Name="Статус" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Статус" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Пользователь">
           <Key>
@@ -201,7 +201,12 @@
           <Parameter Name="town" Type="varchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="IsDistribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="taskid" Type="int" Mode="In" />
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="NoteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="destributionid" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
@@ -243,6 +248,19 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SubtaskAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskid" Type="int" Mode="In" />
+          <Parameter Name="description" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="SubtaskComplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="subtaskid" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="SubtaskRollback" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="subtaskid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SubtaskView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskid" Type="int" Mode="In" />
+        </Function>
         <Function Name="TaskAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="client" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -253,6 +271,7 @@
           <Parameter Name="taskid" Type="int" Mode="In" />
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
+        <Function Name="TasksPerformed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UsersInTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="taskid" Type="int" Mode="In" />
         </Function>
@@ -358,7 +377,7 @@
           <Property Name="id_подзадачи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_задания" Type="Int32" Nullable="false" />
           <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Статус" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Статус" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Задание" Relationship="Self.cs_fkminitask" FromRole="Подзадача" ToRole="Задание" />
         </EntityType>
         <EntityType Name="Пользователь">
@@ -551,6 +570,7 @@
             <Parameter Name="town" Mode="In" Type="String" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
           <FunctionImport Name="NoteAdd">
             <Parameter Name="destributionid" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
@@ -592,6 +612,19 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="SubtaskAdd">
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
+            <Parameter Name="description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SubtaskComplete">
+            <Parameter Name="subtaskid" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="SubtaskRollback">
+            <Parameter Name="subtaskid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SubtaskView" ReturnType="Collection(DiplomadbModel.SubtaskView_Result)">
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="TaskAdd">
             <Parameter Name="client" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
@@ -602,6 +635,7 @@
             <Parameter Name="taskid" Mode="In" Type="Int32" />
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="TasksPerformed" ReturnType="Collection(DiplomadbModel.TasksPerformed_Result)" />
           <FunctionImport Name="UsersInTask" ReturnType="Collection(DiplomadbModel.UsersInTask_Result)">
             <Parameter Name="taskid" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -609,6 +643,12 @@
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="EmployeeView_Result">
+          <Property Type="Int32" Name="id_пользователя" Nullable="false" />
+          <Property Type="Int32" Name="id_типа" Nullable="false" />
+          <Property Type="String" Name="Логин" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Пароль" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="NoteList_Result">
           <Property Type="String" Name="Содержание" Nullable="true" />
           <Property Type="Int32" Name="id_заметки" Nullable="false" />
@@ -624,6 +664,21 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SubtaskView_Result">
+          <Property Type="Int32" Name="id_подзадачи" Nullable="false" />
+          <Property Type="Int32" Name="id_задания" Nullable="false" />
+          <Property Type="String" Name="Описание" Nullable="false" />
+          <Property Type="Boolean" Name="Статус" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="TasksPerformed_Result">
+          <Property Type="Int32" Name="id_задания" Nullable="false" />
+          <Property Type="Int32" Name="id_клиента" Nullable="false" />
+          <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Описание" Nullable="false" />
+          <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="id_статуса" Nullable="true" />
         </ComplexType>
         <ComplexType Name="UsersInTask_Result">
           <Property Type="Int32" Name="id_пользователя" Nullable="false" />
@@ -737,6 +792,16 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
           <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+          <FunctionImportMapping FunctionImportName="EmployeeView" FunctionName="Хранилище DiplomadbModel.EmployeeView">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.EmployeeView_Result">
+                <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+                <ScalarProperty Name="id_типа" ColumnName="id_типа" />
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
           <FunctionImportMapping FunctionImportName="NoteList" FunctionName="Хранилище DiplomadbModel.NoteList">
             <ResultMapping>
@@ -772,8 +837,34 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DiplomadbModel.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DiplomadbModel.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="SubtaskAdd" FunctionName="Хранилище DiplomadbModel.SubtaskAdd" />
+          <FunctionImportMapping FunctionImportName="SubtaskComplete" FunctionName="Хранилище DiplomadbModel.SubtaskComplete" />
+          <FunctionImportMapping FunctionImportName="SubtaskRollback" FunctionName="Хранилище DiplomadbModel.SubtaskRollback" />
+          <FunctionImportMapping FunctionImportName="SubtaskView" FunctionName="Хранилище DiplomadbModel.SubtaskView">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.SubtaskView_Result">
+                <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
           <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
+          <FunctionImportMapping FunctionImportName="TasksPerformed" FunctionName="Хранилище DiplomadbModel.TasksPerformed">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.TasksPerformed_Result">
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="id_клиента" ColumnName="id_клиента" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+                <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+                <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="UsersInTask" FunctionName="Хранилище DiplomadbModel.UsersInTask">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DiplomadbModel.UsersInTask_Result">

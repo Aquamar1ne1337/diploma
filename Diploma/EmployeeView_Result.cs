@@ -10,15 +10,12 @@
 namespace Diploma
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Подзадача
+    public partial class EmployeeView_Result
     {
-        public int id_подзадачи { get; set; }
-        public int id_задания { get; set; }
-        public string Описание { get; set; }
-        public bool Статус { get; set; }
-    
-        public virtual Задание Задание { get; set; }
+        public int id_пользователя { get; set; }
+        public int id_типа { get; set; }
+        public string Логин { get; set; }
+        public string Пароль { get; set; }
     }
 }

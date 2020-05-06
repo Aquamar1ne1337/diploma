@@ -91,6 +91,11 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClientUpdate", nameParameter, emailParameter, dateParameter, phoneParameter, townParameter, idParameter);
         }
     
+        public virtual ObjectResult<EmployeeView_Result> EmployeeView()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmployeeView_Result>("EmployeeView");
+        }
+    
         public virtual int NoteAdd(Nullable<int> destributionid, string description)
         {
             var destributionidParameter = destributionid.HasValue ?
@@ -229,6 +234,46 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
         }
     
+        public virtual int SubtaskAdd(Nullable<int> taskid, string description)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            var descriptionParameter = description != null ?
+                new ObjectParameter("description", description) :
+                new ObjectParameter("description", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SubtaskAdd", taskidParameter, descriptionParameter);
+        }
+    
+        public virtual int SubtaskComplete(Nullable<bool> subtaskid)
+        {
+            var subtaskidParameter = subtaskid.HasValue ?
+                new ObjectParameter("subtaskid", subtaskid) :
+                new ObjectParameter("subtaskid", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SubtaskComplete", subtaskidParameter);
+        }
+    
+        public virtual int SubtaskRollback(Nullable<int> subtaskid)
+        {
+            var subtaskidParameter = subtaskid.HasValue ?
+                new ObjectParameter("subtaskid", subtaskid) :
+                new ObjectParameter("subtaskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SubtaskRollback", subtaskidParameter);
+        }
+    
+        public virtual ObjectResult<SubtaskView_Result> SubtaskView(Nullable<int> taskid)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SubtaskView_Result>("SubtaskView", taskidParameter);
+        }
+    
         public virtual int TaskAdd(Nullable<int> client, string name, string description, Nullable<System.DateTime> deadline)
         {
             var clientParameter = client.HasValue ?
@@ -261,6 +306,11 @@ namespace Diploma
                 new ObjectParameter("userid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskDistribution", taskidParameter, useridParameter);
+        }
+    
+        public virtual ObjectResult<TasksPerformed_Result> TasksPerformed()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TasksPerformed_Result>("TasksPerformed");
         }
     
         public virtual ObjectResult<UsersInTask_Result> UsersInTask(Nullable<int> taskid)

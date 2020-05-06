@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Diploma"
              mc:Ignorable="d" 
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="1080">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="200"/>
@@ -19,6 +19,7 @@
                            VerticalAlignment="Bottom" FontSize="30" Text="Регистрация"/>
             </Grid>
         </materialDesign:ColorZone>
+        
         <ListView Grid.Row="2" Margin="10">
             <ListViewItem>
                 <Grid Width="300">
@@ -59,6 +60,10 @@
                     <Button x:Name="regbutton" Margin="5"
                     Command="{x:Static materialDesign:Transitioner.MovePreviousCommand}"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom" IsEnabled="False" Click="regbutton_Click">Зарегистрироваться</Button>
+                    <Button Margin="5"
+                    Command="{x:Static materialDesign:Transitioner.MoveNextCommand}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom">Справка</Button>
                 </StackPanel>
             </ListViewItem>
         </ListView>

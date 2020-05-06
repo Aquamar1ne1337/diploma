@@ -20,10 +20,14 @@
         <Grid>
             <Grid Height="60" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueMidBrush}">
                 <TextBlock Text="Администрирование" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
-                <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" >
-                    <materialDesign:PackIcon Kind="Power"/>
-                </Button>
-   
-            </Grid>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" >
+                <materialDesign:PackIcon Kind="Power"/>
+            </Button>
+        </Grid>
+        <Grid Margin="0,60,0,0">
+            <ComboBox x:Name="usertodis" Width="300" Margin="0 0 450 0" materialDesign:HintAssist.Hint="Сотрудники" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+            <ComboBox x:Name="tasktodis" Width="300" Margin="450 0 0 0" materialDesign:HintAssist.Hint="Задания" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+            <Button x:Name="disaddbutton" Width="150" Content="Распределить" Margin="0 150 0 0" Click="disaddbutton_Click"></Button>
+        </Grid>
         </Grid>
 </Window>

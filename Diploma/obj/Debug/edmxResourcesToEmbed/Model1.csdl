@@ -55,7 +55,7 @@
     <Property Name="id_подзадачи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="id_задания" Type="Int32" Nullable="false" />
     <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Статус" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Статус" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Задание" Relationship="Self.cs_fkminitask" FromRole="Подзадача" ToRole="Задание" />
   </EntityType>
   <EntityType Name="Пользователь">
@@ -248,6 +248,7 @@
       <Parameter Name="town" Mode="In" Type="String" />
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
     <FunctionImport Name="NoteAdd">
       <Parameter Name="destributionid" Mode="In" Type="Int32" />
       <Parameter Name="description" Mode="In" Type="String" />
@@ -289,6 +290,19 @@
       <Parameter Name="new_diagramname" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="SubtaskAdd">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+      <Parameter Name="description" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="SubtaskComplete">
+      <Parameter Name="subtaskid" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="SubtaskRollback">
+      <Parameter Name="subtaskid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="SubtaskView" ReturnType="Collection(DiplomadbModel.SubtaskView_Result)">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="TaskAdd">
       <Parameter Name="client" Mode="In" Type="Int32" />
       <Parameter Name="name" Mode="In" Type="String" />
@@ -299,6 +313,7 @@
       <Parameter Name="taskid" Mode="In" Type="Int32" />
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="TasksPerformed" ReturnType="Collection(DiplomadbModel.TasksPerformed_Result)" />
     <FunctionImport Name="UsersInTask" ReturnType="Collection(DiplomadbModel.UsersInTask_Result)">
       <Parameter Name="taskid" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -306,6 +321,12 @@
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
+  <ComplexType Name="EmployeeView_Result">
+    <Property Type="Int32" Name="id_пользователя" Nullable="false" />
+    <Property Type="Int32" Name="id_типа" Nullable="false" />
+    <Property Type="String" Name="Логин" Nullable="false" MaxLength="30" />
+    <Property Type="String" Name="Пароль" Nullable="false" />
+  </ComplexType>
   <ComplexType Name="NoteList_Result">
     <Property Type="String" Name="Содержание" Nullable="true" />
     <Property Type="Int32" Name="id_заметки" Nullable="false" />
@@ -321,6 +342,21 @@
     <Property Type="Int32" Name="ID" Nullable="false" />
     <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
     <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SubtaskView_Result">
+    <Property Type="Int32" Name="id_подзадачи" Nullable="false" />
+    <Property Type="Int32" Name="id_задания" Nullable="false" />
+    <Property Type="String" Name="Описание" Nullable="false" />
+    <Property Type="Boolean" Name="Статус" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="TasksPerformed_Result">
+    <Property Type="Int32" Name="id_задания" Nullable="false" />
+    <Property Type="Int32" Name="id_клиента" Nullable="false" />
+    <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Описание" Nullable="false" />
+    <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="id_статуса" Nullable="true" />
   </ComplexType>
   <ComplexType Name="UsersInTask_Result">
     <Property Type="Int32" Name="id_пользователя" Nullable="false" />

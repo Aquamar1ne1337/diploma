@@ -82,11 +82,14 @@ create table Подзадача(
 	id_подзадачи int identity(1,1) not null,
 	id_задания int not null,
 	Описание varchar(max) not null,
-	Статус varchar(30) not null,
+	Статус bit not null default 0,
 	constraint cs_pkminitask primary key(id_подзадачи),
 	constraint cs_fkminitask foreign key(id_задания) references Задание(id_задания) on update cascade on delete cascade
 	)
 	go
+
+
+	
 
 create procedure SignUp
 @login varchar(20),
@@ -189,4 +192,70 @@ create procedure TaskDistribution
 		set id_статуса = 2 
 		where id_задания = @taskid
 	end
+go
+
+create procedure SubtaskView
+@taskid int as
+	begin
+		select *
+		from Подзадача
+		where id_задания = @taskid
+	end
+go
+
+create procedure SubtaskAdd
+@taskid int,
+@description varchar(max) as
+	begin
+		insert into Подзадача(id_задания, Описание, Статус) values (@taskid, @description, 0)
+	end
 	go
+
+create procedure SubtaskComplete
+@subtaskid bit as
+	begin
+		update Подзадача
+		set Статус = 1
+		where id_подзадачи = @subtaskid 
+	end
+go
+
+create procedure SubtaskRollback
+@subtaskid int as
+	begin
+		update Подзадача
+		set Статус = 0
+		where id_подзадачи = @subtaskid
+	end
+go
+
+create procedure EmployeeView
+as
+begin
+	select *
+	from Пользователь
+	where id_типа = 2
+end
+go
+
+create procedure TasksPerformed
+as
+begin
+	select * 
+	from Задание
+	where id_статуса = 1 or id_статуса = 2
+end
+go
+
+
+--create function IsDistribution(@taskid int, @userid int) 
+--returns int
+--as
+--	begin 
+--	declare @isNull int
+--	set @isNull = (select Count(id_распределения) from Распределение where id_задания = @taskid and id_пользователя = @userid)
+--	return @isNull
+--	end
+--go
+
+--select dbo.IsDistribution(9, 1) as 'Count'

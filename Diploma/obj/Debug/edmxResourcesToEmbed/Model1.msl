@@ -95,6 +95,16 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
     <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+    <FunctionImportMapping FunctionImportName="EmployeeView" FunctionName="Хранилище DiplomadbModel.EmployeeView">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DiplomadbModel.EmployeeView_Result">
+          <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+          <ScalarProperty Name="id_типа" ColumnName="id_типа" />
+          <ScalarProperty Name="Логин" ColumnName="Логин" />
+          <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
     <FunctionImportMapping FunctionImportName="NoteList" FunctionName="Хранилище DiplomadbModel.NoteList">
       <ResultMapping>
@@ -130,8 +140,34 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Хранилище DiplomadbModel.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Хранилище DiplomadbModel.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="SubtaskAdd" FunctionName="Хранилище DiplomadbModel.SubtaskAdd" />
+    <FunctionImportMapping FunctionImportName="SubtaskComplete" FunctionName="Хранилище DiplomadbModel.SubtaskComplete" />
+    <FunctionImportMapping FunctionImportName="SubtaskRollback" FunctionName="Хранилище DiplomadbModel.SubtaskRollback" />
+    <FunctionImportMapping FunctionImportName="SubtaskView" FunctionName="Хранилище DiplomadbModel.SubtaskView">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DiplomadbModel.SubtaskView_Result">
+          <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
+          <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+          <ScalarProperty Name="Описание" ColumnName="Описание" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
     <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
+    <FunctionImportMapping FunctionImportName="TasksPerformed" FunctionName="Хранилище DiplomadbModel.TasksPerformed">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DiplomadbModel.TasksPerformed_Result">
+          <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+          <ScalarProperty Name="id_клиента" ColumnName="id_клиента" />
+          <ScalarProperty Name="Название" ColumnName="Название" />
+          <ScalarProperty Name="Описание" ColumnName="Описание" />
+          <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+          <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+          <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="UsersInTask" FunctionName="Хранилище DiplomadbModel.UsersInTask">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DiplomadbModel.UsersInTask_Result">

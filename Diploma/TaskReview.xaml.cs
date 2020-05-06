@@ -22,14 +22,19 @@ namespace Diploma
     {
         DiplomadbEntities _db = new DiplomadbEntities();
         public int DestributionID { get; set; }
+
+        public int TaskID { get; set; }
         public TaskReview(int id, int destributionId)
         {
             InitializeComponent();
+            TaskID = id;
             DestributionID = destributionId;
             listw.DataContext = _db.Задание.Where(t => t.id_задания == id).ToList();
             UserComboBox.ItemsSource = _db.UsersInTask(id).ToList();
             UserComboBox.DisplayMemberPath = "Логин";
             NoteListBox.ItemsSource = _db.NoteList(destributionId).ToList();
+            subtaskdatagrid.ItemsSource = _db.SubtaskView(id).ToList();
+            ProgressBarMath(id);
         }
 
         private void DialogHost_DialogClosing(object sender, MaterialDesignThemes.Wpf.DialogClosingEventArgs eventArgs)
@@ -61,6 +66,20 @@ namespace Diploma
             _db.Заметка.Remove(deleteNote);
             _db.SaveChanges();
             NoteListBox.ItemsSource = _db.NoteList(DestributionID).ToList();
+        }
+
+        public void ProgressBarMath(int id)
+        {
+            int full = subtaskdatagrid.Items.Count;
+            if (full == 0) { return; }
+            pb1.Maximum = full;
+            var count = _db.SubtaskView(id).Count(d => d.Статус);
+            pb1.Value = count;
+        }
+
+        private void backbutton_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskList());
         }
     }
 }

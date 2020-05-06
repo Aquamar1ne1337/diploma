@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Diploma"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="1080">
+             d:DesignHeight="580" d:DesignWidth="1040">
     <UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
@@ -17,12 +17,13 @@
         </EventTrigger>
     </UserControl.Triggers>
     <Grid>
-        <ListView x:Name="listw" Grid.Row="2" Margin="50 0 0 0" HorizontalAlignment="Left" VerticalAlignment="Center" Width="500" ItemsSource="{Binding Задание}">
+        <Grid  Margin="10 20 0 0" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="470" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <ListView x:Name="listw" ItemsSource="{Binding Задание}">
             <ListViewItem>
                 <Grid Width="450">
                     <StackPanel>
                         <TextBox x:Name="Nametbx" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Название" Text="{Binding Название}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsEnabled="False"></TextBox>
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                 </Grid>
             </ListViewItem>
@@ -31,7 +32,7 @@
                     <StackPanel>
                         <TextBox x:Name="DescriptionTB" Background="Transparent" Foreground="Black"  Text="{Binding Описание}" 
                          Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
-                                 IsEnabled="False"
+                            IsReadOnly="True"
                             Margin="0,0,0,0"
                             Height="100"
                             Width="450"
@@ -46,7 +47,7 @@
                 <Grid Width="450">
                     <StackPanel>
                         <TextBox x:Name="CreationTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Дата создания" Text="{Binding Дата_создания, StringFormat = dd/MMM/yyyy}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsEnabled="False"></TextBox>
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                 </Grid>
             </ListViewItem>
@@ -54,14 +55,14 @@
                 <Grid Width="450">
                     <StackPanel>
                         <TextBox x:Name="DeadlineTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Крайний срок" Text="{Binding Крайний_срок, StringFormat = dd/MMM/yyyy}"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsEnabled="False"></TextBox>
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                 </Grid>
             </ListViewItem>
         </ListView>
-       
+        </Grid>
 
-        <Grid Height="300" Width="300" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0">
+        <Grid Height="300" Width="300" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 20 10 0">
             <materialDesign:DialogHost Width="300" Height="300"
   HorizontalAlignment="Center"
   VerticalAlignment="Center" DialogClosing="DialogHost_DialogClosing">
@@ -88,7 +89,7 @@
                                         True
                                     </system:Boolean>
                                 </Button.CommandParameter>
-                                ACCEPT
+                                Добавить
                             </Button>
                             <Button
           Style="{StaticResource MaterialDesignFlatButton}"
@@ -100,7 +101,7 @@
                                         False
                                     </system:Boolean>
                                 </Button.CommandParameter>
-                                CANCEL
+                                Назад
                             </Button>
                         </StackPanel>
                     </StackPanel>
@@ -153,6 +154,20 @@
                 </Border>
             </materialDesign:DialogHost>
         </Grid>
-        <ComboBox x:Name="UserComboBox" materialDesign:HintAssist.Hint="Участники" Width="300" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,20,10,0"  Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+        <Grid Width="470" Height="167" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 40">
+            <DataGrid x:Name="subtaskdatagrid" AutoGenerateColumns="False" ItemsSource="{Binding}" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Описание" Binding="{Binding Описание}"/>
+                    <DataGridCheckBoxColumn Header="Статус" Binding="{Binding Статус}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
+                     EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
+                       
+                    </DataGridCheckBoxColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <ComboBox x:Name="UserComboBox" materialDesign:HintAssist.Hint="Участники" Width="300" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,200"  Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+        <ProgressBar x:Name="pb1" VerticalAlignment="Bottom" Margin="0 0 0 5" Height="15"></ProgressBar>
+        <Button x:Name="backbutton" VerticalAlignment="Bottom" Width="100" Content="Назад" HorizontalAlignment="Right" Margin="0 0 10 50" Click="backbutton_Click"></Button>
     </Grid>
+
 </UserControl>

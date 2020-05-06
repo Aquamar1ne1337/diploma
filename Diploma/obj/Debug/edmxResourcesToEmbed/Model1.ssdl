@@ -49,7 +49,7 @@
     <Property Name="id_подзадачи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="id_задания" Type="int" Nullable="false" />
     <Property Name="Описание" Type="varchar(max)" Nullable="false" />
-    <Property Name="Статус" Type="varchar" MaxLength="30" Nullable="false" />
+    <Property Name="Статус" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Пользователь">
     <Key>
@@ -196,7 +196,12 @@
     <Parameter Name="town" Type="varchar" Mode="In" />
     <Parameter Name="id" Type="int" Mode="In" />
   </Function>
+  <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="IsDistribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+    <Parameter Name="userid" Type="int" Mode="In" />
+  </Function>
   <Function Name="NoteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="destributionid" Type="int" Mode="In" />
     <Parameter Name="description" Type="varchar(max)" Mode="In" />
@@ -238,6 +243,19 @@
     <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SubtaskAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+    <Parameter Name="description" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="SubtaskComplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="subtaskid" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="SubtaskRollback" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="subtaskid" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SubtaskView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="taskid" Type="int" Mode="In" />
+  </Function>
   <Function Name="TaskAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="client" Type="int" Mode="In" />
     <Parameter Name="name" Type="varchar" Mode="In" />
@@ -248,6 +266,7 @@
     <Parameter Name="taskid" Type="int" Mode="In" />
     <Parameter Name="userid" Type="int" Mode="In" />
   </Function>
+  <Function Name="TasksPerformed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="UsersInTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="taskid" Type="int" Mode="In" />
   </Function>

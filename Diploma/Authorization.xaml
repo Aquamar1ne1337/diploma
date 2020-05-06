@@ -31,6 +31,15 @@
                 </materialDesign:TransitionerSlide.ForwardWipe>
                 <local:UserControlRegistration/>
             </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide >
+                <materialDesign:TransitionerSlide.BackwardWipe>
+                    <materialDesign:CircleWipe/>
+                </materialDesign:TransitionerSlide.BackwardWipe>
+                <materialDesign:TransitionerSlide.ForwardWipe>
+                    <materialDesign:SlideWipe Direction="Right"/>
+                </materialDesign:TransitionerSlide.ForwardWipe>
+                <local:HelpUserControl/>
+            </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
     </Grid>
 </Window>

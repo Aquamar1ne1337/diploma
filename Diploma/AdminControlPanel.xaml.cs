@@ -9,8 +9,10 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Notifications.Wpf;
 
 namespace Diploma
 {
@@ -19,14 +21,42 @@ namespace Diploma
     /// </summary>
     public partial class AdminControlPanel : Window
     {
+        DiplomadbEntities _db = new DiplomadbEntities();
         public AdminControlPanel()
         {
             InitializeComponent();
+            usertodis.ItemsSource = _db.EmployeeView().ToList();
+            usertodis.SelectedValuePath = "id_пользователя";
+            usertodis.DisplayMemberPath = "Логин";
+
+            tasktodis.ItemsSource = _db.TasksPerformed().ToList();
+            tasktodis.SelectedValuePath = "id_задания";
+            tasktodis.DisplayMemberPath = "Название";
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void disaddbutton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            int i = _db.Распределение.Where(u => u.id_задания == (int)tasktodis.SelectedValue).Where(u => u.id_пользователя == (int)usertodis.SelectedValue).Count();
+            if (i >= 1)
+            {
+                _db.TaskDistribution((int)tasktodis.SelectedValue, (int)usertodis.SelectedValue);
+            }
+            else
+            {
+                    var notification = new NotificationManager();               
+                    notification.Show(new NotificationContent
+                    {
+                        Title = "Ошибка!",
+                        Message = "Этот пользователь уже распределен!",
+                        Type = NotificationType.Error
+                    });
+            }
         }
     }
 }
