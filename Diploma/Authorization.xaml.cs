@@ -25,7 +25,14 @@ namespace Diploma
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            DragMove();
+            try
+            {
+                DragMove();
+            }
+            catch
+            {
+
+            }
         }
     }
 }

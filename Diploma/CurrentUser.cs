@@ -14,4 +14,6 @@ namespace Diploma
         public static int TypeID { get; set; }
 
     }
+
+
 }

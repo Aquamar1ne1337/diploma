@@ -295,7 +295,7 @@
       <Parameter Name="description" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="SubtaskComplete">
-      <Parameter Name="subtaskid" Mode="In" Type="Boolean" />
+      <Parameter Name="subtaskid" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SubtaskRollback">
       <Parameter Name="subtaskid" Mode="In" Type="Int32" />

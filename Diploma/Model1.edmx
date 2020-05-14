@@ -203,10 +203,6 @@
         </Function>
         <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="IsDistribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
-          <Parameter Name="taskid" Type="int" Mode="In" />
-          <Parameter Name="userid" Type="int" Mode="In" />
-        </Function>
         <Function Name="NoteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="destributionid" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
@@ -253,7 +249,7 @@
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="SubtaskComplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="subtaskid" Type="bit" Mode="In" />
+          <Parameter Name="subtaskid" Type="int" Mode="In" />
         </Function>
         <Function Name="SubtaskRollback" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="subtaskid" Type="int" Mode="In" />
@@ -617,7 +613,7 @@
             <Parameter Name="description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SubtaskComplete">
-            <Parameter Name="subtaskid" Mode="In" Type="Boolean" />
+            <Parameter Name="subtaskid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SubtaskRollback">
             <Parameter Name="subtaskid" Mode="In" Type="Int32" />

@@ -247,11 +247,11 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SubtaskAdd", taskidParameter, descriptionParameter);
         }
     
-        public virtual int SubtaskComplete(Nullable<bool> subtaskid)
+        public virtual int SubtaskComplete(Nullable<int> subtaskid)
         {
             var subtaskidParameter = subtaskid.HasValue ?
                 new ObjectParameter("subtaskid", subtaskid) :
-                new ObjectParameter("subtaskid", typeof(bool));
+                new ObjectParameter("subtaskid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SubtaskComplete", subtaskidParameter);
         }

@@ -45,17 +45,17 @@ namespace Diploma
             int i = _db.Распределение.Where(u => u.id_задания == (int)tasktodis.SelectedValue).Where(u => u.id_пользователя == (int)usertodis.SelectedValue).Count();
             if (i >= 1)
             {
-                _db.TaskDistribution((int)tasktodis.SelectedValue, (int)usertodis.SelectedValue);
+                var notification = new NotificationManager();
+                notification.Show(new NotificationContent
+                {
+                    Title = "Ошибка!",
+                    Message = "Этот пользователь уже распределен!",
+                    Type = NotificationType.Error
+                });
             }
             else
             {
-                    var notification = new NotificationManager();               
-                    notification.Show(new NotificationContent
-                    {
-                        Title = "Ошибка!",
-                        Message = "Этот пользователь уже распределен!",
-                        Type = NotificationType.Error
-                    });
+                _db.TaskDistribution((int)tasktodis.SelectedValue, (int)usertodis.SelectedValue);
             }
         }
     }

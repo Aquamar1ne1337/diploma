@@ -155,17 +155,20 @@
             </materialDesign:DialogHost>
         </Grid>
         <Grid Width="470" Height="167" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 40">
-            <DataGrid x:Name="subtaskdatagrid" AutoGenerateColumns="False" ItemsSource="{Binding}" CanUserAddRows="False">
+            <DataGrid x:Name="subtaskdatagrid" AutoGenerateColumns="False" ItemsSource="{Binding}" CanUserAddRows="False" SelectedValuePath="{Binding id_позадачи}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Описание" Binding="{Binding Описание}"/>
-                    <DataGridCheckBoxColumn Header="Статус" Binding="{Binding Статус}" ElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnStyle}"
-                     EditingElementStyle="{StaticResource MaterialDesignDataGridCheckBoxColumnEditingStyle}">
-                       
-                    </DataGridCheckBoxColumn>
+                    <DataGridTemplateColumn Header="Статус">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate> 
+                                <CheckBox IsChecked="{Binding Статус}" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked"  ></CheckBox>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        <ComboBox x:Name="UserComboBox" materialDesign:HintAssist.Hint="Участники" Width="300" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,200"  Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+        <ComboBox x:Name="UserComboBox" materialDesign:HintAssist.Hint="Участники" Width="300" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,120" IsReadOnly="True"   Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
         <ProgressBar x:Name="pb1" VerticalAlignment="Bottom" Margin="0 0 0 5" Height="15"></ProgressBar>
         <Button x:Name="backbutton" VerticalAlignment="Bottom" Width="100" Content="Назад" HorizontalAlignment="Right" Margin="0 0 10 50" Click="backbutton_Click"></Button>
     </Grid>
