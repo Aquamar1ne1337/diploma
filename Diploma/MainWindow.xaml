@@ -8,7 +8,7 @@
         xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
-    <Window.Triggers>
+    <!--<Window.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
                 <Storyboard Duration="00:00:3" Storyboard.TargetProperty="Opacity">
@@ -16,7 +16,7 @@
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
-    </Window.Triggers>
+    </Window.Triggers>-->
     <Grid>
         <Grid Height="60" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueMidBrush}">
             <TextBlock Text="Diploma" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Champagne &amp; Limousines" />
@@ -33,7 +33,27 @@
                     <dragablz:InterTabController/>
                 </dragablz:TabablzControl.InterTabController>
                 <TabItem Header="Главная">
-                    <TextBlock Text="Hello World!" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Grid>
+                    <TextBlock x:Name="hellotextblock" Text="Добро пожаловать, " FontSize="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 100 0 0"/>
+                        <StackPanel HorizontalAlignment="Left" Width="500" Height="500" Margin="20 200 0 0">
+                            <StackPanel.Resources>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Margin" Value="0,10,0,0"/>
+                                    <Setter Property="FontSize" Value="24"/>
+                                </Style>
+                                <Style TargetType="{x:Type Separator}">
+                                    <Setter Property="Width" Value="500"/>
+                                </Style>
+                            </StackPanel.Resources>
+                            <TextBlock x:Name="readytextblock" Text="Количество ваших выполненых задач: " ></TextBlock>
+                            <Separator></Separator>
+                            <TextBlock x:Name="inprocesstextblock" Text="Количество ваших задач в процессе: " ></TextBlock>
+                            <Separator></Separator>
+                            <TextBlock x:Name="latetextblock" Text="Количество ваших просроченных задач: " ></TextBlock>
+                            <Separator></Separator>
+                            <TextBlock x:Name="dropedtextblock" Text="Количество ваших не выполненных задач: "></TextBlock>        
+                        </StackPanel>
+                    </Grid>
                 </TabItem>
                 <TabItem Header="Задания">
                     <Grid x:Name="TaskGrid">

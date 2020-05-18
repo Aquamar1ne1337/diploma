@@ -78,7 +78,11 @@ namespace Diploma
             if (full == 0) { return; }
             pb1.Maximum = full;
             var count = _db.SubtaskView(id).Count(d => d.Статус);
-
+            if (count == full)
+            {
+                endtaskbutton.IsEnabled = true;
+            }
+            else endtaskbutton.IsEnabled = false;
             pb1.SetPercent(count);
         }
 
@@ -107,6 +111,37 @@ namespace Diploma
 
             _db.SubtaskRollback(id);
             ProgressBarMath(TaskID);
+        }
+
+        private void subtaskdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var subtask = subtaskdatagrid.SelectedItem as SubtaskView_Result;
+            if (subtask == null) return;
+            int id = subtask.id_подзадачи;
+
+            var deleteSubtask = _db.Подзадача.Where(m => m.id_подзадачи == id).Single();
+            _db.Подзадача.Remove(deleteSubtask);
+            _db.SaveChanges();
+            subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
+            ProgressBarMath(TaskID);
+        }
+
+        private void addsubtaskbutton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (subtasktb.Text != "")
+                {
+                    _db.SubtaskAdd(TaskID, subtasktb.Text);
+                    subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
+                    ProgressBarMath(TaskID);
+                    subtasktb.Text = "";
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 

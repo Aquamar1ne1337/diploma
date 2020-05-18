@@ -201,14 +201,29 @@
           <Parameter Name="town" Type="varchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="DroppedTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="InProcessTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="lateReadyTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="NoteAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="destributionid" Type="int" Mode="In" />
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="NoteList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="destribution" Type="int" Mode="In" />
+        </Function>
+        <Function Name="NotInTimeTaskCompleted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ReadyTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="SignUp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="login" Type="varchar" Mode="In" />
@@ -262,6 +277,9 @@
           <Parameter Name="name" Type="varchar" Mode="In" />
           <Parameter Name="description" Type="varchar(max)" Mode="In" />
           <Parameter Name="deadline" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="TaskCompleted" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="taskid" Type="int" Mode="In" />
         </Function>
         <Function Name="TaskDistribution" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="taskid" Type="int" Mode="In" />
@@ -566,13 +584,28 @@
             <Parameter Name="town" Mode="In" Type="String" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DroppedTaskCount" ReturnType="Collection(Int32)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
+          <FunctionImport Name="InProcessTaskCount" ReturnType="Collection(Int32)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="lateReadyTaskCount" ReturnType="Collection(Int32)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="NoteAdd">
             <Parameter Name="destributionid" Mode="In" Type="Int32" />
             <Parameter Name="description" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="NoteList" ReturnType="Collection(DiplomadbModel.NoteList_Result)">
             <Parameter Name="destribution" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="NotInTimeTaskCompleted">
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ReadyTaskCount" ReturnType="Collection(Int32)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SignUp">
             <Parameter Name="login" Mode="In" Type="String" />
@@ -626,6 +659,9 @@
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="description" Mode="In" Type="String" />
             <Parameter Name="deadline" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="TaskCompleted">
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TaskDistribution">
             <Parameter Name="taskid" Mode="In" Type="Int32" />
@@ -788,6 +824,7 @@
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
           <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+          <FunctionImportMapping FunctionImportName="DroppedTaskCount" FunctionName="Хранилище DiplomadbModel.DroppedTaskCount" />
           <FunctionImportMapping FunctionImportName="EmployeeView" FunctionName="Хранилище DiplomadbModel.EmployeeView">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DiplomadbModel.EmployeeView_Result">
@@ -798,6 +835,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InProcessTaskCount" FunctionName="Хранилище DiplomadbModel.InProcessTaskCount" />
+          <FunctionImportMapping FunctionImportName="lateReadyTaskCount" FunctionName="Хранилище DiplomadbModel.lateReadyTaskCount" />
           <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
           <FunctionImportMapping FunctionImportName="NoteList" FunctionName="Хранилище DiplomadbModel.NoteList">
             <ResultMapping>
@@ -808,6 +847,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="NotInTimeTaskCompleted" FunctionName="Хранилище DiplomadbModel.NotInTimeTaskCompleted" />
+          <FunctionImportMapping FunctionImportName="ReadyTaskCount" FunctionName="Хранилище DiplomadbModel.ReadyTaskCount" />
           <FunctionImportMapping FunctionImportName="SignUp" FunctionName="Хранилище DiplomadbModel.SignUp" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DiplomadbModel.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище DiplomadbModel.sp_creatediagram" />
@@ -847,6 +888,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
+          <FunctionImportMapping FunctionImportName="TaskCompleted" FunctionName="Хранилище DiplomadbModel.TaskCompleted" />
           <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
           <FunctionImportMapping FunctionImportName="TasksPerformed" FunctionName="Хранилище DiplomadbModel.TasksPerformed">
             <ResultMapping>

@@ -24,7 +24,7 @@ namespace Diploma
         public Window1()
         {
             InitializeComponent();
-            UserTreeView.DataContext = _db.UsersInTask(9).ToList();
+            
 
         }
 

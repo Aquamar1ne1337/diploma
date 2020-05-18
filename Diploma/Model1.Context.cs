@@ -91,9 +91,36 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClientUpdate", nameParameter, emailParameter, dateParameter, phoneParameter, townParameter, idParameter);
         }
     
+        public virtual ObjectResult<Nullable<int>> DroppedTaskCount(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("DroppedTaskCount", useridParameter);
+        }
+    
         public virtual ObjectResult<EmployeeView_Result> EmployeeView()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmployeeView_Result>("EmployeeView");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> InProcessTaskCount(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("InProcessTaskCount", useridParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> lateReadyTaskCount(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("lateReadyTaskCount", useridParameter);
         }
     
         public virtual int NoteAdd(Nullable<int> destributionid, string description)
@@ -116,6 +143,24 @@ namespace Diploma
                 new ObjectParameter("destribution", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NoteList_Result>("NoteList", destributionParameter);
+        }
+    
+        public virtual int NotInTimeTaskCompleted(Nullable<int> taskid)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NotInTimeTaskCompleted", taskidParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> ReadyTaskCount(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("ReadyTaskCount", useridParameter);
         }
     
         public virtual int SignUp(string login, string password)
@@ -293,6 +338,15 @@ namespace Diploma
                 new ObjectParameter("deadline", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskAdd", clientParameter, nameParameter, descriptionParameter, deadlineParameter);
+        }
+    
+        public virtual int TaskCompleted(Nullable<int> taskid)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskCompleted", taskidParameter);
         }
     
         public virtual int TaskDistribution(Nullable<int> taskid, Nullable<int> userid)

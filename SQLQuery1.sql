@@ -143,14 +143,14 @@ execute TaskAdd 21,'BC1', 'Создание ролика для BC1', '2020-04-0
 go
 
 
-create procedure UserTaskList
+alter procedure UserTaskList
 @userid int as
 	begin
 		select Задание.id_задания, Название, Описание, Дата_создания, Крайний_срок, id_распределения
 		from Задание
 		join Распределение on Распределение.id_задания = Задание.id_задания
 		join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
-		where Пользователь.id_пользователя = @userid
+		where Пользователь.id_пользователя = @userid and id_статуса in (4,2)
 	end
 go
 
@@ -211,8 +211,8 @@ create procedure SubtaskAdd
 	end
 	go
 
-create procedure SubtaskComplete
-@subtaskid bit as
+alter procedure SubtaskComplete
+@subtaskid int as
 	begin
 		update Подзадача
 		set Статус = 1
@@ -247,7 +247,88 @@ begin
 end
 go
 
+create view GanttView as
+select Название, Дата_создания as 'Дата начала', Крайний_срок as 'Крайний срок', Статус.Состояние as 'Статус'
+from Задание
+join Статус on Статус.id_статуса = Задание.id_статуса
+go
 
+create procedure TaskCompleted 
+@taskid int
+as
+begin
+	update Задание 
+	set id_статуса = 3
+	where id_задания = @taskid
+end
+go
+
+create procedure NotInTimeTaskCompleted 
+@taskid int
+as
+begin
+	update Задание 
+	set id_статуса = 5
+	where id_задания = @taskid
+end
+go
+
+create procedure ReadyTaskCount
+@userid int
+as
+begin
+	select  count(Задание.id_задания) 'Количество'
+	from Пользователь
+	join Распределение on Распределение.id_пользователя = Пользователь.id_пользователя
+	join Задание on Распределение.id_задания = Задание.id_задания
+	where Пользователь.id_пользователя = @userid and Задание.id_статуса = 3
+end
+go
+
+create procedure InProcessTaskCount
+@userid int
+as
+begin
+	select  count(Задание.id_задания) 'Количество'
+	from Пользователь
+	join Распределение on Распределение.id_пользователя = Пользователь.id_пользователя
+	join Задание on Распределение.id_задания = Задание.id_задания
+	where Пользователь.id_пользователя = @userid and Задание.id_статуса = 2
+end
+go
+
+create procedure lateReadyTaskCount
+@userid int
+as
+begin
+	select  count(Задание.id_задания) 'Количество'
+	from Пользователь
+	join Распределение on Распределение.id_пользователя = Пользователь.id_пользователя
+	join Задание on Распределение.id_задания = Задание.id_задания
+	where Пользователь.id_пользователя = @userid and Задание.id_статуса = 5
+end
+go
+
+
+
+create procedure DroppedTaskCount
+@userid int
+as
+begin
+	select  count(Задание.id_задания) 'Количество'
+	from Пользователь
+	join Распределение on Распределение.id_пользователя = Пользователь.id_пользователя
+	join Задание on Распределение.id_задания = Задание.id_задания
+	where Пользователь.id_пользователя = @userid and Задание.id_статуса = 4
+end
+go
+
+
+
+
+select Задание.Название
+from Задание 
+where id_статуса = dbo.ReadyTaskCount(1)
 --create function IsDistribution(@taskid int, @userid int) 
 --returns int
 --as

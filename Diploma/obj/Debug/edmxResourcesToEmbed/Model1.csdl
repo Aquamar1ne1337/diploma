@@ -248,13 +248,28 @@
       <Parameter Name="town" Mode="In" Type="String" />
       <Parameter Name="id" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="DroppedTaskCount" ReturnType="Collection(Int32)">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
+    <FunctionImport Name="InProcessTaskCount" ReturnType="Collection(Int32)">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="lateReadyTaskCount" ReturnType="Collection(Int32)">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="NoteAdd">
       <Parameter Name="destributionid" Mode="In" Type="Int32" />
       <Parameter Name="description" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="NoteList" ReturnType="Collection(DiplomadbModel.NoteList_Result)">
       <Parameter Name="destribution" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="NotInTimeTaskCompleted">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ReadyTaskCount" ReturnType="Collection(Int32)">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="SignUp">
       <Parameter Name="login" Mode="In" Type="String" />
@@ -308,6 +323,9 @@
       <Parameter Name="name" Mode="In" Type="String" />
       <Parameter Name="description" Mode="In" Type="String" />
       <Parameter Name="deadline" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="TaskCompleted">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="TaskDistribution">
       <Parameter Name="taskid" Mode="In" Type="Int32" />

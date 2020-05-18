@@ -95,6 +95,7 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
     <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+    <FunctionImportMapping FunctionImportName="DroppedTaskCount" FunctionName="Хранилище DiplomadbModel.DroppedTaskCount" />
     <FunctionImportMapping FunctionImportName="EmployeeView" FunctionName="Хранилище DiplomadbModel.EmployeeView">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DiplomadbModel.EmployeeView_Result">
@@ -105,6 +106,8 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InProcessTaskCount" FunctionName="Хранилище DiplomadbModel.InProcessTaskCount" />
+    <FunctionImportMapping FunctionImportName="lateReadyTaskCount" FunctionName="Хранилище DiplomadbModel.lateReadyTaskCount" />
     <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
     <FunctionImportMapping FunctionImportName="NoteList" FunctionName="Хранилище DiplomadbModel.NoteList">
       <ResultMapping>
@@ -115,6 +118,8 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="NotInTimeTaskCompleted" FunctionName="Хранилище DiplomadbModel.NotInTimeTaskCompleted" />
+    <FunctionImportMapping FunctionImportName="ReadyTaskCount" FunctionName="Хранилище DiplomadbModel.ReadyTaskCount" />
     <FunctionImportMapping FunctionImportName="SignUp" FunctionName="Хранилище DiplomadbModel.SignUp" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DiplomadbModel.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Хранилище DiplomadbModel.sp_creatediagram" />
@@ -154,6 +159,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
+    <FunctionImportMapping FunctionImportName="TaskCompleted" FunctionName="Хранилище DiplomadbModel.TaskCompleted" />
     <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
     <FunctionImportMapping FunctionImportName="TasksPerformed" FunctionName="Хранилище DiplomadbModel.TasksPerformed">
       <ResultMapping>

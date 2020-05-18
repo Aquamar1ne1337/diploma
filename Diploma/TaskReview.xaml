@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              mc:Ignorable="d" 
              d:DesignHeight="580" d:DesignWidth="1040">
-    <UserControl.Triggers>
+    <!--<UserControl.Triggers>
         <EventTrigger RoutedEvent="Loaded">
             <BeginStoryboard>
                 <Storyboard Duration="00:00:3" Storyboard.TargetProperty="Opacity">
@@ -15,7 +15,7 @@
                 </Storyboard>
             </BeginStoryboard>
         </EventTrigger>
-    </UserControl.Triggers>
+    </UserControl.Triggers>-->
     <Grid>
         <Grid  Margin="10 20 0 0" ScrollViewer.VerticalScrollBarVisibility="Auto" Width="470" Height="300" VerticalAlignment="Top" HorizontalAlignment="Left">
             <ListView x:Name="listw" ItemsSource="{Binding Задание}">
@@ -155,7 +155,7 @@
             </materialDesign:DialogHost>
         </Grid>
         <Grid Width="470" Height="167" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10 0 0 40">
-            <DataGrid x:Name="subtaskdatagrid" AutoGenerateColumns="False" ItemsSource="{Binding}" CanUserAddRows="False" SelectedValuePath="{Binding id_позадачи}">
+            <DataGrid x:Name="subtaskdatagrid" AutoGenerateColumns="False" ItemsSource="{Binding}" CanUserAddRows="False" SelectedValuePath="{Binding id_позадачи}" MouseDoubleClick="subtaskdatagrid_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Описание" Binding="{Binding Описание}"/>
                     <DataGridTemplateColumn Header="Статус">
@@ -170,7 +170,89 @@
         </Grid>
         <ComboBox x:Name="UserComboBox" materialDesign:HintAssist.Hint="Участники" Width="300" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,120" IsReadOnly="True"   Style="{StaticResource MaterialDesignFloatingHintComboBox}"></ComboBox>
         <ProgressBar x:Name="pb1" VerticalAlignment="Bottom" Margin="0 0 0 5" Height="15"></ProgressBar>
-        <Button x:Name="backbutton" VerticalAlignment="Bottom" Width="100" Content="Назад" HorizontalAlignment="Right" Margin="0 0 10 50" Click="backbutton_Click"></Button>
+        <Button x:Name="backbutton" VerticalAlignment="Bottom" Width="100" Content="Назад" HorizontalAlignment="Right" Margin="0 0 10 40" Click="backbutton_Click"></Button>
+        <Button x:Name="endtaskbutton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Content="Завершить" Margin="0 0 180 40" IsEnabled="False"></Button>
+        <!--<TextBox x:Name="subtasktb" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="110 0 0 40"
+                 Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
+                 TextWrapping="Wrap"
+                 Width="220"
+                 MaxWidth="220"
+                 materialDesign:HintAssist.Hint="Новая подзадача"></TextBox>-->
+        <materialDesign:PopupBox Width="40" Height="40" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 90 30"
+    StaysOpen="True"
+    IsEnabled="{Binding IsChecked, ElementName=PopupEnabled}">
+            <Grid
+      Width="300"
+      Margin="8,8,8,8">
+                <Grid.Resources>
+                    <Style
+          TargetType="TextBox"
+          BasedOn="{StaticResource MaterialDesignTextBox}">
+                        <Setter
+            Property="materialDesign:HintAssist.IsFloating"
+            Value="True" />
+                        <Setter
+            Property="Margin"
+            Value="8,8,8,8" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+          Width="*" />
+                    <ColumnDefinition
+          Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+        Grid.Column="0"
+        Grid.Row="0"
+        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+        Margin="8,8,8,16">
+      Новая задача
+                </TextBlock>
+                <TextBox x:Name="subtasktb"
+        Grid.Column="0"
+        Grid.Row="1"
+        materialDesign:HintAssist.Hint="Описание"/>
+                <StackPanel
+        Grid.Row="5"
+        Grid.ColumnSpan="2"
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+                    <Button
+          Content="_Save"
+          x:Name="addsubtaskbutton"
+          Click="addsubtaskbutton_Click"                  
+          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}"/>
+                    <Button
+          Content="_Cancel"
+          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}">
+                        <!--<Button.Style>
+                            <Style
+                TargetType="Button">
+                                <Setter
+                Property="Foreground"
+                Value="Red" />
+                            </Style>
+                        </Button.Style>-->
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:PopupBox>
+        <!--<Button x:Name="addsubtaskbutton" VerticalAlignment="Bottom" Width="100" HorizontalAlignment="Center" Margin="450 0 0 40" Content="Добавить" Click="addsubtaskbutton_Click"></Button>-->
     </Grid>
 
 </UserControl>

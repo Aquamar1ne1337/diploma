@@ -8,17 +8,78 @@
         mc:Ignorable="d"
         Title="Window1" Height="800" Width="1000">
     <Grid>
-        <TreeView x:Name="UserTreeView">
-            <TreeViewItem>
-                <TreeViewItem.Header>
-                    НУ РАБОТАЙ
-                </TreeViewItem.Header>
-            </TreeViewItem>
-            <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding}">
-                    <TextBlock Text="{Binding Логин}" />
-                </HierarchicalDataTemplate>
-            </TreeView.ItemTemplate>
-        </TreeView>
+        <materialDesign:PopupBox Width="40" Height="40"
+    StaysOpen="True"
+    IsEnabled="{Binding IsChecked, ElementName=PopupEnabled}">
+            <Grid
+      Width="300"
+      Margin="8,8,8,8">
+                <Grid.Resources>
+                    <Style
+          TargetType="TextBox"
+          BasedOn="{StaticResource MaterialDesignTextBox}">
+                        <Setter
+            Property="materialDesign:HintAssist.IsFloating"
+            Value="True" />
+                        <Setter
+            Property="Margin"
+            Value="8,8,8,8" />
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition
+          Width="*" />
+                    <ColumnDefinition
+          Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                    <RowDefinition
+          Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock
+        Grid.Column="0"
+        Grid.Row="0"
+        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+        Margin="8,8,8,16">
+      Новая задача
+                </TextBlock>
+                <TextBox
+        Grid.Column="0"
+        Grid.Row="1"
+        materialDesign:HintAssist.Hint="Описание"
+        Text="200" />
+                <StackPanel
+        Grid.Row="5"
+        Grid.ColumnSpan="2"
+        Orientation="Horizontal"
+        HorizontalAlignment="Right">
+                    <Button
+          Content="_Save"
+          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" />
+                    <Button
+          Content="_Cancel"
+          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}">
+                        <Button.Style>
+                            <Style
+              TargetType="Button">
+                                <Setter
+                Property="Foreground"
+                Value="Red" />
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </materialDesign:PopupBox>
     </Grid>
 </Window>
