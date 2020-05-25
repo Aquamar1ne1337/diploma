@@ -54,6 +54,8 @@
           <Property Name="id_подзадачи" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_задания" Type="int" Nullable="false" />
           <Property Name="Описание" Type="varchar(max)" Nullable="false" />
+          <Property Name="Дата_создания" Type="date" Nullable="false" />
+          <Property Name="Дата_конца" Type="date" />
           <Property Name="Статус" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Пользователь">
@@ -87,6 +89,33 @@
           </Key>
           <Property Name="id_типа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Название" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Diplomadb.dbo.AdminNoteList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="AdminNoteList">
+          <Key>
+            <PropertyRef Name="Логин" />
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="Дата_добавления" />
+          </Key>
+          <Property Name="Логин" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Название" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Содержание" Type="varchar(max)" />
+          <Property Name="Дата_добавления" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Diplomadb.dbo.GanttView" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="GanttView">
+          <Key>
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="Дата начала" />
+            <PropertyRef Name="Крайний срок" />
+            <PropertyRef Name="Статус" />
+          </Key>
+          <Property Name="Название" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Дата начала" Type="datetime" Nullable="false" />
+          <Property Name="Крайний срок" Type="datetime" Nullable="false" />
+          <Property Name="Статус" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <Association Name="cs_fkclient">
           <End Role="Клиент" Type="Self.Клиент" Multiplicity="1">
@@ -302,6 +331,22 @@
           <EntitySet Name="Распределение" EntityType="Self.Распределение" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Статус" EntityType="Self.Статус" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Тип" EntityType="Self.Тип" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AdminNoteList" EntityType="Self.AdminNoteList" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AdminNoteList].[Логин] AS [Логин], 
+    [AdminNoteList].[Название] AS [Название], 
+    [AdminNoteList].[Содержание] AS [Содержание], 
+    [AdminNoteList].[Дата_добавления] AS [Дата_добавления]
+    FROM [dbo].[AdminNoteList] AS [AdminNoteList]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="GanttView" EntityType="Self.GanttView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [GanttView].[Название] AS [Название], 
+    [GanttView].[Дата начала] AS [Дата начала], 
+    [GanttView].[Крайний срок] AS [Крайний срок], 
+    [GanttView].[Статус] AS [Статус]
+    FROM [dbo].[GanttView] AS [GanttView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="cs_fkclient" Association="Self.cs_fkclient">
             <End Role="Клиент" EntitySet="Клиент" />
             <End Role="Задание" EntitySet="Задание" />
@@ -391,6 +436,8 @@
           <Property Name="id_подзадачи" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_задания" Type="Int32" Nullable="false" />
           <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Дата_создания" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Дата_конца" Type="DateTime" Precision="0" />
           <Property Name="Статус" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Задание" Relationship="Self.cs_fkminitask" FromRole="Подзадача" ToRole="Задание" />
         </EntityType>
@@ -432,6 +479,29 @@
           <Property Name="id_типа" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Название" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Пользователь" Relationship="Self.cs_fktype" FromRole="Тип" ToRole="Пользователь" />
+        </EntityType>
+        <EntityType Name="AdminNoteList">
+          <Key>
+            <PropertyRef Name="Логин" />
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="Дата_добавления" />
+          </Key>
+          <Property Name="Логин" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Содержание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Дата_добавления" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="GanttView">
+          <Key>
+            <PropertyRef Name="Название" />
+            <PropertyRef Name="Дата_начала" />
+            <PropertyRef Name="Крайний_срок" />
+            <PropertyRef Name="Статус" />
+          </Key>
+          <Property Name="Название" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Дата_начала" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Крайний_срок" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Статус" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="cs_fkclient">
           <End Role="Клиент" Type="Self.Клиент" Multiplicity="1">
@@ -541,6 +611,8 @@
           <EntitySet Name="Распределение" EntityType="Self.Распределение" />
           <EntitySet Name="Статус" EntityType="Self.Статус" />
           <EntitySet Name="Тип" EntityType="Self.Тип" />
+          <EntitySet Name="AdminNoteLists" EntityType="Self.AdminNoteList" />
+          <EntitySet Name="GanttViews" EntityType="Self.GanttView" />
           <AssociationSet Name="cs_fkclient" Association="Self.cs_fkclient">
             <End Role="Клиент" EntitySet="Клиент" />
             <End Role="Задание" EntitySet="Задание" />
@@ -699,7 +771,6 @@
         </ComplexType>
         <ComplexType Name="SubtaskView_Result">
           <Property Type="Int32" Name="id_подзадачи" Nullable="false" />
-          <Property Type="Int32" Name="id_задания" Nullable="false" />
           <Property Type="String" Name="Описание" Nullable="false" />
           <Property Type="Boolean" Name="Статус" Nullable="false" />
         </ComplexType>
@@ -782,6 +853,8 @@
                 <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
                 <ScalarProperty Name="id_задания" ColumnName="id_задания" />
                 <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+                <ScalarProperty Name="Дата_конца" ColumnName="Дата_конца" />
                 <ScalarProperty Name="Статус" ColumnName="Статус" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -819,6 +892,26 @@
               <MappingFragment StoreEntitySet="Тип">
                 <ScalarProperty Name="id_типа" ColumnName="id_типа" />
                 <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AdminNoteLists">
+            <EntityTypeMapping TypeName="DiplomadbModel.AdminNoteList">
+              <MappingFragment StoreEntitySet="AdminNoteList">
+                <ScalarProperty Name="Логин" ColumnName="Логин" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Содержание" ColumnName="Содержание" />
+                <ScalarProperty Name="Дата_добавления" ColumnName="Дата_добавления" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GanttViews">
+            <EntityTypeMapping TypeName="DiplomadbModel.GanttView">
+              <MappingFragment StoreEntitySet="GanttView">
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Дата_начала" ColumnName="Дата начала" />
+                <ScalarProperty Name="Крайний_срок" ColumnName="Крайний срок" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -881,7 +974,6 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="DiplomadbModel.SubtaskView_Result">
                 <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
-                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
                 <ScalarProperty Name="Описание" ColumnName="Описание" />
                 <ScalarProperty Name="Статус" ColumnName="Статус" />
               </ComplexTypeMapping>

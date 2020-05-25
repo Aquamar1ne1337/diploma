@@ -13,6 +13,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Notifications.Wpf;
+using Stimulsoft.Report;
 
 namespace Diploma
 {
@@ -25,6 +26,8 @@ namespace Diploma
         public AdminControlPanel()
         {
             InitializeComponent();
+            notegridview.ItemsSource = _db.AdminNoteLists.ToList();
+
             usertodis.ItemsSource = _db.EmployeeView().ToList();
             usertodis.SelectedValuePath = "id_пользователя";
             usertodis.DisplayMemberPath = "Логин";
@@ -57,6 +60,13 @@ namespace Diploma
             {
                 _db.TaskDistribution((int)tasktodis.SelectedValue, (int)usertodis.SelectedValue);
             }
+        }
+
+        private void GanttChartButton_Click(object sender, RoutedEventArgs e)
+        {
+            StiReport report = new StiReport();
+            report.Load("Report.mrt");
+            report.ShowWithWpf();
         }
     }
 }

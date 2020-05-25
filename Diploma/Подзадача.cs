@@ -17,6 +17,8 @@ namespace Diploma
         public int id_подзадачи { get; set; }
         public int id_задания { get; set; }
         public string Описание { get; set; }
+        public System.DateTime Дата_создания { get; set; }
+        public Nullable<System.DateTime> Дата_конца { get; set; }
         public bool Статус { get; set; }
     
         public virtual Задание Задание { get; set; }

@@ -14,7 +14,6 @@ namespace Diploma
     public partial class SubtaskView_Result
     {
         public int id_подзадачи { get; set; }
-        public int id_задания { get; set; }
         public string Описание { get; set; }
         public bool Статус { get; set; }
     }

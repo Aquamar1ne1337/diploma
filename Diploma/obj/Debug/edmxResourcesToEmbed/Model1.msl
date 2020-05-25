@@ -53,6 +53,8 @@
           <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
           <ScalarProperty Name="id_задания" ColumnName="id_задания" />
           <ScalarProperty Name="Описание" ColumnName="Описание" />
+          <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+          <ScalarProperty Name="Дата_конца" ColumnName="Дата_конца" />
           <ScalarProperty Name="Статус" ColumnName="Статус" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -90,6 +92,26 @@
         <MappingFragment StoreEntitySet="Тип">
           <ScalarProperty Name="id_типа" ColumnName="id_типа" />
           <ScalarProperty Name="Название" ColumnName="Название" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AdminNoteLists">
+      <EntityTypeMapping TypeName="DiplomadbModel.AdminNoteList">
+        <MappingFragment StoreEntitySet="AdminNoteList">
+          <ScalarProperty Name="Логин" ColumnName="Логин" />
+          <ScalarProperty Name="Название" ColumnName="Название" />
+          <ScalarProperty Name="Содержание" ColumnName="Содержание" />
+          <ScalarProperty Name="Дата_добавления" ColumnName="Дата_добавления" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GanttViews">
+      <EntityTypeMapping TypeName="DiplomadbModel.GanttView">
+        <MappingFragment StoreEntitySet="GanttView">
+          <ScalarProperty Name="Название" ColumnName="Название" />
+          <ScalarProperty Name="Дата_начала" ColumnName="Дата начала" />
+          <ScalarProperty Name="Крайний_срок" ColumnName="Крайний срок" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -152,7 +174,6 @@
       <ResultMapping>
         <ComplexTypeMapping TypeName="DiplomadbModel.SubtaskView_Result">
           <ScalarProperty Name="id_подзадачи" ColumnName="id_подзадачи" />
-          <ScalarProperty Name="id_задания" ColumnName="id_задания" />
           <ScalarProperty Name="Описание" ColumnName="Описание" />
           <ScalarProperty Name="Статус" ColumnName="Статус" />
         </ComplexTypeMapping>

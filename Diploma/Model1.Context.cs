@@ -36,6 +36,8 @@ namespace Diploma
         public virtual DbSet<Распределение> Распределение { get; set; }
         public virtual DbSet<Статус> Статус { get; set; }
         public virtual DbSet<Тип> Тип { get; set; }
+        public virtual DbSet<AdminNoteList> AdminNoteLists { get; set; }
+        public virtual DbSet<GanttView> GanttViews { get; set; }
     
         public virtual int ClientAdd(string name, string email, Nullable<System.DateTime> date, string phone, string town)
         {

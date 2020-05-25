@@ -82,12 +82,15 @@ create table Подзадача(
 	id_подзадачи int identity(1,1) not null,
 	id_задания int not null,
 	Описание varchar(max) not null,
+	Дата_создания date not null,
+	Дата_конца date,
 	Статус bit not null default 0,
 	constraint cs_pkminitask primary key(id_подзадачи),
 	constraint cs_fkminitask foreign key(id_задания) references Задание(id_задания) on update cascade on delete cascade
 	)
 	go
 
+	
 
 	
 
@@ -197,7 +200,7 @@ go
 create procedure SubtaskView
 @taskid int as
 	begin
-		select *
+		select id_подзадачи, Описание, Статус
 		from Подзадача
 		where id_задания = @taskid
 	end
@@ -207,15 +210,15 @@ create procedure SubtaskAdd
 @taskid int,
 @description varchar(max) as
 	begin
-		insert into Подзадача(id_задания, Описание, Статус) values (@taskid, @description, 0)
+		insert into Подзадача(id_задания, Описание, Статус, Дата_создания) values (@taskid, @description, 0, GETDATE())
 	end
 	go
 
-alter procedure SubtaskComplete
+create procedure SubtaskComplete
 @subtaskid int as
 	begin
 		update Подзадача
-		set Статус = 1
+		set Статус = 1, Дата_конца = GETDATE()
 		where id_подзадачи = @subtaskid 
 	end
 go
@@ -224,7 +227,7 @@ create procedure SubtaskRollback
 @subtaskid int as
 	begin
 		update Подзадача
-		set Статус = 0
+		set Статус = 0, Дата_конца = null
 		where id_подзадачи = @subtaskid
 	end
 go
@@ -323,12 +326,34 @@ begin
 end
 go
 
+create view AdminNoteList as
+select Логин, Задание.Название, Заметка.Содержание, Заметка.Дата_добавления
+from Заметка
+join Распределение on Распределение.id_распределения = Заметка.id_распределения
+join Пользователь on Распределение.id_пользователя = Пользователь.id_пользователя
+join Задание on Распределение.id_задания = Задание.id_задания
+go
+
+create procedure TaskStatusUpdater
+as
+begin
+	update Задание
+	set id_статуса = case
+	when GETDATE() > Крайний_срок and GETDATE() < DATEADD(DAY, 7, Крайний_срок) then 4
+	when GETDATE() > Крайний_срок and GETDATE() > DATEADD(day, 7, Крайний_срок) then 6
+	else id_статуса end
+	where id_статуса = 2
+end
+go
+
+--create procedure TaskStatusNotComplited
+--as
+--begin
+--	update Задание
+--end
+go
 
 
-
-select Задание.Название
-from Задание 
-where id_статуса = dbo.ReadyTaskCount(1)
 --create function IsDistribution(@taskid int, @userid int) 
 --returns int
 --as

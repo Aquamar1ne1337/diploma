@@ -30,8 +30,8 @@ namespace Diploma
 
 
             readytextblock.Text = "Количество ваших выполненных задач: " + _db.ReadyTaskCount(CurrentUser.Id).Single().ToString();
-            inprocesstextblock.Text = "Колиество ваши задач в процессе: " + _db.InProcessTaskCount(CurrentUser.Id).Single().ToString();
-            latetextblock.Text = "Колиество ваших просроченных задач: " + _db.lateReadyTaskCount(CurrentUser.Id).Single().ToString();
+            inprocesstextblock.Text = "Количество ваших задач в процессе: " + _db.InProcessTaskCount(CurrentUser.Id).Single().ToString();
+            latetextblock.Text = "Количество ваших просроченных задач: " + _db.lateReadyTaskCount(CurrentUser.Id).Single().ToString();
             dropedtextblock.Text = "Количество ваших невыполненных задач: " + _db.DroppedTaskCount(CurrentUser.Id).Single().ToString(); 
             
             NewClientWindow(new ClientList());

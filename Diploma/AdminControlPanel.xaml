@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
         xmlns:local="clr-namespace:Diploma"
         mc:Ignorable="d"
         Height="600" Width="1080" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
@@ -23,11 +24,36 @@
             <Button HorizontalAlignment="Right" VerticalAlignment="Center" Background="{x:Null}" BorderBrush="{x:Null}" Click="Button_Click" >
                 <materialDesign:PackIcon Kind="Power"/>
             </Button>
-        </Grid>
-        <Grid Margin="0,60,0,0">
-            <ComboBox x:Name="usertodis" Width="300" Margin="0 0 450 0" materialDesign:HintAssist.Hint="Сотрудники" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
-            <ComboBox x:Name="tasktodis" Width="300" Margin="450 0 0 0" materialDesign:HintAssist.Hint="Задания" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
-            <Button x:Name="disaddbutton" Width="150" Content="Распределить" Margin="0 150 0 0" Click="disaddbutton_Click"></Button>
-        </Grid>
+            </Grid>
+            <Grid Margin="0 60 0 0" >
+                <dragablz:TabablzControl>
+                    <dragablz:TabablzControl.InterTabController>
+                        <dragablz:InterTabController/>
+                    </dragablz:TabablzControl.InterTabController>
+                    <TabItem Header="Распределение">
+                        <Grid>
+                            <Grid Margin="0,60,0,0">
+                                <ComboBox x:Name="usertodis" Width="300" Margin="0 0 450 0" materialDesign:HintAssist.Hint="Сотрудники" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+                                <ComboBox x:Name="tasktodis" Width="300" Margin="450 0 0 0" materialDesign:HintAssist.Hint="Задания" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
+                                <Button x:Name="disaddbutton" Width="150" Content="Распределить" Margin="0 150 0 0" Click="disaddbutton_Click"></Button>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Заметки">
+                        <Grid x:Name="TaskGrid">
+                        <DataGrid x:Name="notegridview" AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalAlignment="Top" CanUserAddRows="False" Height="400" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Логин" Binding="{Binding Логин}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Название}"/>
+                                <DataGridTextColumn Header="Содержание" Binding="{Binding Содержание}"/>
+                                <DataGridTextColumn Header="Дата добавления" Binding="{Binding Дата_добавления}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button x:Name="GanttChartButton" VerticalAlignment="Bottom" Width="150" Content="Диаграмма Ганта" HorizontalAlignment="Right" Margin="0 0 20 20" Click="GanttChartButton_Click"></Button>
+                    </Grid>
+                    </TabItem>
+                </dragablz:TabablzControl>
+            </Grid>
+       
         </Grid>
 </Window>
