@@ -19,5 +19,6 @@ namespace Diploma
         public System.DateTime Дата_создания { get; set; }
         public System.DateTime Крайний_срок { get; set; }
         public int id_распределения { get; set; }
+        public string Состояние { get; set; }
     }
 }

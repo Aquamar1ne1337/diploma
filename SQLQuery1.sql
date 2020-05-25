@@ -146,14 +146,15 @@ execute TaskAdd 21,'BC1', 'Создание ролика для BC1', '2020-04-0
 go
 
 
-alter procedure UserTaskList
+create procedure UserTaskList
 @userid int as
 	begin
-		select Задание.id_задания, Название, Описание, Дата_создания, Крайний_срок, id_распределения
+		select Задание.id_задания, Название, Описание, Дата_создания, Крайний_срок, id_распределения, Статус.Состояние
 		from Задание
 		join Распределение on Распределение.id_задания = Задание.id_задания
 		join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
-		where Пользователь.id_пользователя = @userid and id_статуса in (4,2)
+		join Статус on Задание.id_статуса = Статус.id_статуса
+		where Пользователь.id_пользователя = @userid and Задание.id_статуса in (4,2)
 	end
 go
 
@@ -256,25 +257,7 @@ from Задание
 join Статус on Статус.id_статуса = Задание.id_статуса
 go
 
-create procedure TaskCompleted 
-@taskid int
-as
-begin
-	update Задание 
-	set id_статуса = 3
-	where id_задания = @taskid
-end
-go
 
-create procedure NotInTimeTaskCompleted 
-@taskid int
-as
-begin
-	update Задание 
-	set id_статуса = 5
-	where id_задания = @taskid
-end
-go
 
 create procedure ReadyTaskCount
 @userid int
@@ -345,6 +328,33 @@ begin
 	where id_статуса = 2
 end
 go
+
+create procedure TaskCompleted 
+@taskid int
+as
+begin
+	update Задание 
+	set id_статуса = case
+	when id_статуса = 2 then 3
+	when id_статуса = 4 then 5
+	else id_статуса end
+	where id_задания = @taskid
+end
+go
+
+create procedure UserTaskUpdater
+@userid int
+as
+begin
+	select Задание.id_задания, Задание.Дата_создания,Задание.Крайний_срок,Задание.Название, Задание.Описание, Задание.id_статуса
+	from Задание
+	join Распределение on Распределение.id_задания = Задание.id_задания
+	join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
+	where Распределение.id_пользователя = 1 and id_статуса in (2,4)
+end
+go
+
+
 
 --create procedure TaskStatusNotComplited
 --as

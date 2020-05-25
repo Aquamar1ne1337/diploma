@@ -292,9 +292,6 @@
     <FunctionImport Name="NoteList" ReturnType="Collection(DiplomadbModel.NoteList_Result)">
       <Parameter Name="destribution" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="NotInTimeTaskCompleted">
-      <Parameter Name="taskid" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="ReadyTaskCount" ReturnType="Collection(Int32)">
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -359,10 +356,14 @@
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="TasksPerformed" ReturnType="Collection(DiplomadbModel.TasksPerformed_Result)" />
+    <FunctionImport Name="TaskStatusUpdater" />
     <FunctionImport Name="UsersInTask" ReturnType="Collection(DiplomadbModel.UsersInTask_Result)">
       <Parameter Name="taskid" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="UserTaskList" ReturnType="Collection(DiplomadbModel.UserTaskList_Result)">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UserTaskUpdater" ReturnType="Collection(DiplomadbModel.UserTaskUpdater_Result)">
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
@@ -413,5 +414,14 @@
     <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
     <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
     <Property Type="Int32" Name="id_распределения" Nullable="false" />
+    <Property Type="String" Name="Состояние" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="UserTaskUpdater_Result">
+    <Property Type="Int32" Name="id_задания" Nullable="false" />
+    <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Описание" Nullable="false" />
+    <Property Type="Int32" Name="id_статуса" Nullable="true" />
   </ComplexType>
 </Schema>

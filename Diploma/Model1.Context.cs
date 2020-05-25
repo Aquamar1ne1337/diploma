@@ -147,15 +147,6 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NoteList_Result>("NoteList", destributionParameter);
         }
     
-        public virtual int NotInTimeTaskCompleted(Nullable<int> taskid)
-        {
-            var taskidParameter = taskid.HasValue ?
-                new ObjectParameter("taskid", taskid) :
-                new ObjectParameter("taskid", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("NotInTimeTaskCompleted", taskidParameter);
-        }
-    
         public virtual ObjectResult<Nullable<int>> ReadyTaskCount(Nullable<int> userid)
         {
             var useridParameter = userid.HasValue ?
@@ -369,6 +360,11 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TasksPerformed_Result>("TasksPerformed");
         }
     
+        public virtual int TaskStatusUpdater()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskStatusUpdater");
+        }
+    
         public virtual ObjectResult<UsersInTask_Result> UsersInTask(Nullable<int> taskid)
         {
             var taskidParameter = taskid.HasValue ?
@@ -385,6 +381,15 @@ namespace Diploma
                 new ObjectParameter("userid", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskList_Result>("UserTaskList", useridParameter);
+        }
+    
+        public virtual ObjectResult<UserTaskUpdater_Result> UserTaskUpdater(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskUpdater_Result>("UserTaskUpdater", useridParameter);
         }
     }
 }
