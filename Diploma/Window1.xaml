@@ -7,79 +7,61 @@
          xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Window1" Height="800" Width="1000">
-    <Grid>
-        <materialDesign:PopupBox Width="40" Height="40"
-    StaysOpen="True"
-    IsEnabled="{Binding IsChecked, ElementName=PopupEnabled}">
-            <Grid
-      Width="300"
-      Margin="8,8,8,8">
-                <Grid.Resources>
-                    <Style
-          TargetType="TextBox"
-          BasedOn="{StaticResource MaterialDesignTextBox}">
-                        <Setter
-            Property="materialDesign:HintAssist.IsFloating"
-            Value="True" />
-                        <Setter
-            Property="Margin"
-            Value="8,8,8,8" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition
-          Width="*" />
-                    <ColumnDefinition
-          Width="Auto" />
-                </Grid.ColumnDefinitions>
+    <Grid HorizontalAlignment="Center" Width="200"  Height="150" VerticalAlignment="Center">
+        <materialDesign:Card Height="140"
+                                      Background="#03a9f4"
+                                      Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                                      Padding="0"
+                                      Width="200">
+            <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition
-          Height="*" />
-                    <RowDefinition
-          Height="*" />
-                    <RowDefinition
-          Height="*" />
-                    <RowDefinition
-          Height="*" />
-                    <RowDefinition
-          Height="*" />
-                    <RowDefinition
-          Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
-        Grid.Column="0"
-        Grid.Row="0"
-        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-        Margin="8,8,8,16">
-      Новая задача
+                                      Grid.Row="0"
+                                      Margin="16 10 16 0"
+                                      Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                                      Text="Новый очень новый"
+                    FontSize="16"
+                    Height="40"
+                    ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto"> 
+                                      
                 </TextBlock>
-                <TextBox
-        Grid.Column="0"
-        Grid.Row="1"
-        materialDesign:HintAssist.Hint="Описание"
-        Text="200" />
+                <Separator
+                                      Grid.Row="1"
+                                      Style="{StaticResource MaterialDesignLightSeparator}" />
+                <TextBlock
+                                      Grid.Row="2"
+                                      Margin="16 0 16 8"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                      Text="Ну скоро получается">
+                </TextBlock>
+                <TextBlock
+                                      Grid.Row="2"
+                                      Margin="16 40 16 8"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                      Text="Жепа">
+                </TextBlock>
+         
                 <StackPanel
-        Grid.Row="5"
-        Grid.ColumnSpan="2"
-        Orientation="Horizontal"
-        HorizontalAlignment="Right">
-                    <Button
-          Content="_Save"
-          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" />
-                    <Button
-          Content="_Cancel"
-          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}">
-                        <Button.Style>
-                            <Style
-              TargetType="Button">
-                                <Setter
-                Property="Foreground"
-                Value="Red" />
-                            </Style>
-                        </Button.Style>
-                    </Button>
+                                      Grid.Row="2"
+                                      Orientation="Horizontal"
+                                      Margin="16 0 16 8"
+                                      HorizontalAlignment="Right">
+                    <materialDesign:PopupBox HorizontalAlignment="Right" Padding="2 0 2 0">
+                        <StackPanel>
+                            <Button x:Name="ReviewBT" Content="Обзор"/>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
                 </StackPanel>
             </Grid>
-        </materialDesign:PopupBox>
+        </materialDesign:Card>
     </Grid>
 </Window>

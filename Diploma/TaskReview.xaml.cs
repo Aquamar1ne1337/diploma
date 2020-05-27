@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using Notifications.Wpf;
 
 namespace Diploma
 {
@@ -141,6 +142,40 @@ namespace Diploma
             catch
             {
 
+            }
+        }
+
+        private void endtaskbutton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _db.TaskCompleted(TaskID);
+                string status = string.Empty;
+                var task = _db.Задание.Where(t => t.id_задания == TaskID).FirstOrDefault();
+                if (task.id_статуса == 2)
+                {
+                    status = "\"Завершено!\"";
+                }
+                else status = "\"Завершено с опозданием!\"";
+                var notification = new NotificationManager();
+                notification.Show(new NotificationContent
+                {
+                    Title = "Задание выполнено!",
+                    Message = "Ваше задание завершено с статутcом " + status,
+                    Type = NotificationType.Success
+                });
+                ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskList());
+            }
+            catch
+            {
+                var notification = new NotificationManager();
+                notification.Show(new NotificationContent
+                {
+                    Title = "Ошибка!",
+                    Message = "Задание не может быть завершено!",
+                    Type = NotificationType.Error
+                });
+              
             }
         }
     }

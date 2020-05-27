@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Notifications.Wpf;
 using System.Data.Entity.Migrations;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Diploma
 {
@@ -28,12 +29,8 @@ namespace Diploma
         {
             InitializeComponent();
             hellotextblock.Text += CurrentUser.Login;
-            TaskUpdater(CurrentUser.Id);
-            readytextblock.Text = "Количество ваших выполненных задач: " + _db.ReadyTaskCount(CurrentUser.Id).Single().ToString();
-            inprocesstextblock.Text = "Количество ваших задач в процессе: " + _db.InProcessTaskCount(CurrentUser.Id).Single().ToString();
-            latetextblock.Text = "Количество ваших просроченных задач: " + _db.lateReadyTaskCount(CurrentUser.Id).Single().ToString();
-            dropedtextblock.Text = "Количество ваших невыполненных задач: " + _db.DroppedTaskCount(CurrentUser.Id).Single().ToString(); 
-            
+            TaskUpdater();
+            TaskCount();
             NewClientWindow(new ClientList());
             NewTaskWindow(new TaskList());
             if (CurrentUser.TypeID == 1)
@@ -41,7 +38,16 @@ namespace Diploma
                 AdminBT.Visibility = Visibility.Visible;
             }
         }
-   
+
+        public void TaskCount()
+        {
+            readytextblock.Text = "Количество ваших выполненных задач: " + _db.ReadyTaskCount(CurrentUser.Id).Single().ToString();
+            inprocesstextblock.Text = "Количество ваших задач в процессе: " + _db.InProcessTaskCount(CurrentUser.Id).Single().ToString();
+            latetextblock.Text = "Количество ваших просроченных задач: " + _db.lateReadyTaskCount(CurrentUser.Id).Single().ToString();
+            dropedtextblock.Text = "Количество ваших невыполненных задач: " + _db.DroppedTaskCount(CurrentUser.Id).Single().ToString();
+        }
+        
+
         public void NewClientWindow(UIElement obj)
         {
             ClientGrid.Children.Clear();
@@ -64,47 +70,56 @@ namespace Diploma
             adminControl.Show();
         }
 
-        private void TaskUpdater(int id)
+        private void TaskUpdater()
         {
             try
             {
-                var notification = new NotificationManager();
-                foreach (var a in _db.UserTaskUpdater(id))
-                {
-                    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date < a.Крайний_срок.AddDays(7).Date)
-                    {
+                _db.TaskStatusUpdater();
+                //var notification = new NotificationManager();
+                //foreach (var a in _db.UserTaskUpdater(id))
+                //{
+                //    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date < a.Крайний_срок.AddDays(7).Date)
+                //    {
 
-                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
-                        b.id_статуса = 4;
-                        notification.Show(new NotificationContent
-                        {
-                            Title = "Изменение статуса!",
-                            Message = "Задание " + a.Название.ToString() + " просрочено!",
-                            Type = NotificationType.Information
-                        }, expirationTime: TimeSpan.FromSeconds(10));
+                //        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
+                //        b.id_статуса = 4;
+                //        notification.Show(new NotificationContent
+                //        {
+                //            Title = "Изменение статуса!",
+                //            Message = "Задание " + a.Название.ToString() + " просрочено!",
+                //            Type = NotificationType.Information
+                //        }, expirationTime: TimeSpan.FromSeconds(10));
 
-                    }
-                    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date > a.Крайний_срок.AddDays(7).Date)
-                    {
-                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
-                        b.id_статуса = 6;
-                        notification.Show(new NotificationContent
-                        {
-                            Title = "Изменение статуса!",
-                            Message = "Задание " + a.Название.ToString() + " не завершено, т.к. прошло больше недели!",
-                            Type = NotificationType.Information
+                //    }
+                //    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date > a.Крайний_срок.AddDays(7).Date)
+                //    {
+                //        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
+                //        b.id_статуса = 6;
+                //        notification.Show(new NotificationContent
+                //        {
+                //            Title = "Изменение статуса!",
+                //            Message = "Задание " + a.Название.ToString() + " не завершено, т.к. прошло больше недели!",
+                //            Type = NotificationType.Information
 
-                        }, expirationTime: TimeSpan.FromSeconds(10));
+                //        }, expirationTime: TimeSpan.FromSeconds(10));
 
-                    }
-                }
-                _db.SaveChanges();
+                //    }
+                //}
+                //_db.SaveChanges();
             }
             catch
             {
                 MessageBox.Show("Невозможно обновить БД!");
             }
 
+        }
+
+        private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (FirstTabItem.IsSelected)
+            {
+                TaskCount();
+            }    
         }
     }
 }

@@ -71,7 +71,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid HorizontalAlignment="Center" Width="200"  Height="150" VerticalAlignment="Center">
-                        <materialDesign:Card Height="120"
+                        <materialDesign:Card Height="140"
                                       Background="#03a9f4"
                                       Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                                       Padding="0"
@@ -81,12 +81,14 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <TextBlock
                                       Grid.Row="0"
                                       Margin="16 16 16 4"
                                       Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                                      Text="{Binding Название}">
+                                      Text="{Binding Название}"
+                                      FontSize="16">
                                 </TextBlock>
                                 <Separator
                                       Grid.Row="1"
@@ -98,6 +100,14 @@
                                       HorizontalAlignment="Left"
                                       Style="{StaticResource MaterialDesignBody2TextBlock}"
                                       Text="{Binding Крайний_срок, StringFormat = dd/MMM/yyyy}">
+                                </TextBlock>
+                                <TextBlock
+                                      Grid.Row="2"
+                                      Margin="16 40 16 8"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Left"
+                                      Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                      Text="{Binding Состояние}">
                                 </TextBlock>
                                 <StackPanel
                                       Grid.Row="2"

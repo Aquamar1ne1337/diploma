@@ -28,11 +28,11 @@
             </Button>
         </Grid>
         <Grid Margin="0 60 0 0" >
-            <dragablz:TabablzControl>
+            <dragablz:TabablzControl SelectionChanged="TabablzControl_SelectionChanged">
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController/>
                 </dragablz:TabablzControl.InterTabController>
-                <TabItem Header="Главная">
+                <TabItem x:Name="FirstTabItem" Header="Главная">
                     <Grid>
                     <TextBlock x:Name="hellotextblock" Text="Добро пожаловать, " FontSize="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20 100 0 0"/>
                         <StackPanel HorizontalAlignment="Left" Width="500" Height="500" Margin="20 200 0 0">

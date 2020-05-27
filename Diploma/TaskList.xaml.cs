@@ -25,11 +25,18 @@ namespace Diploma
         {
             InitializeComponent();
             LilView.ItemsSource = _db.UserTaskList(CurrentUser.Id).ToList();
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(LilView.ItemsSource);
+            view.Filter = UserFilter;
+        }
+
+        private bool UserFilter(object item)
+        {
+            return ((item as UserTaskList_Result).Название.IndexOf(SearchTB.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            CollectionViewSource.GetDefaultView(LilView.ItemsSource).Refresh();
         }
 
         private void insertbtn_Click_1(object sender, RoutedEventArgs e)
@@ -46,9 +53,12 @@ namespace Diploma
             int ID = task.id_задания;
             int destributionId = task.id_распределения;
 
-            MessageBox.Show(destributionId.ToString());
-
             ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(ID, destributionId));
+        }
+
+        private void alltasktogglebutton_Checked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
