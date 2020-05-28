@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Notifications.Wpf;
+using Stimulsoft.Report;
 
 namespace Diploma
 {
@@ -177,6 +178,27 @@ namespace Diploma
                 });
               
             }
+        }
+
+        private void ganttreportbutton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var i = _db.Подзадача.Where(u => u.id_задания == TaskID).Where(u => u.Статус == true).Count();
+
+                if (i > 1)
+                {
+                    StiReport report = new StiReport();
+                    report.Load("SubtaskGantt.mrt");
+                    report.Compile();
+                    report["Variable1"] = TaskID;
+                    report.Render();
+                    report.ShowWithWpf();
+                }
+                else MessageBox.Show("Диаграмма не может быть создана с таким количеством заданий!");
+            }
+            catch { }
+            
         }
     }
 

@@ -354,6 +354,12 @@ begin
 end
 go
 
+create view SubtaskGanttChart
+as
+	select id_задания, Дата_создания, Дата_конца, Статус, Описание
+	from Подзадача
+	where Статус = 1
+go
 
 
 --create procedure TaskStatusNotComplited

@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<StiSerializer version="1.02" type="Net" application="StiReport">
+  <Dictionary Ref="1" type="Dictionary" isKey="true">
+    <BusinessObjects isList="true" count="0" />
+    <Databases isList="true" count="1">
+      <MS_x0020_SQL Ref="2" type="Stimulsoft.Report.Dictionary.StiSqlDatabase" isKey="true">
+        <Alias>MS SQL</Alias>
+        <ConnectionStringEncrypted>9MjRz81K87xpCCVsdFxtY9FwmS/VQToB4lztxGfc5GPFWvNI11lCXfFrKexlSaob2VrBaMlMMWVsZ/0Ew0QsN/Rayw1XVtMFfQV5DGN0oD/FAvvtTFoBpH8=</ConnectionStringEncrypted>
+        <Key>6d7e748538434f6c9ad79a0921a2069a</Key>
+        <Name>MS SQL</Name>
+      </MS_x0020_SQL>
+    </Databases>
+    <DataSources isList="true" count="12">
+      <sysdiagrams Ref="3" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>sysdiagrams</Alias>
+        <Columns isList="true" count="5">
+          <value>name,System.String</value>
+          <value>principal_id,System.Int32</value>
+          <value>diagram_id,System.Int32</value>
+          <value>version,System.Int32</value>
+          <value>definition,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>daca1e7662a6467c890551f1e60444e8</Key>
+        <Name>sysdiagrams</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from sysdiagrams</SqlCommand>
+      </sysdiagrams>
+      <Задание Ref="4" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Задание</Alias>
+        <Columns isList="true" count="7">
+          <value>id_задания,System.Int32</value>
+          <value>id_клиента,System.Int32</value>
+          <value>Название,System.String</value>
+          <value>Описание,System.String</value>
+          <value>Дата_создания,System.DateTime</value>
+          <value>Крайний_срок,System.DateTime</value>
+          <value>id_статуса,System.Int32</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>b55008c3ba0848908bfb1a0a2ff439aa</Key>
+        <Name>Задание</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Задание</SqlCommand>
+      </Задание>
+      <Заметка Ref="5" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Заметка</Alias>
+        <Columns isList="true" count="4">
+          <value>id_заметки,System.Int32</value>
+          <value>id_распределения,System.Int32</value>
+          <value>Дата_добавления,System.DateTime</value>
+          <value>Содержание,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>59986bb1c8c64cd5bdadbdc451571cb8</Key>
+        <Name>Заметка</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Заметка</SqlCommand>
+      </Заметка>
+      <Клиент Ref="6" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Клиент</Alias>
+        <Columns isList="true" count="6">
+          <value>id_клиента,System.Int32</value>
+          <value>Имя,System.String</value>
+          <value>Электронная_почта,System.String</value>
+          <value>Дата_регистрации,System.DateTime</value>
+          <value>Телефон,System.String</value>
+          <value>Город,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>04de9ea814b9447ebb424b26154a65e5</Key>
+        <Name>Клиент</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Клиент</SqlCommand>
+      </Клиент>
+      <Подзадача Ref="7" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Подзадача</Alias>
+        <Columns isList="true" count="6">
+          <value>Статус,System.Boolean</value>
+          <value>id_подзадачи,System.Int32</value>
+          <value>id_задания,System.Int32</value>
+          <value>Описание,System.String</value>
+          <value>Дата_создания,System.DateTime</value>
+          <value>Дата_конца,System.DateTime</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>69679d1ca2964036943d843ca5c8c0a4</Key>
+        <Name>Подзадача</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Подзадача</SqlCommand>
+      </Подзадача>
+      <Пользователь Ref="8" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Пользователь</Alias>
+        <Columns isList="true" count="4">
+          <value>id_пользователя,System.Int32</value>
+          <value>id_типа,System.Int32</value>
+          <value>Логин,System.String</value>
+          <value>Пароль,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>cdf3cf3757a04ef3b46e3f94bad7ceb6</Key>
+        <Name>Пользователь</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Пользователь</SqlCommand>
+      </Пользователь>
+      <Распределение Ref="9" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Распределение</Alias>
+        <Columns isList="true" count="4">
+          <value>id_распределения,System.Int32</value>
+          <value>id_пользователя,System.Int32</value>
+          <value>id_задания,System.Int32</value>
+          <value>Дата_распределения,System.DateTime</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>c2b392f37e9f422bbf337535f383d06c</Key>
+        <Name>Распределение</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Распределение</SqlCommand>
+      </Распределение>
+      <Статус Ref="10" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Статус</Alias>
+        <Columns isList="true" count="2">
+          <value>id_статуса,System.Int32</value>
+          <value>Состояние,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>32494f54ca9b4b76bdcd4729da93e9b6</Key>
+        <Name>Статус</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Статус</SqlCommand>
+      </Статус>
+      <Тип Ref="11" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>Тип</Alias>
+        <Columns isList="true" count="2">
+          <value>id_типа,System.Int32</value>
+          <value>Название,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>54c41ce7e6f348708f79b0961720f2e6</Key>
+        <Name>Тип</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from Тип</SqlCommand>
+      </Тип>
+      <AdminNoteList Ref="12" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>AdminNoteList</Alias>
+        <Columns isList="true" count="4">
+          <value>Логин,System.String</value>
+          <value>Название,System.String</value>
+          <value>Дата_добавления,System.DateTime</value>
+          <value>Содержание,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>fba35347902649cfbaf3fd6f282f42dd</Key>
+        <Name>AdminNoteList</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from AdminNoteList</SqlCommand>
+      </AdminNoteList>
+      <GanttView Ref="13" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>GanttView</Alias>
+        <Columns isList="true" count="4">
+          <value>Название,System.String</value>
+          <value>Дата_x0020_начала,System.DateTime</value>
+          <value>Крайний_x0020_срок,System.DateTime</value>
+          <value>Статус,System.String</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>1ad3632892be4f5599ea20cf177d1103</Key>
+        <Name>GanttView</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from GanttView</SqlCommand>
+      </GanttView>
+      <SubtaskGanttChart Ref="14" type="Stimulsoft.Report.Dictionary.StiSqlSource" isKey="true">
+        <Alias>SubtaskGanttChart</Alias>
+        <Columns isList="true" count="5">
+          <value>id_задания,System.Int32</value>
+          <value>Дата_создания,System.DateTime</value>
+          <value>Статус,System.Boolean</value>
+          <value>Описание,System.String</value>
+          <value>Дата_конца,System.DateTime</value>
+        </Columns>
+        <CommandTimeout>30</CommandTimeout>
+        <Dictionary isRef="1" />
+        <Key>b39fdf7d2f4f47ca9ebb8101f281c469</Key>
+        <Name>SubtaskGanttChart</Name>
+        <NameInSource>MS SQL</NameInSource>
+        <Parameters isList="true" count="0" />
+        <SqlCommand>select * from SubtaskGanttChart
+	where id_задания = @Variable1</SqlCommand>
+      </SubtaskGanttChart>
+    </DataSources>
+    <Relations isList="true" count="0" />
+    <Report isRef="0" />
+    <Resources isList="true" count="0" />
+    <Variables isList="true" count="1">
+      <value>,Variable1,Variable1,,System.Int32,_x0039_,False,False,False,False,,_x0035_6a148a543e94cbba8f5747ea1b5128f,True</value>
+    </Variables>
+  </Dictionary>
+  <EngineVersion>EngineV2</EngineVersion>
+  <GlobalizationStrings isList="true" count="0" />
+  <Key>ee0a2f02d0f0497b90e6e872f985e953</Key>
+  <MetaTags isList="true" count="0" />
+  <Pages isList="true" count="1">
+    <Page1 Ref="15" type="Page" isKey="true">
+      <Border>None;Black;2;Solid;False;4;Black</Border>
+      <Brush>Transparent</Brush>
+      <Components isList="true" count="1">
+        <Chart1 Ref="16" type="Stimulsoft.Report.Chart.StiChart" isKey="true">
+          <Area Ref="17" type="Stimulsoft.Report.Chart.StiGanttArea" isKey="true">
+            <BorderColor>171, 172, 173</BorderColor>
+            <Brush>[35:94:109]</Brush>
+            <Chart isRef="16" />
+            <GridLinesHor Ref="18" type="Stimulsoft.Report.Chart.StiGridLinesHor" isKey="true">
+              <Area isRef="17" />
+              <Color>50, 105, 105, 105</Color>
+              <MinorColor>50, 105, 105, 105</MinorColor>
+            </GridLinesHor>
+            <GridLinesHorRight Ref="19" type="Stimulsoft.Report.Chart.StiGridLinesHor" isKey="true">
+              <Area isRef="17" />
+              <Color>Silver</Color>
+              <MinorColor>Gainsboro</MinorColor>
+              <Visible>False</Visible>
+            </GridLinesHorRight>
+            <GridLinesVert Ref="20" type="Stimulsoft.Report.Chart.StiGridLinesVert" isKey="true">
+              <Area isRef="17" />
+              <Color>50, 105, 105, 105</Color>
+              <MinorColor>50, 105, 105, 105</MinorColor>
+            </GridLinesVert>
+            <InterlacingHor Ref="21" type="Stimulsoft.Report.Chart.StiInterlacingHor" isKey="true">
+              <Area isRef="17" />
+              <InterlacedBrush>[10:155:155:155]</InterlacedBrush>
+            </InterlacingHor>
+            <InterlacingVert Ref="22" type="Stimulsoft.Report.Chart.StiInterlacingVert" isKey="true">
+              <Area isRef="17" />
+              <InterlacedBrush>[10:155:155:155]</InterlacedBrush>
+            </InterlacingVert>
+            <XAxis Ref="23" type="Stimulsoft.Report.Chart.StiXBottomAxis" isKey="true">
+              <Area isRef="17" />
+              <DateTimeStep Ref="24" type="Stimulsoft.Report.Chart.StiAxisDateTimeStep" isKey="true" />
+              <Interaction Ref="25" type="Stimulsoft.Report.Chart.StiAxisInteraction" isKey="true" />
+              <Labels Ref="26" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Font>Tahoma,8</Font>
+              </Labels>
+              <LineColor>140, 140, 140</LineColor>
+              <Range Ref="27" type="Stimulsoft.Report.Chart.StiAxisRange" isKey="true" />
+              <Ticks Ref="28" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true" />
+              <Title Ref="29" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Font>Tahoma,12,Bold</Font>
+              </Title>
+            </XAxis>
+            <XTopAxis Ref="30" type="Stimulsoft.Report.Chart.StiXTopAxis" isKey="true">
+              <Area isRef="17" />
+              <Interaction Ref="31" type="Stimulsoft.Report.Chart.StiAxisInteraction" isKey="true" />
+              <Labels Ref="32" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Font>Tahoma,8</Font>
+              </Labels>
+              <LineColor>140, 140, 140</LineColor>
+              <Ticks Ref="33" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true" />
+              <Title Ref="34" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Font>Tahoma,12,Bold</Font>
+              </Title>
+            </XTopAxis>
+            <YAxis Ref="35" type="Stimulsoft.Report.Chart.StiYLeftAxis" isKey="true">
+              <Area isRef="17" />
+              <Interaction Ref="36" type="Stimulsoft.Report.Chart.StiAxisInteraction" isKey="true" />
+              <Labels Ref="37" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Font>Tahoma,8</Font>
+              </Labels>
+              <LineColor>140, 140, 140</LineColor>
+              <Range Ref="38" type="Stimulsoft.Report.Chart.StiAxisRange" isKey="true" />
+              <Ticks Ref="39" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true" />
+              <Title Ref="40" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Direction>BottomToTop</Direction>
+                <Font>Tahoma,12,Bold</Font>
+              </Title>
+            </YAxis>
+            <YRightAxis Ref="41" type="Stimulsoft.Report.Chart.StiYRightAxis" isKey="true">
+              <Area isRef="17" />
+              <Interaction Ref="42" type="Stimulsoft.Report.Chart.StiAxisInteraction" isKey="true" />
+              <Labels Ref="43" type="Stimulsoft.Report.Chart.StiAxisLabels" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Font>Tahoma,8</Font>
+                <TextAlignment>Left</TextAlignment>
+              </Labels>
+              <LineColor>140, 140, 140</LineColor>
+              <Range Ref="44" type="Stimulsoft.Report.Chart.StiAxisRange" isKey="true" />
+              <Ticks Ref="45" type="Stimulsoft.Report.Chart.StiAxisTicks" isKey="true" />
+              <Title Ref="46" type="Stimulsoft.Report.Chart.StiAxisTitle" isKey="true">
+                <Color>140, 140, 140</Color>
+                <Direction>TopToBottom</Direction>
+                <Font>Tahoma,12,Bold</Font>
+              </Title>
+            </YRightAxis>
+          </Area>
+          <Brush>[35:94:109]</Brush>
+          <ClientRectangle>0,0,7.7,4.9</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <ConstantLines isList="true" count="0" />
+          <CustomStyleName />
+          <Filters isList="true" count="0" />
+          <Legend Ref="47" type="Stimulsoft.Report.Chart.StiLegend" isKey="true">
+            <BorderColor>Transparent</BorderColor>
+            <Brush>Transparent</Brush>
+            <Chart isRef="16" />
+            <Font>Arial,9</Font>
+            <LabelsColor>White</LabelsColor>
+            <MarkerSize>10, 10</MarkerSize>
+            <ShowShadow>False</ShowShadow>
+            <TitleColor>White</TitleColor>
+            <TitleFont>Arial,14,Bold</TitleFont>
+          </Legend>
+          <Name>Chart1</Name>
+          <Page isRef="15" />
+          <Parent isRef="15" />
+          <Series isList="true" count="1">
+            <Item16 Ref="48" type="Stimulsoft.Report.Chart.StiGanttSeries" isKey="true">
+              <ArgumentDataColumn>SubtaskGanttChart.Описание</ArgumentDataColumn>
+              <BorderColor>Transparent</BorderColor>
+              <Brush>[254:254:249]</Brush>
+              <BrushNegative>Firebrick</BrushNegative>
+              <Chart isRef="16" />
+              <Conditions isList="true" count="0" />
+              <Filters isList="true" count="0" />
+              <Format>MM/dd/yyyy</Format>
+              <SeriesLabels Ref="49" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
+                <BorderColor>Transparent</BorderColor>
+                <Brush>Transparent</Brush>
+                <Chart isRef="16" />
+                <Font>Arial,10</Font>
+                <LabelColor>White</LabelColor>
+                <MarkerSize>8, 6</MarkerSize>
+                <ValueTypeSeparator>-</ValueTypeSeparator>
+                <Width>0</Width>
+              </SeriesLabels>
+              <ShowShadow>False</ShowShadow>
+              <Title>Задача</Title>
+              <ValueDataColumn>SubtaskGanttChart.Дата_создания</ValueDataColumn>
+              <ValueDataColumnEnd>SubtaskGanttChart.Дата_конца</ValueDataColumnEnd>
+            </Item16>
+          </Series>
+          <SeriesLabels Ref="50" type="Stimulsoft.Report.Chart.StiCenterAxisLabels" isKey="true">
+            <BorderColor>Transparent</BorderColor>
+            <Brush>Transparent</Brush>
+            <Chart isRef="16" />
+            <Font>Arial,10</Font>
+            <LabelColor>White</LabelColor>
+            <MarkerSize>8, 6</MarkerSize>
+            <ValueTypeSeparator>-</ValueTypeSeparator>
+            <Width>0</Width>
+          </SeriesLabels>
+          <SeriesLabelsConditions isList="true" count="0" />
+          <Sort isList="true" count="0" />
+          <Strips isList="true" count="0" />
+          <Style Ref="51" type="Stimulsoft.Report.Chart.StiStyle31" isKey="true">
+            <Conditions isList="true" count="0" />
+            <Name />
+          </Style>
+          <Table Ref="52" type="Stimulsoft.Report.Chart.StiChartTable" isKey="true">
+            <DataCells Ref="53" type="Stimulsoft.Report.Chart.StiChartTableDataCells" isKey="true">
+              <Font>Arial,8</Font>
+              <TextColor>White</TextColor>
+            </DataCells>
+            <GridLineColor>Transparent</GridLineColor>
+            <Header Ref="54" type="Stimulsoft.Report.Chart.StiChartTableHeader" isKey="true">
+              <Brush>White</Brush>
+              <Font>Arial,8</Font>
+              <TextColor>DarkGray</TextColor>
+            </Header>
+          </Table>
+          <Title Ref="55" type="Stimulsoft.Report.Chart.StiChartTitle" isKey="true">
+            <Brush>[140:140:140]</Brush>
+            <Font>Tahoma,12,Bold</Font>
+          </Title>
+        </Chart1>
+      </Components>
+      <Conditions isList="true" count="0" />
+      <Guid>bf2f114b93ac4a89a50291cd3018ea95</Guid>
+      <Margins>0.39,0.39,0.39,0.39</Margins>
+      <Name>Page1</Name>
+      <PageHeight>11</PageHeight>
+      <PageWidth>8.5</PageWidth>
+      <PaperSize>Letter</PaperSize>
+      <Report isRef="0" />
+    </Page1>
+  </Pages>
+  <ReferencedAssemblies isList="true" count="8">
+    <value>System.Dll</value>
+    <value>System.Drawing.Dll</value>
+    <value>System.Windows.Forms.Dll</value>
+    <value>System.Data.Dll</value>
+    <value>System.Xml.Dll</value>
+    <value>Stimulsoft.Controls.Dll</value>
+    <value>Stimulsoft.Base.Dll</value>
+    <value>Stimulsoft.Report.Dll</value>
+  </ReferencedAssemblies>
+  <ReportAlias>Report</ReportAlias>
+  <ReportChanged>5/29/2020 12:43:28 AM</ReportChanged>
+  <ReportCreated>5/29/2020 12:14:54 AM</ReportCreated>
+  <ReportFile>C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\SubtaskGantt.mrt</ReportFile>
+  <ReportGuid>e73bc9e8e3a04bc281a1bda12d3ff8a0</ReportGuid>
+  <ReportName>Report</ReportName>
+  <ReportUnit>Inches</ReportUnit>
+  <ReportVersion>2020.2.3.0</ReportVersion>
+  <Script>using System;
+using System.Drawing;
+using System.Windows.Forms;
+using System.Data;
+using Stimulsoft.Controls;
+using Stimulsoft.Base.Drawing;
+using Stimulsoft.Report;
+using Stimulsoft.Report.Dialogs;
+using Stimulsoft.Report.Components;
+
+namespace Reports
+{
+    public class Report : Stimulsoft.Report.StiReport
+    {
+        public Report()        {
+            this.InitializeComponent();
+        }
+
+        #region StiReport Designer generated code - do not modify
+		#endregion StiReport Designer generated code - do not modify
+    }
+}
+</Script>
+  <ScriptLanguage>CSharp</ScriptLanguage>
+  <Styles isList="true" count="0" />
+</StiSerializer>

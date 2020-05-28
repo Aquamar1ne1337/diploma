@@ -172,6 +172,7 @@
         <ProgressBar x:Name="pb1" VerticalAlignment="Bottom" Margin="0 0 0 5" Height="15"></ProgressBar>
         <Button x:Name="backbutton" VerticalAlignment="Bottom" Width="100" Content="Назад" HorizontalAlignment="Right" Margin="0 0 10 40" Click="backbutton_Click"></Button>
         <Button x:Name="endtaskbutton" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120" Content="Завершить" Margin="0 0 180 40" IsEnabled="False" Click="endtaskbutton_Click"></Button>
+        <Button x:Name="ganttreportbutton" VerticalAlignment="Top" HorizontalAlignment="Center" Width="150" Margin="0 20 0 0" Content="Диаграмма Ганта" Click="ganttreportbutton_Click"/>
         <!--<TextBox x:Name="subtasktb" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="110 0 0 40"
                  Style="{StaticResource MaterialDesignFilledTextFieldTextBox}"
                  TextWrapping="Wrap"
