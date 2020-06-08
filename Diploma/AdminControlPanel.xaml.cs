@@ -35,6 +35,8 @@ namespace Diploma
             tasktodis.ItemsSource = _db.TasksPerformed().ToList();
             tasktodis.SelectedValuePath = "id_задания";
             tasktodis.DisplayMemberPath = "Название";
+
+            taskgridview.ItemsSource = _db.Задание.ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -67,6 +69,11 @@ namespace Diploma
             StiReport report = new StiReport();
             report.Load("Report.mrt");
             report.ShowWithWpf();
+        }
+
+        private void Updatebutton_Click(object sender, RoutedEventArgs e)
+        {
+            _db.SaveChanges();
         }
     }
 }

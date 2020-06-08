@@ -19,5 +19,6 @@ namespace Diploma
         public string Название { get; set; }
         public string Описание { get; set; }
         public Nullable<int> id_статуса { get; set; }
+        public int id_пользователя { get; set; }
     }
 }

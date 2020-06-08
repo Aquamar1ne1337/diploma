@@ -90,6 +90,15 @@
           <Property Name="id_типа" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Название" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
+        <EntityType Name="Уведомление">
+          <Key>
+            <PropertyRef Name="id_уведомления" />
+          </Key>
+          <Property Name="id_уведомления" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_пользователя" Type="int" />
+          <Property Name="Содержание" Type="varchar(max)" Nullable="false" />
+          <Property Name="Статус" Type="int" Nullable="false" />
+        </EntityType>
         <!--Ошибки, обнаруженные при создании:
 предупреждение 6002: В таблице или представлении "Diplomadb.dbo.AdminNoteList" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="AdminNoteList">
@@ -116,6 +125,21 @@
           <Property Name="Дата начала" Type="datetime" Nullable="false" />
           <Property Name="Крайний срок" Type="datetime" Nullable="false" />
           <Property Name="Статус" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "Diplomadb.dbo.SubtaskGanttChart" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="SubtaskGanttChart">
+          <Key>
+            <PropertyRef Name="id_задания" />
+            <PropertyRef Name="Дата_создания" />
+            <PropertyRef Name="Статус" />
+            <PropertyRef Name="Описание" />
+          </Key>
+          <Property Name="id_задания" Type="int" Nullable="false" />
+          <Property Name="Дата_создания" Type="date" Nullable="false" />
+          <Property Name="Дата_конца" Type="date" />
+          <Property Name="Статус" Type="bit" Nullable="false" />
+          <Property Name="Описание" Type="varchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="cs_fkclient">
           <End Role="Клиент" Type="Self.Клиент" Multiplicity="1">
@@ -156,6 +180,20 @@
             </Principal>
             <Dependent Role="Подзадача">
               <PropertyRef Name="id_задания" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="cs_fknotification">
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Уведомление" Type="Self.Уведомление" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="id_пользователя" />
+            </Principal>
+            <Dependent Role="Уведомление">
+              <PropertyRef Name="id_пользователя" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -230,10 +268,18 @@
           <Parameter Name="town" Type="varchar" Mode="In" />
           <Parameter Name="id" Type="int" Mode="In" />
         </Function>
+        <Function Name="DroppedNotificationAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="taskid" Type="int" Mode="In" />
+        </Function>
         <Function Name="DroppedTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ExpiredNotificationAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="name" Type="varchar(max)" Mode="In" />
+          <Parameter Name="taskid" Type="int" Mode="In" />
+        </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="InProcessTaskCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
@@ -298,6 +344,9 @@
         <Function Name="SubtaskView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="taskid" Type="int" Mode="In" />
         </Function>
+        <Function Name="TakDistributionReaded" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+        </Function>
         <Function Name="TaskAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="client" Type="int" Mode="In" />
           <Parameter Name="name" Type="varchar" Mode="In" />
@@ -312,16 +361,13 @@
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="TasksPerformed" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="TaskStatusUpdater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="UsersInTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="taskid" Type="int" Mode="In" />
         </Function>
         <Function Name="UserTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
-        <Function Name="UserTaskUpdater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="userid" Type="int" Mode="In" />
-        </Function>
+        <Function Name="UserTaskUpdater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="Хранилище DiplomadbModelContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Задание" EntityType="Self.Задание" Schema="dbo" store:Type="Tables" />
@@ -332,6 +378,7 @@
           <EntitySet Name="Распределение" EntityType="Self.Распределение" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Статус" EntityType="Self.Статус" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Тип" EntityType="Self.Тип" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Уведомление" EntityType="Self.Уведомление" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AdminNoteList" EntityType="Self.AdminNoteList" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [AdminNoteList].[Логин] AS [Логин], 
@@ -348,6 +395,15 @@
     [GanttView].[Статус] AS [Статус]
     FROM [dbo].[GanttView] AS [GanttView]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="SubtaskGanttChart" EntityType="Self.SubtaskGanttChart" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [SubtaskGanttChart].[id_задания] AS [id_задания], 
+    [SubtaskGanttChart].[Дата_создания] AS [Дата_создания], 
+    [SubtaskGanttChart].[Дата_конца] AS [Дата_конца], 
+    [SubtaskGanttChart].[Статус] AS [Статус], 
+    [SubtaskGanttChart].[Описание] AS [Описание]
+    FROM [dbo].[SubtaskGanttChart] AS [SubtaskGanttChart]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="cs_fkclient" Association="Self.cs_fkclient">
             <End Role="Клиент" EntitySet="Клиент" />
             <End Role="Задание" EntitySet="Задание" />
@@ -359,6 +415,10 @@
           <AssociationSet Name="cs_fkminitask" Association="Self.cs_fkminitask">
             <End Role="Задание" EntitySet="Задание" />
             <End Role="Подзадача" EntitySet="Подзадача" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fknotification" Association="Self.cs_fknotification">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Уведомление" EntitySet="Уведомление" />
           </AssociationSet>
           <AssociationSet Name="cs_fkstatus" Association="Self.cs_fkstatus">
             <End Role="Статус" EntitySet="Статус" />
@@ -450,6 +510,7 @@
           <Property Name="id_типа" Type="Int32" Nullable="false" />
           <Property Name="Логин" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Пароль" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Уведомление" Relationship="Self.cs_fknotification" FromRole="Пользователь" ToRole="Уведомление" />
           <NavigationProperty Name="Тип" Relationship="Self.cs_fktype" FromRole="Пользователь" ToRole="Тип" />
           <NavigationProperty Name="Распределение" Relationship="Self.cs_fkuser" FromRole="Пользователь" ToRole="Распределение" />
         </EntityType>
@@ -481,6 +542,16 @@
           <Property Name="Название" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Пользователь" Relationship="Self.cs_fktype" FromRole="Тип" ToRole="Пользователь" />
         </EntityType>
+        <EntityType Name="Уведомление">
+          <Key>
+            <PropertyRef Name="id_уведомления" />
+          </Key>
+          <Property Name="id_уведомления" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_пользователя" Type="Int32" />
+          <Property Name="Содержание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Статус" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Пользователь" Relationship="Self.cs_fknotification" FromRole="Уведомление" ToRole="Пользователь" />
+        </EntityType>
         <EntityType Name="AdminNoteList">
           <Key>
             <PropertyRef Name="Логин" />
@@ -503,6 +574,19 @@
           <Property Name="Дата_начала" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Крайний_срок" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Статус" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SubtaskGanttChart">
+          <Key>
+            <PropertyRef Name="id_задания" />
+            <PropertyRef Name="Дата_создания" />
+            <PropertyRef Name="Статус" />
+            <PropertyRef Name="Описание" />
+          </Key>
+          <Property Name="id_задания" Type="Int32" Nullable="false" />
+          <Property Name="Дата_создания" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Дата_конца" Type="DateTime" Precision="0" />
+          <Property Name="Статус" Type="Boolean" Nullable="false" />
+          <Property Name="Описание" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <Association Name="cs_fkclient">
           <End Role="Клиент" Type="Self.Клиент" Multiplicity="1">
@@ -574,6 +658,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="cs_fknotification">
+          <End Role="Пользователь" Type="Self.Пользователь" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Уведомление" Type="Self.Уведомление" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователь">
+              <PropertyRef Name="id_пользователя" />
+            </Principal>
+            <Dependent Role="Уведомление">
+              <PropertyRef Name="id_пользователя" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="cs_fktype">
           <End Role="Тип" Type="Self.Тип" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -612,8 +710,10 @@
           <EntitySet Name="Распределение" EntityType="Self.Распределение" />
           <EntitySet Name="Статус" EntityType="Self.Статус" />
           <EntitySet Name="Тип" EntityType="Self.Тип" />
+          <EntitySet Name="Уведомление" EntityType="Self.Уведомление" />
           <EntitySet Name="AdminNoteLists" EntityType="Self.AdminNoteList" />
           <EntitySet Name="GanttViews" EntityType="Self.GanttView" />
+          <EntitySet Name="SubtaskGanttCharts" EntityType="Self.SubtaskGanttChart" />
           <AssociationSet Name="cs_fkclient" Association="Self.cs_fkclient">
             <End Role="Клиент" EntitySet="Клиент" />
             <End Role="Задание" EntitySet="Задание" />
@@ -633,6 +733,10 @@
           <AssociationSet Name="cs_fkdistribution" Association="Self.cs_fkdistribution">
             <End Role="Распределение" EntitySet="Распределение" />
             <End Role="Заметка" EntitySet="Заметка" />
+          </AssociationSet>
+          <AssociationSet Name="cs_fknotification" Association="Self.cs_fknotification">
+            <End Role="Пользователь" EntitySet="Пользователь" />
+            <End Role="Уведомление" EntitySet="Уведомление" />
           </AssociationSet>
           <AssociationSet Name="cs_fktype" Association="Self.cs_fktype">
             <End Role="Тип" EntitySet="Тип" />
@@ -657,10 +761,18 @@
             <Parameter Name="town" Mode="In" Type="String" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DroppedNotificationAdd">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="DroppedTaskCount" ReturnType="Collection(Int32)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
+          <FunctionImport Name="ExpiredNotificationAdd">
+            <Parameter Name="name" Mode="In" Type="String" />
+            <Parameter Name="taskid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="InProcessTaskCount" ReturnType="Collection(Int32)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -724,6 +836,9 @@
           <FunctionImport Name="SubtaskView" ReturnType="Collection(DiplomadbModel.SubtaskView_Result)">
             <Parameter Name="taskid" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="TakDistributionReaded">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="TaskAdd">
             <Parameter Name="client" Mode="In" Type="Int32" />
             <Parameter Name="name" Mode="In" Type="String" />
@@ -738,16 +853,13 @@
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="TasksPerformed" ReturnType="Collection(DiplomadbModel.TasksPerformed_Result)" />
-          <FunctionImport Name="TaskStatusUpdater" />
           <FunctionImport Name="UsersInTask" ReturnType="Collection(DiplomadbModel.UsersInTask_Result)">
             <Parameter Name="taskid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UserTaskList" ReturnType="Collection(DiplomadbModel.UserTaskList_Result)">
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="UserTaskUpdater" ReturnType="Collection(DiplomadbModel.UserTaskUpdater_Result)">
-            <Parameter Name="userid" Mode="In" Type="Int32" />
-          </FunctionImport>
+          <FunctionImport Name="UserTaskUpdater" ReturnType="Collection(DiplomadbModel.UserTaskUpdater_Result)" />
         </EntityContainer>
         <ComplexType Name="EmployeeView_Result">
           <Property Type="Int32" Name="id_пользователя" Nullable="false" />
@@ -805,6 +917,7 @@
           <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
           <Property Type="String" Name="Описание" Nullable="false" />
           <Property Type="Int32" Name="id_статуса" Nullable="true" />
+          <Property Type="Int32" Name="id_пользователя" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -906,6 +1019,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Уведомление">
+            <EntityTypeMapping TypeName="DiplomadbModel.Уведомление">
+              <MappingFragment StoreEntitySet="Уведомление">
+                <ScalarProperty Name="id_уведомления" ColumnName="id_уведомления" />
+                <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+                <ScalarProperty Name="Содержание" ColumnName="Содержание" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AdminNoteLists">
             <EntityTypeMapping TypeName="DiplomadbModel.AdminNoteList">
               <MappingFragment StoreEntitySet="AdminNoteList">
@@ -926,8 +1049,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="SubtaskGanttCharts">
+            <EntityTypeMapping TypeName="DiplomadbModel.SubtaskGanttChart">
+              <MappingFragment StoreEntitySet="SubtaskGanttChart">
+                <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+                <ScalarProperty Name="Дата_конца" ColumnName="Дата_конца" />
+                <ScalarProperty Name="Статус" ColumnName="Статус" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
           <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+          <FunctionImportMapping FunctionImportName="DroppedNotificationAdd" FunctionName="Хранилище DiplomadbModel.DroppedNotificationAdd" />
           <FunctionImportMapping FunctionImportName="DroppedTaskCount" FunctionName="Хранилище DiplomadbModel.DroppedTaskCount" />
           <FunctionImportMapping FunctionImportName="EmployeeView" FunctionName="Хранилище DiplomadbModel.EmployeeView">
             <ResultMapping>
@@ -939,6 +1074,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ExpiredNotificationAdd" FunctionName="Хранилище DiplomadbModel.ExpiredNotificationAdd" />
           <FunctionImportMapping FunctionImportName="InProcessTaskCount" FunctionName="Хранилище DiplomadbModel.InProcessTaskCount" />
           <FunctionImportMapping FunctionImportName="lateReadyTaskCount" FunctionName="Хранилище DiplomadbModel.lateReadyTaskCount" />
           <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
@@ -989,6 +1125,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TakDistributionReaded" FunctionName="Хранилище DiplomadbModel.TakDistributionReaded" />
           <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
           <FunctionImportMapping FunctionImportName="TaskCompleted" FunctionName="Хранилище DiplomadbModel.TaskCompleted" />
           <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
@@ -1005,7 +1142,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="TaskStatusUpdater" FunctionName="Хранилище DiplomadbModel.TaskStatusUpdater" />
           <FunctionImportMapping FunctionImportName="UsersInTask" FunctionName="Хранилище DiplomadbModel.UsersInTask">
             <ResultMapping>
               <ComplexTypeMapping TypeName="DiplomadbModel.UsersInTask_Result">
@@ -1036,6 +1172,7 @@
                 <ScalarProperty Name="Название" ColumnName="Название" />
                 <ScalarProperty Name="Описание" ColumnName="Описание" />
                 <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
+                <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -360,7 +360,7 @@
                 <Width>0</Width>
               </SeriesLabels>
               <ShowShadow>False</ShowShadow>
-              <Title>Задача</Title>
+              <Title>Работа над задачей</Title>
               <ValueDataColumn>SubtaskGanttChart.Дата_создания</ValueDataColumn>
               <ValueDataColumnEnd>SubtaskGanttChart.Дата_конца</ValueDataColumnEnd>
             </Item16>
@@ -421,10 +421,10 @@
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/29/2020 12:43:28 AM</ReportChanged>
+  <ReportChanged>5/29/2020 6:55:29 PM</ReportChanged>
   <ReportCreated>5/29/2020 12:14:54 AM</ReportCreated>
   <ReportFile>C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\SubtaskGantt.mrt</ReportFile>
-  <ReportGuid>e73bc9e8e3a04bc281a1bda12d3ff8a0</ReportGuid>
+  <ReportGuid>6219073acc6f4fb6ada5f7388ae64fbc</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Inches</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>

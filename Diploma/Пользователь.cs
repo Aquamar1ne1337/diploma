@@ -17,6 +17,7 @@ namespace Diploma
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Пользователь()
         {
+            this.Уведомление = new HashSet<Уведомление>();
             this.Распределение = new HashSet<Распределение>();
         }
     
@@ -25,6 +26,8 @@ namespace Diploma
         public string Логин { get; set; }
         public string Пароль { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Уведомление> Уведомление { get; set; }
         public virtual Тип Тип { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Распределение> Распределение { get; set; }

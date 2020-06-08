@@ -95,6 +95,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Уведомление">
+      <EntityTypeMapping TypeName="DiplomadbModel.Уведомление">
+        <MappingFragment StoreEntitySet="Уведомление">
+          <ScalarProperty Name="id_уведомления" ColumnName="id_уведомления" />
+          <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
+          <ScalarProperty Name="Содержание" ColumnName="Содержание" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="AdminNoteLists">
       <EntityTypeMapping TypeName="DiplomadbModel.AdminNoteList">
         <MappingFragment StoreEntitySet="AdminNoteList">
@@ -115,8 +125,20 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="SubtaskGanttCharts">
+      <EntityTypeMapping TypeName="DiplomadbModel.SubtaskGanttChart">
+        <MappingFragment StoreEntitySet="SubtaskGanttChart">
+          <ScalarProperty Name="id_задания" ColumnName="id_задания" />
+          <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+          <ScalarProperty Name="Дата_конца" ColumnName="Дата_конца" />
+          <ScalarProperty Name="Статус" ColumnName="Статус" />
+          <ScalarProperty Name="Описание" ColumnName="Описание" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ClientAdd" FunctionName="Хранилище DiplomadbModel.ClientAdd" />
     <FunctionImportMapping FunctionImportName="ClientUpdate" FunctionName="Хранилище DiplomadbModel.ClientUpdate" />
+    <FunctionImportMapping FunctionImportName="DroppedNotificationAdd" FunctionName="Хранилище DiplomadbModel.DroppedNotificationAdd" />
     <FunctionImportMapping FunctionImportName="DroppedTaskCount" FunctionName="Хранилище DiplomadbModel.DroppedTaskCount" />
     <FunctionImportMapping FunctionImportName="EmployeeView" FunctionName="Хранилище DiplomadbModel.EmployeeView">
       <ResultMapping>
@@ -128,6 +150,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ExpiredNotificationAdd" FunctionName="Хранилище DiplomadbModel.ExpiredNotificationAdd" />
     <FunctionImportMapping FunctionImportName="InProcessTaskCount" FunctionName="Хранилище DiplomadbModel.InProcessTaskCount" />
     <FunctionImportMapping FunctionImportName="lateReadyTaskCount" FunctionName="Хранилище DiplomadbModel.lateReadyTaskCount" />
     <FunctionImportMapping FunctionImportName="NoteAdd" FunctionName="Хранилище DiplomadbModel.NoteAdd" />
@@ -178,6 +201,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="TakDistributionReaded" FunctionName="Хранилище DiplomadbModel.TakDistributionReaded" />
     <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
     <FunctionImportMapping FunctionImportName="TaskCompleted" FunctionName="Хранилище DiplomadbModel.TaskCompleted" />
     <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
@@ -194,7 +218,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="TaskStatusUpdater" FunctionName="Хранилище DiplomadbModel.TaskStatusUpdater" />
     <FunctionImportMapping FunctionImportName="UsersInTask" FunctionName="Хранилище DiplomadbModel.UsersInTask">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DiplomadbModel.UsersInTask_Result">
@@ -225,6 +248,7 @@
           <ScalarProperty Name="Название" ColumnName="Название" />
           <ScalarProperty Name="Описание" ColumnName="Описание" />
           <ScalarProperty Name="id_статуса" ColumnName="id_статуса" />
+          <ScalarProperty Name="id_пользователя" ColumnName="id_пользователя" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

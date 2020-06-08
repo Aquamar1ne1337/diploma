@@ -58,16 +58,7 @@
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
-            <!--<materialDesign:Card Background="White" materialDesign:ShadowAssist.ShadowDepth="Depth1"
-    materialDesign:ShadowAssist.ShadowEdges="Bottom">
-                <StackPanel Orientation="Horizontal">
-                <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="Black" Click="insertbtn_Click_1" Width="100">
-                    Добавить
-                </Button>
-                    <Separator></Separator>
-                <TextBox x:Name="SearchTB" Background="Transparent" Foreground="Black"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Поиск" Width="500" TextChanged="SearchTB_TextChanged" />
-                </StackPanel>
-            </materialDesign:Card>-->
+            
         </StackPanel>
         <ListView x:Name="LilView" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Width="1080" ItemsSource="{Binding}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="0,64,0,-0.4">
             <ListView.ItemsPanel>

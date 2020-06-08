@@ -31,6 +31,7 @@ namespace Diploma
             hellotextblock.Text += CurrentUser.Login;
             TaskUpdater();
             TaskCount();
+            NotificationShow();
             NewClientWindow(new ClientList());
             NewTaskWindow(new TaskList());
             if (CurrentUser.TypeID == 1)
@@ -73,45 +74,64 @@ namespace Diploma
         private void TaskUpdater()
         {
             try
-            {
-                _db.TaskStatusUpdater();
-                //var notification = new NotificationManager();
-                //foreach (var a in _db.UserTaskUpdater(id))
-                //{
-                //    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date < a.Крайний_срок.AddDays(7).Date)
-                //    {
+            {   
+                var tasks = _db.UserTaskUpdater();
+                foreach (var a in tasks)
+                {
+                    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date < a.Крайний_срок.AddDays(7).Date)
+                    {
 
-                //        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
-                //        b.id_статуса = 4;
-                //        notification.Show(new NotificationContent
-                //        {
-                //            Title = "Изменение статуса!",
-                //            Message = "Задание " + a.Название.ToString() + " просрочено!",
-                //            Type = NotificationType.Information
-                //        }, expirationTime: TimeSpan.FromSeconds(10));
+                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
+                        b.id_статуса = 4;
+                        Уведомление уведомление = new Уведомление
+                        {
+                            Содержание ="Задание " + b.Название + " просрочено!",
+                            id_пользователя = a.id_пользователя
+                        };
+                        _db.Уведомление.Add(уведомление);
+                        
+                    }
+                    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date > a.Крайний_срок.AddDays(7).Date)
+                    {
+                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
+                        b.id_статуса = 6;
+                        Уведомление уведомление = new Уведомление
+                        {
+                            Содержание = "Срок задания " + b.Название + " полностью истек. Оно больше не может быть выполнено!",
+                            id_пользователя = a.id_пользователя
+                        };
+                        _db.Уведомление.Add(уведомление);
 
-                //    }
-                //    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date > a.Крайний_срок.AddDays(7).Date)
-                //    {
-                //        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
-                //        b.id_статуса = 6;
-                //        notification.Show(new NotificationContent
-                //        {
-                //            Title = "Изменение статуса!",
-                //            Message = "Задание " + a.Название.ToString() + " не завершено, т.к. прошло больше недели!",
-                //            Type = NotificationType.Information
+                    }
+                }
+            _db.SaveChanges();
 
-                //        }, expirationTime: TimeSpan.FromSeconds(10));
-
-                //    }
-                //}
-                //_db.SaveChanges();
             }
             catch
             {
                 MessageBox.Show("Невозможно обновить БД!");
             }
 
+        }
+
+        private void NotificationShow()
+        {
+            try
+            {
+                var notification = new NotificationManager();
+                foreach (var a in _db.Уведомление.Where(u => u.id_пользователя == CurrentUser.Id && u.Статус == 0))
+                {
+                    notification.Show(new NotificationContent
+                    {
+                        Title = "У вас новое уведомление!",
+                        Message = a.Содержание.ToString(),
+                        Type = NotificationType.Information
+                    }, expirationTime: TimeSpan.FromSeconds(20));
+                    a.Статус = 1;
+                }
+                _db.SaveChanges();
+            }
+            catch { }
         }
 
         private void TabablzControl_SelectionChanged(object sender, SelectionChangedEventArgs e)

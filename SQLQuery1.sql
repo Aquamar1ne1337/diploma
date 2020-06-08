@@ -6,10 +6,6 @@
 )
 go
 
-insert Тип
-	values ('Администратор'),
-			('Клиент')
-go
 
 select * from Тип
 go
@@ -90,7 +86,15 @@ create table Подзадача(
 	)
 	go
 
-	
+	create table Уведомление(
+	id_уведомления int identity(1,1) not null,
+	id_пользователя int,
+	Содержание varchar(max) not null,
+	Статус int not null default 0,
+	constraint cs_pknotification primary key(id_уведомления),
+	constraint cs_fknotification foreign key(id_пользователя) references Пользователь(id_пользователя) on update cascade on delete cascade
+	)
+	go
 
 	
 
@@ -317,17 +321,18 @@ join Пользователь on Распределение.id_пользова�
 join Задание on Распределение.id_задания = Задание.id_задания
 go
 
-create procedure TaskStatusUpdater
-as
-begin
-	update Задание
-	set id_статуса = case
-	when GETDATE() > Крайний_срок and GETDATE() < DATEADD(DAY, 7, Крайний_срок) then 4
-	when GETDATE() > Крайний_срок and GETDATE() > DATEADD(day, 7, Крайний_срок) then 6
-	else id_статуса end
-	where id_статуса = 2
-end
-go
+--create procedure TaskStatusUpdater
+--as
+--begin
+--	update Задание
+--	set id_статуса = case
+--	when GETDATE() > Крайний_срок and GETDATE() < DATEADD(DAY, 7, Крайний_срок) then 4 
+--	when GETDATE() > Крайний_срок and GETDATE() > DATEADD(day, 7, Крайний_срок) then 6
+--	else id_статуса end
+--	where id_статуса = 2
+--end
+--go
+
 
 create procedure TaskCompleted 
 @taskid int
@@ -343,14 +348,13 @@ end
 go
 
 create procedure UserTaskUpdater
-@userid int
 as
 begin
-	select Задание.id_задания, Задание.Дата_создания,Задание.Крайний_срок,Задание.Название, Задание.Описание, Задание.id_статуса
+	select Задание.id_задания, Задание.Дата_создания,Задание.Крайний_срок,Задание.Название, Задание.Описание, Задание.id_статуса, Пользователь.id_пользователя
 	from Задание
 	join Распределение on Распределение.id_задания = Задание.id_задания
 	join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
-	where Распределение.id_пользователя = 1 and id_статуса in (2,4)
+	where id_статуса in (2,4)
 end
 go
 
@@ -361,23 +365,72 @@ as
 	where Статус = 1
 go
 
-
---create procedure TaskStatusNotComplited
---as
---begin
---	update Задание
---end
+create trigger OnTaskDistribution
+on Распределение
+after insert
+as
+	begin
+		declare @userid int
+		set @userid = (select id_пользователя from inserted)
+		insert into Уведомление(id_пользователя, Содержание, Статус) values (@userid, 'Вам назначено новое задание!', 0)
+	end
 go
 
 
---create function IsDistribution(@taskid int, @userid int) 
---returns int
+create procedure TakDistributionReaded
+@userid int
+as
+begin
+	update Уведомление
+	set Статус = 1
+	where id_пользователя = @userid
+end
+go
+
+create procedure ExpiredNotificationAdd
+@name varchar(max),
+@taskid int
+as
+begin
+	insert into Уведомление(id_пользователя, Содержание)
+			select id_пользователя, CONCAT('Задание ', @name, ' просрочено!')
+			from Распределение where id_задания = @taskid
+	end
+go
+
+create procedure DroppedNotificationAdd
+@name varchar(max),
+@taskid int
+as
+begin
+	insert into Уведомление(id_пользователя, Содержание)
+			select id_пользователя, CONCAT('У задания ', @name, ' истек срок. Оно уже не может быть завершено!')
+			from Распределение where id_задания = @taskid
+	end
+go
+
+--create trigger OnTaskUpdate
+--on Задание
+--after update
 --as
---	begin 
---	declare @isNull int
---	set @isNull = (select Count(id_распределения) from Распределение where id_задания = @taskid and id_пользователя = @userid)
---	return @isNull
+--	begin
+--		declare @taskid int
+--		declare @status int
+--		declare @name varchar(max)
+--		set @taskid = (select id_задания from inserted)
+--		set @status = (select id_статуса from inserted)
+--		set @name = (select Название from inserted)
+--		if (@status = 4)
+--			begin
+--				insert into Уведомление(id_пользователя, Содержание)
+--				select id_пользователя, CONCAT('Задание ', @name, ' просрочено!')
+--				from Распределение where id_задания = @taskid
+--			end
+--		else if (@status = 6)
+--			begin
+--				insert into Уведомление(id_пользователя, Содержание)
+--				select id_пользователя, CONCAT('У задания ', @name, ' истек срок. Оно уже не может быть завершено!')
+--				from Распределение where id_задания = @taskid
+--			end
 --	end
 --go
-
---select dbo.IsDistribution(9, 1) as 'Count'

@@ -52,7 +52,20 @@
                         <Button x:Name="GanttChartButton" VerticalAlignment="Bottom" Width="150" Content="Диаграмма Ганта" HorizontalAlignment="Right" Margin="0 0 20 20" Click="GanttChartButton_Click"></Button>
                     </Grid>
                     </TabItem>
-                </dragablz:TabablzControl>
+                <TabItem Header="Заметки">
+                    <Grid x:Name="TaskEditGrid">
+                        <DataGrid x:Name="taskgridview" AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalAlignment="Top" CanUserAddRows="False" Height="400" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Логин" Binding="{Binding Название}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Описание}"/>
+                                <DataGridTextColumn Header="Содержание" Binding="{Binding Дата_создания}"/>
+                                <DataGridTextColumn Header="Дата добавления" Binding="{Binding Крайний_срок}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button x:Name="Updatebutton" VerticalAlignment="Bottom" Width="150" Content="Сохранить" HorizontalAlignment="Right" Margin="0 0 20 20" Click="Updatebutton_Click"></Button>
+                    </Grid>
+                </TabItem>
+            </dragablz:TabablzControl>
             </Grid>
        
         </Grid>

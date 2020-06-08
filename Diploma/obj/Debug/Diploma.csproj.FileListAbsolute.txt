@@ -51,7 +51,6 @@ C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\AdminControlPanel.g
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\AdminControlPanel.baml
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\TaskReview.g.cs
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\TaskReview.baml
-C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Diploma.csprojAssemblyReference.cache
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\HelpUserControl.g.cs
 C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\HelpUserControl.baml
 C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\LibExcel.dll

@@ -36,8 +36,10 @@ namespace Diploma
         public virtual DbSet<Распределение> Распределение { get; set; }
         public virtual DbSet<Статус> Статус { get; set; }
         public virtual DbSet<Тип> Тип { get; set; }
+        public virtual DbSet<Уведомление> Уведомление { get; set; }
         public virtual DbSet<AdminNoteList> AdminNoteLists { get; set; }
         public virtual DbSet<GanttView> GanttViews { get; set; }
+        public virtual DbSet<SubtaskGanttChart> SubtaskGanttCharts { get; set; }
     
         public virtual int ClientAdd(string name, string email, Nullable<System.DateTime> date, string phone, string town)
         {
@@ -93,6 +95,19 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ClientUpdate", nameParameter, emailParameter, dateParameter, phoneParameter, townParameter, idParameter);
         }
     
+        public virtual int DroppedNotificationAdd(string name, Nullable<int> taskid)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DroppedNotificationAdd", nameParameter, taskidParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> DroppedTaskCount(Nullable<int> userid)
         {
             var useridParameter = userid.HasValue ?
@@ -105,6 +120,19 @@ namespace Diploma
         public virtual ObjectResult<EmployeeView_Result> EmployeeView()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmployeeView_Result>("EmployeeView");
+        }
+    
+        public virtual int ExpiredNotificationAdd(string name, Nullable<int> taskid)
+        {
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ExpiredNotificationAdd", nameParameter, taskidParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> InProcessTaskCount(Nullable<int> userid)
@@ -312,6 +340,15 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SubtaskView_Result>("SubtaskView", taskidParameter);
         }
     
+        public virtual int TakDistributionReaded(Nullable<int> userid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TakDistributionReaded", useridParameter);
+        }
+    
         public virtual int TaskAdd(Nullable<int> client, string name, string description, Nullable<System.DateTime> deadline)
         {
             var clientParameter = client.HasValue ?
@@ -360,11 +397,6 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TasksPerformed_Result>("TasksPerformed");
         }
     
-        public virtual int TaskStatusUpdater()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskStatusUpdater");
-        }
-    
         public virtual ObjectResult<UsersInTask_Result> UsersInTask(Nullable<int> taskid)
         {
             var taskidParameter = taskid.HasValue ?
@@ -383,13 +415,9 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskList_Result>("UserTaskList", useridParameter);
         }
     
-        public virtual ObjectResult<UserTaskUpdater_Result> UserTaskUpdater(Nullable<int> userid)
+        public virtual ObjectResult<UserTaskUpdater_Result> UserTaskUpdater()
         {
-            var useridParameter = userid.HasValue ?
-                new ObjectParameter("userid", userid) :
-                new ObjectParameter("userid", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskUpdater_Result>("UserTaskUpdater", useridParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskUpdater_Result>("UserTaskUpdater");
         }
     }
 }
