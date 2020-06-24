@@ -36,6 +36,7 @@
                                 <ComboBox x:Name="usertodis" Width="300" Margin="0 0 450 0" materialDesign:HintAssist.Hint="Сотрудники" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
                                 <ComboBox x:Name="tasktodis" Width="300" Margin="450 0 0 0" materialDesign:HintAssist.Hint="Задания" Style="{StaticResource MaterialDesignComboBox}"></ComboBox>
                                 <Button x:Name="disaddbutton" Width="150" Content="Распределить" Margin="0 150 0 0" Click="disaddbutton_Click"></Button>
+                            <Button x:Name="disdeletebutton" Width="200" Content="Убрать с задания" Margin="0 250 0 0" Click="disdeletebutton_Click"></Button> 
                             </Grid>
                         </Grid>
                     </TabItem>
@@ -52,14 +53,14 @@
                         <Button x:Name="GanttChartButton" VerticalAlignment="Bottom" Width="150" Content="Диаграмма Ганта" HorizontalAlignment="Right" Margin="0 0 20 20" Click="GanttChartButton_Click"></Button>
                     </Grid>
                     </TabItem>
-                <TabItem Header="Заметки">
+                <TabItem Header="Задания">
                     <Grid x:Name="TaskEditGrid">
                         <DataGrid x:Name="taskgridview" AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalAlignment="Top" CanUserAddRows="False" Height="400" ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Логин" Binding="{Binding Название}"/>
-                                <DataGridTextColumn Header="Название" Binding="{Binding Описание}"/>
-                                <DataGridTextColumn Header="Содержание" Binding="{Binding Дата_создания}"/>
-                                <DataGridTextColumn Header="Дата добавления" Binding="{Binding Крайний_срок}"/>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Название}"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Описание}"/>
+                                <DataGridTextColumn Header="Дата создания" Binding="{Binding Дата_создания, StringFormat=dd/MM/yyyy}"/>
+                                <DataGridTextColumn Header="Крайний срок" Binding="{Binding Крайний_срок, StringFormat=dd/MM/yyyy}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <Button x:Name="Updatebutton" VerticalAlignment="Bottom" Width="150" Content="Сохранить" HorizontalAlignment="Right" Margin="0 0 20 20" Click="Updatebutton_Click"></Button>

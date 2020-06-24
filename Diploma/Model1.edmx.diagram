@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c99dbd0772db4be890c48324e38f0920" Name="Diagram1">
+      <Diagram DiagramId="318cb0dccd4f428c99b39be0458a540b" Name="Diagram1">
         <EntityTypeShape EntityType="DiplomadbModel.sysdiagram" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DiplomadbModel.Задание" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="DiplomadbModel.Заметка" Width="1.5" PointX="10.5" PointY="3.5" IsExpanded="true" />

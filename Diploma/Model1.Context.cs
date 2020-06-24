@@ -175,6 +175,19 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<NoteList_Result>("NoteList", destributionParameter);
         }
     
+        public virtual int OnTaskRemoveDistribution(Nullable<int> userid, Nullable<int> taskid)
+        {
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("OnTaskRemoveDistribution", useridParameter, taskidParameter);
+        }
+    
         public virtual ObjectResult<Nullable<int>> ReadyTaskCount(Nullable<int> userid)
         {
             var useridParameter = userid.HasValue ?
@@ -392,6 +405,19 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskDistribution", taskidParameter, useridParameter);
         }
     
+        public virtual int TaskRemoveDistribution(Nullable<int> taskid, Nullable<int> userid)
+        {
+            var taskidParameter = taskid.HasValue ?
+                new ObjectParameter("taskid", taskid) :
+                new ObjectParameter("taskid", typeof(int));
+    
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("TaskRemoveDistribution", taskidParameter, useridParameter);
+        }
+    
         public virtual ObjectResult<TasksPerformed_Result> TasksPerformed()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<TasksPerformed_Result>("TasksPerformed");
@@ -415,9 +441,13 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskList_Result>("UserTaskList", useridParameter);
         }
     
-        public virtual ObjectResult<UserTaskUpdater_Result> UserTaskUpdater()
+        public virtual ObjectResult<UserTaskUpdater_Result> UserTaskUpdater(Nullable<int> usertask)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskUpdater_Result>("UserTaskUpdater");
+            var usertaskParameter = usertask.HasValue ?
+                new ObjectParameter("usertask", usertask) :
+                new ObjectParameter("usertask", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UserTaskUpdater_Result>("UserTaskUpdater", usertaskParameter);
         }
     }
 }

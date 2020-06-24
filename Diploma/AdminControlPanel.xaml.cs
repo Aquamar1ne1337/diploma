@@ -75,5 +75,41 @@ namespace Diploma
         {
             _db.SaveChanges();
         }
+
+        private void disdeletebutton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            int i = _db.Распределение.Where(u => u.id_задания == (int)tasktodis.SelectedValue).Where(u => u.id_пользователя == (int)usertodis.SelectedValue).Count();
+            int i2 = _db.Распределение.Where(u => u.id_задания == (int)tasktodis.SelectedValue).Count();
+            if (i >= 1)
+            {
+                if (i2 > 1)
+                {
+                    _db.TaskRemoveDistribution((int)tasktodis.SelectedValue, (int)usertodis.SelectedValue);
+                    _db.OnTaskRemoveDistribution((int)usertodis.SelectedValue, (int)tasktodis.SelectedValue);
+                }
+                else
+                {
+                    var notification = new NotificationManager();
+                    notification.Show(new NotificationContent
+                    {
+                        Title = "Ошибка!",
+                        Message = "Вы не можете снять единственного сотрудника с задания!",
+                        Type = NotificationType.Error
+                    });
+                }
+            }
+            else if (i == 0)
+            {
+                var notification = new NotificationManager();
+                notification.Show(new NotificationContent
+                {
+                    Title = "Ошибка!",
+                    Message = "Этого пользователя нет на этом задании!",
+                    Type = NotificationType.Error
+                });
+            }
+            
+        }
     }
 }

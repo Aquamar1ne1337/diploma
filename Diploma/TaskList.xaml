@@ -57,6 +57,10 @@
                             Style="{DynamicResource MaterialDesignToolForegroundButton}"
                             Margin="8 0 0 0"
                             Panel.ZIndex="0"/>
+                        <ToggleButton x:Name="ToggleSort"
+      Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+      VerticalAlignment="Center"
+      Margin="600,0,0,0" Click="ToggleSort_Click"  />
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
@@ -99,7 +103,7 @@
                                       VerticalAlignment="Center"
                                       HorizontalAlignment="Left"
                                       Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                      Text="{Binding Крайний_срок, StringFormat = dd/MMM/yyyy}">
+                                      Text="{Binding Крайний_срок, StringFormat = dd/MM/yyyy}">
                                 </TextBlock>
                                 <TextBlock
                                       Grid.Row="2"

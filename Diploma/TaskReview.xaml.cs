@@ -16,6 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Notifications.Wpf;
 using Stimulsoft.Report;
+using System.Security.Cryptography;
 
 namespace Diploma
 {
@@ -38,8 +39,9 @@ namespace Diploma
             listw.DataContext = _db.Задание.Where(t => t.id_задания == id).ToList();
             UserComboBox.ItemsSource = _db.UsersInTask(id).ToList();
             UserComboBox.DisplayMemberPath = "Логин";
-            NoteListBox.ItemsSource = _db.NoteList(destributionId).ToList();
-            subtaskdatagrid.ItemsSource = _db.SubtaskView(id).ToList();
+            NoteListBox.ItemsSource = _db.NoteList(DestributionID).ToList();
+            //subtaskdatagrid.ItemsSource = _db.SubtaskView(id).ToList();
+            subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
             ProgressBarMath(id);
         }
 
@@ -95,7 +97,7 @@ namespace Diploma
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            var subtask = subtaskdatagrid.SelectedItem as SubtaskView_Result;
+            var subtask = subtaskdatagrid.SelectedItem as Подзадача;
             if (subtask == null) return;
 
             int id = subtask.id_подзадачи;
@@ -106,7 +108,7 @@ namespace Diploma
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
-            var subtask = subtaskdatagrid.SelectedItem as SubtaskView_Result;
+            var subtask = subtaskdatagrid.SelectedItem as Подзадача;
             if (subtask == null) return;
 
             int id = subtask.id_подзадачи;
@@ -117,15 +119,21 @@ namespace Diploma
 
         private void subtaskdatagrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var subtask = subtaskdatagrid.SelectedItem as SubtaskView_Result;
-            if (subtask == null) return;
-            int id = subtask.id_подзадачи;
+            try
+            {
+                var subtask = subtaskdatagrid.SelectedItem as Подзадача;
+                if (subtask == null) return;
+                int id = subtask.id_подзадачи;
 
-            var deleteSubtask = _db.Подзадача.Where(m => m.id_подзадачи == id).Single();
-            _db.Подзадача.Remove(deleteSubtask);
-            _db.SaveChanges();
-            subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
-            ProgressBarMath(TaskID);
+                var deleteSubtask = _db.Подзадача.Where(m => m.id_подзадачи == id).Single();
+                _db.Подзадача.Remove(deleteSubtask);
+                _db.SaveChanges();
+                //subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
+                subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
+                ProgressBarMath(TaskID);
+                ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(TaskID, DestributionID));
+            }
+            catch { }
         }
 
         private void addsubtaskbutton_Click(object sender, RoutedEventArgs e)
@@ -135,9 +143,11 @@ namespace Diploma
                 if (subtasktb.Text != "")
                 {
                     _db.SubtaskAdd(TaskID, subtasktb.Text);
-                    subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
+                    //subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
+                    subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
                     ProgressBarMath(TaskID);
                     subtasktb.Text = "";
+                    ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(TaskID, DestributionID));
                 }
             }
             catch
@@ -165,6 +175,16 @@ namespace Diploma
                     Message = "Ваше задание завершено с статутcом " + status,
                     Type = NotificationType.Success
                 });
+                foreach (var a in _db.Распределение.Where(n => n.id_задания == TaskID && n.id_пользователя != CurrentUser.Id))
+                {
+                    Уведомление notif = new Уведомление
+                    {
+                        Содержание = "Задание " + task.Название + " сдано со статусом " + status + "!",
+                        id_пользователя = a.id_пользователя
+                    };
+                    _db.Уведомление.Add(notif);
+                }
+                _db.SaveChanges();
                 ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskList());
             }
             catch
@@ -199,6 +219,11 @@ namespace Diploma
             }
             catch { }
             
+        }
+
+        private void refreshbutton_Click(object sender, RoutedEventArgs e)
+        {
+            _db.SaveChanges();
         }
     }
 

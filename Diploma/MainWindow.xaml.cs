@@ -74,45 +74,30 @@ namespace Diploma
         private void TaskUpdater()
         {
             try
-            {   
-                var tasks = _db.UserTaskUpdater();
+            {
+                var tasks = _db.UserTaskUpdater(CurrentUser.Id);
                 foreach (var a in tasks)
                 {
-                    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date < a.Крайний_срок.AddDays(7).Date)
-                    {
-
-                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
+                    if (DateTime.Now.Date > a.Крайний_срок)
+                    {       
+                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();                
                         b.id_статуса = 4;
-                        Уведомление уведомление = new Уведомление
+                        Уведомление notif = new Уведомление
                         {
-                            Содержание ="Задание " + b.Название + " просрочено!",
+                            Содержание = "Задание " + b.Название + " просрочено!",
                             id_пользователя = a.id_пользователя
                         };
-                        _db.Уведомление.Add(уведомление);
-                        
-                    }
-                    if (DateTime.Now.Date > a.Крайний_срок && DateTime.Now.Date > a.Крайний_срок.AddDays(7).Date)
-                    {
-                        var b = _db.Задание.Where(c => c.id_задания == a.id_задания).FirstOrDefault();
-                        b.id_статуса = 6;
-                        Уведомление уведомление = new Уведомление
-                        {
-                            Содержание = "Срок задания " + b.Название + " полностью истек. Оно больше не может быть выполнено!",
-                            id_пользователя = a.id_пользователя
-                        };
-                        _db.Уведомление.Add(уведомление);
-
+                    _db.Уведомление.Add(notif);
                     }
                 }
-            _db.SaveChanges();
-
+                _db.SaveChanges();
             }
             catch
             {
                 MessageBox.Show("Невозможно обновить БД!");
             }
 
-        }
+}
 
         private void NotificationShow()
         {

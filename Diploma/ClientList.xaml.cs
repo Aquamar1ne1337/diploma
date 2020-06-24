@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +28,8 @@ namespace Diploma
             LilView.ItemsSource = _db.Клиент.ToList();
             CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(LilView.ItemsSource);
             view.Filter = UserFilter;
+            
+
         }
         private bool UserFilter(object item)
         {
@@ -39,16 +42,21 @@ namespace Diploma
 
         private void deletebtn_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            if (button == null) return;
+            try
+            {
+                var button = sender as Button;
+                if (button == null) return;
 
-            var client = button.DataContext as Клиент;
-            int ID = client.id_клиента;
+                var client = button.DataContext as Клиент;
+                int ID = client.id_клиента;
 
-            var deleteClient = _db.Клиент.Where(m => m.id_клиента == ID).Single();
-            _db.Клиент.Remove(deleteClient);
-            _db.SaveChanges();
-            LilView.ItemsSource = _db.Клиент.ToList();
+                var deleteClient = _db.Клиент.Where(m => m.id_клиента == ID).Single();
+                _db.Клиент.Remove(deleteClient);
+                _db.SaveChanges();
+                LilView.ItemsSource = _db.Клиент.ToList();
+                ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskList());
+            }
+            catch { }
         }
 
         private void insertbtn_Click_1(object sender, RoutedEventArgs e)
@@ -71,6 +79,18 @@ namespace Diploma
         private void SearchTB_TextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(LilView.ItemsSource).Refresh();
+        }
+
+        private void ToggleSort_Click(object sender, RoutedEventArgs e)
+        {
+            if (ToggleSort.IsChecked == true)
+            {
+                CollectionViewSource.GetDefaultView(LilView.ItemsSource).SortDescriptions.Add(new SortDescription("Город", ListSortDirection.Descending)); 
+            }
+            else
+            {
+                CollectionViewSource.GetDefaultView(LilView.ItemsSource).SortDescriptions.Clear();
+            }
         }
     }
 }

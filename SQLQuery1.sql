@@ -202,6 +202,14 @@ create procedure TaskDistribution
 	end
 go
 
+create procedure TaskRemoveDistribution
+@taskid int, @userid int as
+	begin
+		delete from Распределение
+		where id_задания = @taskid and id_пользователя = @userid
+	end
+go
+
 create procedure SubtaskView
 @taskid int as
 	begin
@@ -348,13 +356,14 @@ end
 go
 
 create procedure UserTaskUpdater
+@usertask int
 as
 begin
 	select Задание.id_задания, Задание.Дата_создания,Задание.Крайний_срок,Задание.Название, Задание.Описание, Задание.id_статуса, Пользователь.id_пользователя
 	from Задание
 	join Распределение on Распределение.id_задания = Задание.id_задания
 	join Пользователь on Пользователь.id_пользователя = Распределение.id_пользователя
-	where id_статуса in (2,4)
+	where id_статуса in (2,4) and Пользователь.id_пользователя = @usertask
 end
 go
 
@@ -373,6 +382,17 @@ as
 		declare @userid int
 		set @userid = (select id_пользователя from inserted)
 		insert into Уведомление(id_пользователя, Содержание, Статус) values (@userid, 'Вам назначено новое задание!', 0)
+	end
+go
+
+create procedure OnTaskRemoveDistribution
+@userid int, @taskid int
+as
+	begin
+		declare @name varchar(max)
+		set @name = (select Название from Задание
+		where id_задания = @taskid)
+		insert into Уведомление(id_пользователя, Содержание, Статус) values (@userid, CONCAT('Вы сняты с задания ', @name), 0)
 	end
 go
 
@@ -408,6 +428,7 @@ begin
 			from Распределение where id_задания = @taskid
 	end
 go
+
 
 --create trigger OnTaskUpdate
 --on Задание

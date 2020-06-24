@@ -28,6 +28,7 @@ namespace Diploma
             ClientCB.ItemsSource = _db.Клиент.ToList();
             ClientCB.SelectedValuePath = "id_клиента";
             ClientCB.DisplayMemberPath = "Имя";
+            
         }
 
         private void DoneBT_Click(object sender, RoutedEventArgs e)

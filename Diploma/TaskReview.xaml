@@ -46,7 +46,7 @@
             <ListViewItem>
                 <Grid Width="450">
                     <StackPanel>
-                        <TextBox x:Name="CreationTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Дата создания" Text="{Binding Дата_создания, StringFormat = dd/MMM/yyyy}"
+                        <TextBox x:Name="CreationTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Дата создания" Text="{Binding Дата_создания, StringFormat = dd/MM/yyyy}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                 </Grid>
@@ -54,7 +54,7 @@
             <ListViewItem>
                 <Grid Width="450">
                     <StackPanel>
-                        <TextBox x:Name="DeadlineTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Крайний срок" Text="{Binding Крайний_срок, StringFormat = dd/MMM/yyyy}"
+                        <TextBox x:Name="DeadlineTB" Background="Transparent" Foreground="Black"  materialDesign:HintAssist.Hint="Крайний срок" Text="{Binding Крайний_срок, StringFormat = dd/MM/yyyy}"
                          Style="{StaticResource MaterialDesignFloatingHintTextBox}" IsReadOnly="True"></TextBox>
                     </StackPanel>
                 </Grid>
@@ -234,12 +234,17 @@
         Orientation="Horizontal"
         HorizontalAlignment="Right">
                     <Button
-          Content="_Save"
+          Content="_Добавить"
           x:Name="addsubtaskbutton"
           Click="addsubtaskbutton_Click"                  
           Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}"/>
                     <Button
-          Content="_Cancel"
+          Content="_Обновить"
+          x:Name="refreshbutton"
+                            
+          Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}" Click="refreshbutton_Click"/>
+                    <Button
+          Content="_Закрыть"
           Command="{x:Static materialDesign:PopupBox.ClosePopupCommand}">
                         <!--<Button.Style>
                             <Style

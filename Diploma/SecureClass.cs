@@ -12,12 +12,10 @@ namespace Diploma
     {
         Regex regexpas;
         Regex regexlog;
-        Regex regexphone;
         public SecureClass()
         {
             regexpas = new Regex(@"^((?=.*[a-z])(?=.*[\d])(?=.*[A-Z])\w{8,16})$");
             regexlog = new Regex(@"^[a-zA-Z0-9]{4,16}$");
-            regexphone = new Regex(@"^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$");
         }
         public bool LoginCheck(string str, string str2)
         {
@@ -33,16 +31,6 @@ namespace Diploma
         {
             bool f = false;
             if (regexlog.IsMatch(str) && regexpas.IsMatch(str2) && str2 == str3)
-            {
-                f = true;
-            }
-            return f;
-        }
-
-        public bool PhoneCheck(string str)
-        {
-            bool f = false;
-            if (regexphone.IsMatch(str))
             {
                 f = true;
             }

@@ -163,6 +163,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="OnTaskRemoveDistribution" FunctionName="Хранилище DiplomadbModel.OnTaskRemoveDistribution" />
     <FunctionImportMapping FunctionImportName="ReadyTaskCount" FunctionName="Хранилище DiplomadbModel.ReadyTaskCount" />
     <FunctionImportMapping FunctionImportName="SignUp" FunctionName="Хранилище DiplomadbModel.SignUp" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Хранилище DiplomadbModel.sp_alterdiagram" />
@@ -205,6 +206,7 @@
     <FunctionImportMapping FunctionImportName="TaskAdd" FunctionName="Хранилище DiplomadbModel.TaskAdd" />
     <FunctionImportMapping FunctionImportName="TaskCompleted" FunctionName="Хранилище DiplomadbModel.TaskCompleted" />
     <FunctionImportMapping FunctionImportName="TaskDistribution" FunctionName="Хранилище DiplomadbModel.TaskDistribution" />
+    <FunctionImportMapping FunctionImportName="TaskRemoveDistribution" FunctionName="Хранилище DiplomadbModel.TaskRemoveDistribution" />
     <FunctionImportMapping FunctionImportName="TasksPerformed" FunctionName="Хранилище DiplomadbModel.TasksPerformed">
       <ResultMapping>
         <ComplexTypeMapping TypeName="DiplomadbModel.TasksPerformed_Result">

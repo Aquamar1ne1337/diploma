@@ -116,3 +116,4 @@ C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\Stimulsoft.Report.W
 C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\Stimulsoft.Report.Wpf.Office2010WhiteTheme.xml
 C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\Stimulsoft.Report.WpfDesign.pdb
 C:\Users\Герман\source\repos\Diploma\Diploma\bin\Debug\Stimulsoft.Report.WpfDesign.xml
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\Diploma.csprojAssemblyReference.cache

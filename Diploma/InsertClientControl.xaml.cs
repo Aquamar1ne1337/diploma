@@ -63,12 +63,12 @@ namespace Diploma
                     return;
                 }
 
-                if (!secure.PhoneCheck(Phonetbx.Text))
+                if (DateTime.Now < Registerdp.SelectedDate)
                 {
                     notification.Show(new NotificationContent
                     {
                         Title = "Ошибка!",
-                        Message = "Телефон введен неправильно!",
+                        Message = "Вы ввели неправильную дату!",
                         Type = NotificationType.Information
                     });
                     return;

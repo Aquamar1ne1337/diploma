@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -59,6 +60,18 @@ namespace Diploma
         private void alltasktogglebutton_Checked(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void ToggleSort_Click(object sender, RoutedEventArgs e)
+        {
+            if (ToggleSort.IsChecked == true)
+            {
+                CollectionViewSource.GetDefaultView(LilView.ItemsSource).SortDescriptions.Add(new SortDescription("Состояние", ListSortDirection.Descending)); 
+            }
+            else
+            {
+                CollectionViewSource.GetDefaultView(LilView.ItemsSource).SortDescriptions.Clear();
+            }
         }
     }
 }

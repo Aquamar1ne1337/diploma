@@ -344,6 +344,10 @@
     <FunctionImport Name="NoteList" ReturnType="Collection(DiplomadbModel.NoteList_Result)">
       <Parameter Name="destribution" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="OnTaskRemoveDistribution">
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="ReadyTaskCount" ReturnType="Collection(Int32)">
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -410,6 +414,10 @@
       <Parameter Name="taskid" Mode="In" Type="Int32" />
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
+    <FunctionImport Name="TaskRemoveDistribution">
+      <Parameter Name="taskid" Mode="In" Type="Int32" />
+      <Parameter Name="userid" Mode="In" Type="Int32" />
+    </FunctionImport>
     <FunctionImport Name="TasksPerformed" ReturnType="Collection(DiplomadbModel.TasksPerformed_Result)" />
     <FunctionImport Name="UsersInTask" ReturnType="Collection(DiplomadbModel.UsersInTask_Result)">
       <Parameter Name="taskid" Mode="In" Type="Int32" />
@@ -417,7 +425,9 @@
     <FunctionImport Name="UserTaskList" ReturnType="Collection(DiplomadbModel.UserTaskList_Result)">
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="UserTaskUpdater" ReturnType="Collection(DiplomadbModel.UserTaskUpdater_Result)" />
+    <FunctionImport Name="UserTaskUpdater" ReturnType="Collection(DiplomadbModel.UserTaskUpdater_Result)">
+      <Parameter Name="usertask" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="EmployeeView_Result">
     <Property Type="Int32" Name="id_пользователя" Nullable="false" />

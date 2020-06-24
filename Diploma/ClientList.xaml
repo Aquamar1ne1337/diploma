@@ -24,6 +24,7 @@
                         <Button x:Name="insertbtn" BorderBrush="{x:Null}" Background="{x:Null}"  Click="insertbtn_Click_1" Width="100">
                             Добавить
                         </Button>
+                        
                         <materialDesign:ColorZone
                                 Mode="Standard"
                                 Padding="8 4 8 4"
@@ -50,11 +51,17 @@
                                         MinWidth="200"
                                         VerticalAlignment="Center" />
                             </Grid>
+                            
                         </materialDesign:ColorZone>
+                        
                         <Button
         Style="{DynamicResource MaterialDesignToolForegroundButton}"
         Margin="8 0 0 0"
         Panel.ZIndex="0"/>
+                        <ToggleButton x:Name="ToggleSort"
+      Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+      VerticalAlignment="Center"
+      Margin="600,0,0,0" Click="ToggleSort_Click" />
                     </StackPanel>
                 </DockPanel>
             </materialDesign:ColorZone>
@@ -84,7 +91,7 @@
                                     <TextBlock FontWeight="Bold">Электронная почта:</TextBlock>
                                     <TextBlock x:Name="emailtb" Text="{Binding Электронная_почта}" TextWrapping="Wrap"/>
                                     <TextBlock FontWeight="Bold">Дата регистрации:</TextBlock>
-                                    <TextBlock x:Name="datatb" Text="{Binding Дата_регистрации, StringFormat=d MMMMM}" />
+                                    <TextBlock x:Name="datatb" Text="{Binding Дата_регистрации, StringFormat=dd/MM/yyyy}" />
                                     <TextBlock FontWeight="Bold">Телефон:</TextBlock>
                                     <TextBlock x:Name="phonetb" Text="{Binding Телефон}" />
                                     <TextBlock FontWeight="Bold">Город:</TextBlock>
