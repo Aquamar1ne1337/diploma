@@ -36,7 +36,8 @@ namespace Diploma
             tasktodis.SelectedValuePath = "id_задания";
             tasktodis.DisplayMemberPath = "Название";
 
-            taskgridview.ItemsSource = _db.Задание.ToList();
+            taskgridview.ItemsSource = _db.Задание.Where(n => n.id_статуса == 2 || n.id_статуса == 4).ToList();
+            taskended.ItemsSource = _db.Задание.Where(n => n.id_статуса == 3 || n.id_статуса == 5).ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

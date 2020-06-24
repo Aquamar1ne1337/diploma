@@ -66,6 +66,18 @@
                         <Button x:Name="Updatebutton" VerticalAlignment="Bottom" Width="150" Content="Сохранить" HorizontalAlignment="Right" Margin="0 0 20 20" Click="Updatebutton_Click"></Button>
                     </Grid>
                 </TabItem>
+                <TabItem Header="Архив">
+                    <Grid x:Name="TaskEndedGrid">
+                        <DataGrid x:Name="taskended" AutoGenerateColumns="False" ItemsSource="{Binding}" VerticalAlignment="Top" CanUserAddRows="False" Height="400" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Название" Binding="{Binding Название}"/>
+                                <DataGridTextColumn Header="Описание" Binding="{Binding Описание}"/>
+                                <DataGridTextColumn Header="Дата создания" Binding="{Binding Дата_создания, StringFormat=dd/MM/yyyy}"/>
+                                <DataGridTextColumn Header="Крайний срок" Binding="{Binding Крайний_срок, StringFormat=dd/MM/yyyy}"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </TabItem>
             </dragablz:TabablzControl>
             </Grid>
        
