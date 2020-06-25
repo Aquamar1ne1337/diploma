@@ -271,6 +271,7 @@
     <Parameter Name="userid" Type="int" Mode="In" />
   </Function>
   <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="EndedTasks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="ExpiredNotificationAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="name" Type="varchar(max)" Mode="In" />
     <Parameter Name="taskid" Type="int" Mode="In" />

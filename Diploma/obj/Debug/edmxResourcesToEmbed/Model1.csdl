@@ -327,6 +327,7 @@
       <Parameter Name="userid" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
+    <FunctionImport Name="EndedTasks" ReturnType="Collection(DiplomadbModel.EndedTasks_Result)" />
     <FunctionImport Name="ExpiredNotificationAdd">
       <Parameter Name="name" Mode="In" Type="String" />
       <Parameter Name="taskid" Mode="In" Type="Int32" />
@@ -434,6 +435,13 @@
     <Property Type="Int32" Name="id_типа" Nullable="false" />
     <Property Type="String" Name="Логин" Nullable="false" MaxLength="30" />
     <Property Type="String" Name="Пароль" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="EndedTasks_Result">
+    <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Описание" Nullable="false" />
+    <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
+    <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
+    <Property Type="String" Name="Состояние" Nullable="false" MaxLength="100" />
   </ComplexType>
   <ComplexType Name="NoteList_Result">
     <Property Type="String" Name="Содержание" Nullable="true" />

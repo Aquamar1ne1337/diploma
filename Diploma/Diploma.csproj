@@ -172,6 +172,9 @@
     <Compile Include="EmployeeView_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="EndedTasks_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="GanttView.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,7 @@ namespace Diploma
             tasktodis.DisplayMemberPath = "Название";
 
             taskgridview.ItemsSource = _db.Задание.Where(n => n.id_статуса == 2 || n.id_статуса == 4).ToList();
-            taskended.ItemsSource = _db.Задание.Where(n => n.id_статуса == 3 || n.id_статуса == 5).ToList();
+            taskended.ItemsSource = _db.EndedTasks().ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -111,6 +112,34 @@ namespace Diploma
                 });
             }
             
+        }
+
+        private void Deletebutton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var task = taskgridview.SelectedItem as Задание;
+                if (task == null) return;
+
+                int ID = task.id_задания;
+
+                var update = _db.Задание.Where(m => m.id_задания == ID).Single();
+                update.id_статуса = 6;
+                _db.Задание.AddOrUpdate(update);
+                taskgridview.ItemsSource = _db.Задание.Where(n => n.id_статуса == 2 || n.id_статуса == 4).ToList();
+                taskended.ItemsSource = _db.EndedTasks().ToList();
+                _db.SaveChanges();
+            }
+            catch
+            {
+                var notification = new NotificationManager();
+                notification.Show(new NotificationContent
+                {
+                    Title = "Ошибка!",
+                    Message = "Вы не выбрали задание!",
+                    Type = NotificationType.Error
+                });
+            }
         }
     }
 }

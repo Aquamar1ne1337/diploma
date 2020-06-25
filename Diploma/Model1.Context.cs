@@ -122,6 +122,11 @@ namespace Diploma
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EmployeeView_Result>("EmployeeView");
         }
     
+        public virtual ObjectResult<EndedTasks_Result> EndedTasks()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<EndedTasks_Result>("EndedTasks");
+        }
+    
         public virtual int ExpiredNotificationAdd(string name, Nullable<int> taskid)
         {
             var nameParameter = name != null ?

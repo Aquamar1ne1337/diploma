@@ -64,6 +64,7 @@
                             </DataGrid.Columns>
                         </DataGrid>
                         <Button x:Name="Updatebutton" VerticalAlignment="Bottom" Width="150" Content="Сохранить" HorizontalAlignment="Right" Margin="0 0 20 20" Click="Updatebutton_Click"></Button>
+                        <Button x:Name="Deletebutton" VerticalAlignment="Bottom" Width="150" Content="Удалить" HorizontalAlignment="Left" Margin="20 0 0 20" Click="Deletebutton_Click" ></Button>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Архив">

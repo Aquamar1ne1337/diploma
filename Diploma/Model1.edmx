@@ -276,6 +276,7 @@
           <Parameter Name="userid" Type="int" Mode="In" />
         </Function>
         <Function Name="EmployeeView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="EndedTasks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="ExpiredNotificationAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="name" Type="varchar(max)" Mode="In" />
           <Parameter Name="taskid" Type="int" Mode="In" />
@@ -779,6 +780,7 @@
             <Parameter Name="userid" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="EmployeeView" ReturnType="Collection(DiplomadbModel.EmployeeView_Result)" />
+          <FunctionImport Name="EndedTasks" ReturnType="Collection(DiplomadbModel.EndedTasks_Result)" />
           <FunctionImport Name="ExpiredNotificationAdd">
             <Parameter Name="name" Mode="In" Type="String" />
             <Parameter Name="taskid" Mode="In" Type="Int32" />
@@ -886,6 +888,13 @@
           <Property Type="Int32" Name="id_типа" Nullable="false" />
           <Property Type="String" Name="Логин" Nullable="false" MaxLength="30" />
           <Property Type="String" Name="Пароль" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="EndedTasks_Result">
+          <Property Type="String" Name="Название" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Описание" Nullable="false" />
+          <Property Type="DateTime" Name="Дата_создания" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="Крайний_срок" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Состояние" Nullable="false" MaxLength="100" />
         </ComplexType>
         <ComplexType Name="NoteList_Result">
           <Property Type="String" Name="Содержание" Nullable="true" />
@@ -1091,6 +1100,17 @@
                 <ScalarProperty Name="id_типа" ColumnName="id_типа" />
                 <ScalarProperty Name="Логин" ColumnName="Логин" />
                 <ScalarProperty Name="Пароль" ColumnName="Пароль" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="EndedTasks" FunctionName="Хранилище DiplomadbModel.EndedTasks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DiplomadbModel.EndedTasks_Result">
+                <ScalarProperty Name="Название" ColumnName="Название" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+                <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+                <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+                <ScalarProperty Name="Состояние" ColumnName="Состояние" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

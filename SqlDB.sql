@@ -429,6 +429,16 @@ begin
 	end
 go
 
+create procedure EndedTasks
+as
+begin
+	select Название, Описание, Дата_создания, Крайний_срок, Состояние
+	from Задание
+	join Статус on Задание.id_статуса = Статус.id_статуса
+	where Задание.id_статуса in (3,5,6)
+end
+go
+
 
 --create trigger OnTaskUpdate
 --on Задание

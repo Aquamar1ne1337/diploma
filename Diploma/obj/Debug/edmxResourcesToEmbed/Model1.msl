@@ -150,6 +150,17 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EndedTasks" FunctionName="Хранилище DiplomadbModel.EndedTasks">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="DiplomadbModel.EndedTasks_Result">
+          <ScalarProperty Name="Название" ColumnName="Название" />
+          <ScalarProperty Name="Описание" ColumnName="Описание" />
+          <ScalarProperty Name="Дата_создания" ColumnName="Дата_создания" />
+          <ScalarProperty Name="Крайний_срок" ColumnName="Крайний_срок" />
+          <ScalarProperty Name="Состояние" ColumnName="Состояние" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="ExpiredNotificationAdd" FunctionName="Хранилище DiplomadbModel.ExpiredNotificationAdd" />
     <FunctionImportMapping FunctionImportName="InProcessTaskCount" FunctionName="Хранилище DiplomadbModel.InProcessTaskCount" />
     <FunctionImportMapping FunctionImportName="lateReadyTaskCount" FunctionName="Хранилище DiplomadbModel.lateReadyTaskCount" />
