@@ -254,12 +254,12 @@ begin
 end
 go
 
-create procedure TasksPerformed
+alter procedure TasksPerformed
 as
 begin
 	select * 
 	from Задание
-	where id_статуса = 1 or id_статуса = 2
+	where id_статуса in (1,2,4)
 end
 go
 

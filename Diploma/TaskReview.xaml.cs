@@ -78,7 +78,8 @@ namespace Diploma
 
         public void ProgressBarMath(int id)
         {
-            int full = subtaskdatagrid.Items.Count;
+            //int full = subtaskdatagrid.Items.Count;
+            int full = _db.Подзадача.Where(n => n.id_задания == TaskID).Count();
             if (full == 0) { return; }
             pb1.Maximum = full;
             var count = _db.SubtaskView(id).Count(d => d.Статус);
@@ -103,7 +104,9 @@ namespace Diploma
             int id = subtask.id_подзадачи;
 
             _db.SubtaskComplete(id);
-             ProgressBarMath(TaskID);
+            subtaskdatagrid.Focus();
+            ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(TaskID, DestributionID));
+            ProgressBarMath(TaskID);
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -114,6 +117,8 @@ namespace Diploma
             int id = subtask.id_подзадачи;
 
             _db.SubtaskRollback(id);
+            subtaskdatagrid.Focus();
+            ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(TaskID, DestributionID));
             ProgressBarMath(TaskID);
         }
 
@@ -129,8 +134,8 @@ namespace Diploma
                 _db.Подзадача.Remove(deleteSubtask);
                 _db.SaveChanges();
                 //subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
-                subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
-                ProgressBarMath(TaskID);
+                //subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
+                //ProgressBarMath(TaskID);
                 ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(TaskID, DestributionID));
             }
             catch { }
@@ -144,8 +149,8 @@ namespace Diploma
                 {
                     _db.SubtaskAdd(TaskID, subtasktb.Text);
                     //subtaskdatagrid.ItemsSource = _db.SubtaskView(TaskID).ToList();
-                    subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
-                    ProgressBarMath(TaskID);
+                    //subtaskdatagrid.ItemsSource = _db.Подзадача.Where(t => t.id_задания == TaskID).ToList();
+                    //ProgressBarMath(TaskID);
                     subtasktb.Text = "";
                     ((MainWindow)Window.GetWindow(this)).NewTaskWindow(new TaskReview(TaskID, DestributionID));
                 }

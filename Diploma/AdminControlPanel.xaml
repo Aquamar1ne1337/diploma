@@ -75,6 +75,7 @@
                                 <DataGridTextColumn Header="Описание" Binding="{Binding Описание}"/>
                                 <DataGridTextColumn Header="Дата создания" Binding="{Binding Дата_создания, StringFormat=dd/MM/yyyy}"/>
                                 <DataGridTextColumn Header="Крайний срок" Binding="{Binding Крайний_срок, StringFormat=dd/MM/yyyy}"/>
+                                <DataGridTextColumn Header="Статус" Binding="{Binding Состояние}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

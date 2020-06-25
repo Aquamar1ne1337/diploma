@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-c:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\
+C:\Users\Герман\source\repos\Diploma\Diploma\obj\Debug\
 Diploma
 none
 false
 DEBUG;TRACE
-c:\Users\Герман\source\repos\Diploma\Diploma\App.xaml
+C:\Users\Герман\source\repos\Diploma\Diploma\App.xaml
 121831249228
 21750853300
 44-76943075
-44-2076857600
+44-744382888
 AdminControlPanel.xaml;Authorization.xaml;ClientList.xaml;HelpUserControl.xaml;InsertClientControl.xaml;MainWindow.xaml;TaskControl.xaml;TaskList.xaml;TaskReview.xaml;UserControlLogin.xaml;UserControlRegistration.xaml;Window1.xaml;
 
 False
